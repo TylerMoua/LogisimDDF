@@ -1,1 +1,0 @@
-GROUP 2 README 
