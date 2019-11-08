@@ -125,7 +125,6 @@ class GridAndMenu {
     }
 
 
-
     //Prints a debug message to indicate the state we are in.
     private void debugUpdate(){
         if(selectedButton == null)
@@ -261,43 +260,38 @@ class GridAndMenu {
             case 2: //SUB BUTTON
                 if(!playing)
                 sub();
-                onScreenToast("Element Subtracted");
                 break;
             //-----------------------------------------------------------------------------
             case 3: //Wire BUTTON
                 if(!playing)
                 wire();
+                //Displays prompt with certain condition
+                if(numberOfActiveElements >= 2)
                 onScreenToast("Choose an Element to Wire");
                 break;
             //------------------------------------------------------------------------
             case 4: //AND BUTTON
                 and();
-                onScreenToast("And Gate Created");
                 break;
             //------------------------------------------------------------------------
             case 5://OR BUTTON
                 or();
-                onScreenToast("Or Gate Created");
                 break;
             //----------------------------------------------------------------------
             case 6: //NOT BUTTON
                 not();
-                onScreenToast("Not Gate Created");
                 break;
             //----------------------------------------------------------------------
             case 7: //SWITCH BUTTON
                 inputSwitch();
-                onScreenToast("Switch Created");
                 break;
             //-----------------------------------------------------------------
             case 8: //LED BUTTON
                 led();
-                onScreenToast("LED Created");
                 break;
             //--------------------------------------------------------------------
             case 9: // 1/0 BUTTON
                 toggle();
-                onScreenToast("State of Switch Toggled");
                 break;
             //-----------------------------------------------------------------
             case 10: // Save Button
@@ -365,6 +359,7 @@ class GridAndMenu {
             elements[index] = null;
             selectedElement = null;
             numberOfActiveElements--;
+            onScreenToast("Element Subtracted");
         } else
             Log.d("Debugging", "No Element Subtracted");
     }
@@ -397,6 +392,8 @@ class GridAndMenu {
             selectedNode = elements[getElement(selectedElement)].outputNode.position;
             Log.d("Debugging", "Output Node selected at:" + selectedNode);
         }
+
+
     }
 
     //The following methods (from and to led) changes an unclassified circuit element into
@@ -406,6 +403,8 @@ class GridAndMenu {
                 && elements[getElement(selectedElement)].getClass()== new CircuitElement().getClass()) {
             elements[getElement(selectedElement)] = new ANDGATE(selectedElement, context, largeCellSize);
             selectedElement = null;
+            onScreenToast("And Gate created");
+
         }
     }
 
@@ -413,8 +412,9 @@ class GridAndMenu {
         if (selectedElement != null
                 && elements[getElement(selectedElement)].getClass()== new CircuitElement().getClass()) {
             elements[getElement(selectedElement)] = new ORGATE(selectedElement, context, largeCellSize);
-
             selectedElement = null;
+            onScreenToast("Or Gate Created");
+
         }
     }
 
@@ -422,8 +422,9 @@ class GridAndMenu {
         if(selectedElement!=null
                 && elements[getElement(selectedElement)].getClass()== new CircuitElement().getClass()) {
             elements[getElement(selectedElement)] = new NOTGATE(selectedElement, context, largeCellSize);
-
             selectedElement = null;
+            onScreenToast("Not Gate Created");
+
         }
     }
 
@@ -431,8 +432,9 @@ class GridAndMenu {
         if (selectedElement != null
                 && elements[getElement(selectedElement)].getClass()== new CircuitElement().getClass()) {
             elements[getElement(selectedElement)] = new SWITCH(selectedElement, largeCellSize);
-
             selectedElement = null;
+            onScreenToast("Switch Created");
+
         }
     }
 
@@ -442,6 +444,8 @@ class GridAndMenu {
                 && elements[getElement(selectedElement)].getClass()== new CircuitElement().getClass()) {
             elements[getElement(selectedElement)] = new LED(selectedElement, largeCellSize);
             selectedElement = null;
+            onScreenToast("LED Created");
+
         }
     }
 
@@ -453,6 +457,8 @@ class GridAndMenu {
                 String label = elements[getElement(selectedElement)].label;
                 ((SWITCH) elements[getElement(selectedElement)]).toggle();
                 selectedElement = null;
+                onScreenToast("Switch Toggled");
+
             }
         }
     }
@@ -536,6 +542,7 @@ class GridAndMenu {
         selectedNode = null;
         selectedElement = null;
         selectedButton = null;
+
     }
 
     //-------------------------------------------------------------------------------------------
