@@ -3,12 +3,15 @@ package com.example.logicsimulator;
 import android.graphics.Point;
 import android.util.Log;
 import android.view.MotionEvent;
+import android.widget.Toast;
 
 /*
     This class processes the users touch and calls methods of the GridAndMenu class.
     It acts as a buffer between the user inputs and the GridAndMenu processing.
  */
 class TouchProcessor{
+
+
 
     private Point touchPoint;
     private GridAndMenu gridAndMenu;
@@ -41,6 +44,7 @@ class TouchProcessor{
             if(gridAndMenu.selectedElement==null) {
                 Log.d("Debugging", "Action taken: Element Selected");
                 gridAndMenu.elementSelect(touchPoint);
+
 
             //---------------------------------------------------------------------
             //else if we select the same element twice, then deselect

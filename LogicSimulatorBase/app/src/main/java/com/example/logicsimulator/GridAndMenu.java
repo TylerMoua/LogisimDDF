@@ -7,6 +7,9 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.util.Log;
+import android.view.Gravity;
+import android.widget.Toast;
+
 
 /*
     This class handles all the operations that take place on the grid and menu
@@ -18,6 +21,7 @@ class GridAndMenu {
     // based on if they == null or have a value.
     Point selectedElement, selectedNode;
     private Point selectedButton;
+
 
     private boolean playing = false;
     private boolean saving = false;
@@ -48,6 +52,7 @@ class GridAndMenu {
     //smallCellSize: Grid nodes.
     int gridHeight, largeCellSize, smallCellSize, menuCellSize;
     private int gridLength;
+
 
     GridAndMenu(Context context,int numberOfHorizontalPixels, Bitmap blankBitMap) {
 
@@ -110,6 +115,16 @@ class GridAndMenu {
             }
         }
     }
+
+    //Toast Messages for On Screen Feedback - Ali
+    private void onScreenToast(String prompt) {
+        Toast toast= Toast.makeText(context,
+                prompt, Toast.LENGTH_SHORT);
+        toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 0);
+        toast.show();
+    }
+
+
 
     //Prints a debug message to indicate the state we are in.
     private void debugUpdate(){
@@ -185,6 +200,8 @@ class GridAndMenu {
                             smallCellSize * end.x,
                             (smallCellSize * end.y) + smallCellSize / 2,
                             paint);
+
+
                 } else {
                     //Wire to node 0, in the top of the element
                     myCanvas.drawLine(
@@ -226,71 +243,86 @@ class GridAndMenu {
 
     //This element processes a menu selection and calls a "Button Menu Processing" method to handle
     //the selection
-    private void processMenu(Point input) {
+    private void processMenu(Point input)  {
         int buttonNumber = input.x;
         switch (buttonNumber) {
             //----------------------------------------------------------------------------
             case 0: //PLAY BUTTON
                 play();
+                onScreenToast("Circuit is Running");
                 break;
             //-------------------------------------------------------------------------------
             case 1: //ADD BUTTON
                 if(!playing)
                 add();
+                onScreenToast("Element Added");
                 break;
             //---------------------------------------------------------------------------------
             case 2: //SUB BUTTON
                 if(!playing)
                 sub();
+                onScreenToast("Element Subtracted");
                 break;
             //-----------------------------------------------------------------------------
             case 3: //Wire BUTTON
                 if(!playing)
                 wire();
+                onScreenToast("Choose an Element to Wire");
                 break;
             //------------------------------------------------------------------------
             case 4: //AND BUTTON
                 and();
+                onScreenToast("And Gate Created");
                 break;
             //------------------------------------------------------------------------
             case 5://OR BUTTON
                 or();
+                onScreenToast("Or Gate Created");
                 break;
             //----------------------------------------------------------------------
             case 6: //NOT BUTTON
                 not();
+                onScreenToast("Not Gate Created");
                 break;
             //----------------------------------------------------------------------
             case 7: //SWITCH BUTTON
                 inputSwitch();
+                onScreenToast("Switch Created");
                 break;
             //-----------------------------------------------------------------
             case 8: //LED BUTTON
                 led();
+                onScreenToast("LED Created");
                 break;
             //--------------------------------------------------------------------
             case 9: // 1/0 BUTTON
                 toggle();
+                onScreenToast("State of Switch Toggled");
                 break;
             //-----------------------------------------------------------------
             case 10: // Save Button
                 if (!playing)
                 save();
+                onScreenToast("Choose A, B, C to Save Current Layout");
                 break;
             //-----------------------------------------------------------------
             case 11: // A Button
                 if(!playing)
                 saveOrLoad(0);
+                onScreenToast("Layout saved to A");
                 break;
             //-----------------------------------------------------------------
             case 12: //B Button
                 if(!playing)
                 saveOrLoad(1);
+                onScreenToast("Layout saved to B");
+
                 break;
             //-----------------------------------------------------------------
             case 13: // C Button
                 if(!playing)
                 saveOrLoad(2);
+                onScreenToast("Layout saved to C");
                 break;
         }
     }
