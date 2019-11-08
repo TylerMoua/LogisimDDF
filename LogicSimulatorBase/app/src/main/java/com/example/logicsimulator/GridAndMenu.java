@@ -252,9 +252,10 @@ class GridAndMenu {
                 break;
             //-------------------------------------------------------------------------------
             case 1: //ADD BUTTON
-                if(!playing)
-                add();
-                onScreenToast("Element Added");
+                if(!playing){
+                    add();
+                    onScreenToast("Element Added");
+                }
                 break;
             //---------------------------------------------------------------------------------
             case 2: //SUB BUTTON
@@ -263,11 +264,12 @@ class GridAndMenu {
                 break;
             //-----------------------------------------------------------------------------
             case 3: //Wire BUTTON
-                if(!playing)
-                wire();
-                //Displays prompt with certain condition
-                if(numberOfActiveElements >= 2)
-                onScreenToast("Choose an Element to Wire");
+                if(!playing) {
+                    wire();
+                    //Displays prompt with certain condition
+                    if(numberOfActiveElements >= 2)
+                        onScreenToast("Choose an Element to Wire To");
+                }
                 break;
             //------------------------------------------------------------------------
             case 4: //AND BUTTON
@@ -295,28 +297,31 @@ class GridAndMenu {
                 break;
             //-----------------------------------------------------------------
             case 10: // Save Button
-                if (!playing)
-                save();
-                onScreenToast("Choose A, B, C to Save Current Layout");
+                if (!playing) {
+                    save();
+                    onScreenToast("Choose A, B, C to Save Current Layout");
+                }
                 break;
             //-----------------------------------------------------------------
             case 11: // A Button
-                if(!playing)
-                saveOrLoad(0);
-                onScreenToast("Layout saved to A");
+                if(!playing) {
+                    saveOrLoad(0);
+                    onScreenToast("Layout saved to A");
+                }
                 break;
             //-----------------------------------------------------------------
             case 12: //B Button
-                if(!playing)
-                saveOrLoad(1);
-                onScreenToast("Layout saved to B");
-
+                if(!playing) {
+                    saveOrLoad(1);
+                    onScreenToast("Layout saved to B");
+                }
                 break;
             //-----------------------------------------------------------------
             case 13: // C Button
-                if(!playing)
-                saveOrLoad(2);
-                onScreenToast("Layout saved to C");
+                if(!playing) {
+                    saveOrLoad(2);
+                    onScreenToast("Layout saved to C");
+                }
                 break;
         }
     }
@@ -566,8 +571,9 @@ class GridAndMenu {
         Log.d("Debugging", "Attempting to wire to Node: " + nodeNumber);
 
         //----------------------------------------------------------------------------
-            if (nodeNumber == 0)
+            if (nodeNumber == 0) {
                 elementGettingInput.setA(elementOutputting);
+            }
             else if (nodeNumber == 1) {
                 ((TwoInOneOut) elementGettingInput).setB(elementOutputting);
             }
