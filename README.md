@@ -1,34 +1,203 @@
-Creating an intuitive introduction to Logic Gates
+﻿Creating an intuitive introduction to Logic Gates
 
 Ali Ataya, Tyler Moua, Anthony Tisdale, Ian Hill, Kai Kit Lok
 
 Undo/Redo, Feedback, More Logic Gate Configurations(NAND, XOR, etc)
 
-Design Document LogiSim: An Android Logic Simulator: Design Document Introduction The following is a design document for the UI of an android logic simulator. This logic simulator features NOT, AND, and OR logic gates as well as programmable input switches and output LEDs. Gates will be added and subtracted at the user’s discretion. The program also features wiring inputs to outputs. The goal of this application is to give these students an intuitive platform to test their knowledge of Boolean logic with circuit elementary tools. Customer/Users This app is developed for computer science students who have some exposure to Boolean logic. This means that they should have some understanding of the Boolean operations AND, OR, and NOT as well as how they function in Boolean algebra. This app provides an intuitive platform for students to test their knowledge of Boolean logic. In addition to this, students will create a basis of understanding for representing Boolean logic with logic circuits. How Do Logic Circuits Work? Logic circuits are circuits that utilize logic gates in order to process inputs and output outputs. Each logic gate processes specified inputs and gives an output based on the nature of that gate. An AND gate has two inputs and one output. This gate outputs a 1 when both inputs are 1 and outputs a 0 in all other cases. An OR gate has two inputs and one output. This gate outputs a 0 when both inputs are 0 and outputs a 1 in all other cases. A NOT gate has one input and one output. This gate outputs the opposite of its input. That is, an input of 1 will have an output of 0 and vice versa. Logic circuits are wired in a way such that the output of one gate is used as input of another. The output of one gate can be used as the input to as many other gates as needed.
+LogiSim: An Android Logic Simulator: Design Document 
+	
+Introduction:
+	The following is a design document for the UI of an android logic simulator. This logic simulator features NOT, AND, and OR logic gates as well as programmable input switches and output LEDs. Gates will be added and subtracted at the user’s discretion. The program also features wiring inputs to outputs. The goal of this application is to give these students an intuitive platform to test their knowledge of Boolean logic with circuit elementary tools. Customer/Users This app is developed for computer science students who have some exposure to Boolean logic. This means that they should have some understanding of the Boolean operations AND, OR, and NOT as well as how they function in Boolean algebra. This app provides an intuitive platform for students to test their knowledge of Boolean logic. In addition to this, students will create a basis of understanding for representing Boolean logic with logic circuits. How Do Logic Circuits Work? Logic circuits are circuits that utilize logic gates in order to process inputs and output outputs. Each logic gate processes specified inputs and gives an output based on the nature of that gate. An AND gate has two inputs and one output. This gate outputs a 1 when both inputs are 1 and outputs a 0 in all other cases. An OR gate has two inputs and one output. This gate outputs a 0 when both inputs are 0 and outputs a 1 in all other cases. A NOT gate has one input and one output. This gate outputs the opposite of its input. That is, an input of 1 will have an output of 0 and vice versa. Logic circuits are wired in a way such that the output of one gate is used as input of another. The output of one gate can be used as the input to as many other gates as needed.
 
-Visuals This is an example of how the UI will appear on the screen: As shown in the diagram, the screen is segregated into two sections: A workspace and the button menu. The workspace is a 30x15 grid and takes up 80 percent of the screen. The remaining screen is reserved for the button menu. Each circuit element will only take up about 2% of the workspace (Give or take), with a maximum of 10 circuit elements. This means that a circuit with 10 circuit elements would take up 20% of the workspace. The remaining area of the workspace is preserved for wires and readability. The workspace is composed of a graph backdrop and circuit elements of the circuit whose positions are confined to the graph. A circuit element takes up a 3x3 square in the grid. Wire connections are also displayed in the workspace. The input and output nodes of each circuit element exist as cells in a circuit element. The output nodes are on the rightmost center node of an element. (If an element exists from (0, 0) to (2, 2), its output node will at (2, 1). The input node varies based on which element is being used. Wires are drawn as straight lines from one node to another. Another notable feature is the color of empty elements, the switches and LEDs. There are 10 preset colors for a maximum of 10 circuit elements. Elements cannot overlap in the workspace. Buttons are highlighted blue when selected and the Play/Save buttons become red when active. While the circuit is playing, and LED is yellow when high and grey when low.
+Visuals: 
+	The screen is segregated into two sections: A workspace and the button menu. The workspace is a 30x15 grid and takes up 80 percent of the screen. The remaining screen is reserved for the button menu. Each circuit element will only take up about 2% of the workspace (Give or take), with a maximum of 10 circuit elements. This means that a circuit with 10 circuit elements would take up 20% of the workspace. The remaining area of the workspace is preserved for wires and readability. The workspace is composed of a graph backdrop and circuit elements of the circuit whose positions are confined to the graph. A circuit element takes up a 3x3 square in the grid. Wire connections are also displayed in the workspace. The input and output nodes of each circuit element exist as cells in a circuit element. The output nodes are on the rightmost center node of an element. (If an element exists from (0, 0) to (2, 2), its output node will at (2, 1). The input node varies based on which element is being used. Wires are drawn as straight lines from one node to another. Another notable feature is the color of empty elements, the switches and LEDs. There are 10 preset colors for a maximum of 10 circuit elements. Elements cannot overlap in the workspace. Buttons are highlighted blue when selected and the Play/Save buttons become red when active. While the circuit is playing, and LED is yellow when high and grey when low.
 
-Elements of the UI Circuit elements: • Input Switches o These switches can be set to output a 1 or 0 • Gates: o Empty o AND o OR o NOT • Output LED: o The LED will be “on” when its input is 1. Else, its it will be “off” Buttons: • Run Button • Add Button • Subtract Button • Wire button • Element Type Modifier Buttons o AND button o OR button o NOT button o Switch button o LED button • 1/0 Button • Save Button • A Button • B Button • C Button
+Elements of the UI Circuit elements:
+	Input Switches:
+		These switches can be set to output a 1 or 0
+	Gates:
+		AND
+		OR
+		NOT
+	Output LED:
+		The LED will be “on” when its input is 1. Else, it will be “off” 
+	Buttons:
+		Run Button
+		Add Button
+		Subtract Button
+		Wire button
+		Element Type Modifier Buttons:
+			AND button
+			OR button
+			NOT button
+			Switch button
+			LED button
+			1/0 Button
+		Save Button
+		State Buttons:
+			A Button
+			B Button
+			C Button
+		UNDO Button
+		REDO Button
 
-How the User Interacts With the Interface The UI of this app will allow users to select circuit elements in the workspace and use buttons in order to modify these circuit elements. Element Selecting/Deselecting and User States: In total there are 3 states a user can toggle: Circuit element selection Button selection Menu selection To select a circuit element, simply tap on the circuit element. Each button is only usable based on the state that the user is in. For example, you cannot subtract a circuit element without selecting a circuit element first. The following states the user can be in and their associated buttons: • No circuit element selected o Run button o Add button o Save button o A, B, and C buttons (Load) • Element selected o Sub button o Wire button o If the selected circuit element is empty:  Element type modifier buttons o If the selected circuit element is a switch  1/0 button • Button selected o If the Save Button is selected:  A, B, and C buttons (Save)
+How the User Interacts With the Interface:
+	The UI of this app will allow users to select circuit elements in the workspace and use buttons in order to modify these circuit elements. 
+	
+	Element Selecting/Deselecting and User States: 
+		In total there are 3 states a user can toggle: 
+			Circuit element selection 
+			Button selection 
+			Menu selection 
+		To select a circuit element, simply tap on the circuit element. 
+		Each button is only usable based on the state that the user is in. 
+	
+		The following states the user can be in and their associated buttons:
+			No circuit element selected:
+				Run button
+				Add button
+				Save button
+				A, B, and C buttons (Load)
+				UNDO button
+				REDO button
+			Element selected:
+				Sub button
+				Wire button
+				If the selected circuit element is empty:
+					Element type modifier buttons
+				If the selected circuit element is a switch:
+					1/0 button
+			Button selected:
+				If the Save Button is selected:
+					A, B, and C buttons (Save)
 
-Deselecting an Element To deselect any circuit element or button, simply tap on the circuit element again: Actor actions System Responds Moving a Circuit Element: To move a circuit element, simply select the circuit element and tap on the grid at your desired location. Actor actions System Responds Using Buttons: To use a button, ensure that you are in the correct state and simply tap on the desired button. • Run Button: o Make sure the all nodes have been connected. o This button runs the circuit. o While in play mode, the toggle button can be used but no other buttons. • Add Element Button: o Make sure there are less than 10 elements and the top left region of the screen is not occupied by an existing circuit element. o This button adds an empty circuit element to the top left region of the workspace. • Subtract Element Button: o Make sure you have selected an element
+		Selecting/Deselecting:
+		To select any circuit element, tap on it while no other elements or buttons have been selected
+		To deselect any circuit element or button Tap on the same circuit element.
+		To deselect any button, tap on the grid.
+		Moving a Circuit Element: 
+			To move a circuit element, simply select the circuit element and tap on the grid at your desired location.
+	
+	Using Buttons: 
+		To use a button, ensure that you are in the correct state and simply tap on the desired button.
+		Run Button:
+			Make sure the all nodes have been connected.
+			This button runs the circuit and toggles play mode.
+			While in play mode, the toggle button can be used but no other buttons.
+		Add Element Button:
+			Make sure there are less than 10 elements and the top left region of the screen is not occupied by an existing circuit element.
+			This button adds an empty circuit element to the top left region of the workspace.
+		Subtract Element Button:
+			Make sure you have selected an element.
+			This button removes a selected circuit element.
+			Removing a circuit element will also remove all of its associated wire connections.
+		Wire Button: o Make sure you have selected an element.
+			This button allows the user to wire a connection from an input node to an output node.
+			The output node of the previously element will serve as the start of the wire.
+			Once the button has been selected, the user may select the input node of another gate to wire to.
+			Restrictions:
+				A gate cannot be wired to itself.
+				The first element must have an output node.
+				The second element must have an input node.
+		Element Type Modifier Buttons:
+			Make sure you have selected an empty element
+			AND Button:
+				This button changes the selected empty circuit element to an AND gate.
+			OR Button:
+				This button changes the selected empty circuit element to an OR gate.
+			NOT Button:
+				This button changes the selected empty circuit element to a NOT gate.
+			SWITCH Button:
+				This button changes the selected empty circuit element to an input.
+			LED Button:
+				This button changes the selected empty circuit element to an LED.
+			1/0 Button:
+				This button changes the input of a switch to 1 or 0.
+		Save Button:
+			This button allows the user to save their schematic.
+			Once this button has been selected, the user must select the A, B, or C button in order to save the current schematic to that button.
+		A, B, and C Buttons:
+			These buttons allow the user to save or load a schematic to or from a given button.
+			If the save button has already been selected, this button saves the current schematic.
+			If the save button has not been selected, this button will load a saved schematic.
+			If there is no saved schematic, an empty schematic will be loaded.
+			UNDO Button:
+		This button allows the user to undo the last change they made to the circuit.
+		REDO Button:
+			This button allows the user to redo the last undo command.
+The Code Class Hierarchy:
+	LogicSimulator
+	TouchProcessor
+	GridAndMenu 
+	Node
+		ElementOrButton
+			CircuitElement
+				SWITCH
+				LED
+				GATE
+					NOTGATE
+					TwoInOneOut 
+						ANDGATE
+						ORGATE
+			Button
+				ADD
+				PLAY
+				SUB
+				AND
+				OR
+				NOT
+				WIRE
+				SWITCHBUTTON
+				LEDBUTTON
+				TOGGLE
+				SAVE
+				A 
+				B
+				C 
+				UNDO
+				REDO
+LogicSimulator Class:
+	This class handles the creation of the application. It has four major methods:
 
-Touch the same element
-The selected element is deselected if the selected element is a circuit element
-Touch the grid 2. The selected element is deselected if the selected element is a menu button
-Touch an circuit element 3. Touch the grid
-Selects the circuit element that has been touched
-Moves the selected circuit element to the grid cell that has been touched
-o This button removes a selected circuit element. o Removing a circuit element will also remove all of its associated wire connections. • Wire button: o Make sure you have selected an element. o This button allows the user to wire a connection from an input node to an output node. o The output node of the previously element will serve as the start of the wire. o Once the button has been selected, the user may select the input node of another gate to wire to. o Restrictions:  A gate cannot be wired to itself.  The first element must have an output node  The second element must have an input node • Element Type Modifier Buttons: o Make sure you have selected an empty element o AND button:  This button changes the selected empty circuit element to an AND gate. o OR button:  This button changes the selected empty circuit element to an OR gate. o NOT button:  This button changes the selected empty circuit element to a NOT gate. o Input button:  This button changes the selected empty circuit element to a toggle switch. o Output button:  This button changes the selected empty circuit element to an LED. • 1/0 Button: o This button changes the input of a switch to 1 or 0. • Save Button: o This button allows the user to save their schematic o Once this button has been selected, the user must select the A, B, or C button in order to save the current schematic to that button. • A, B, and C Buttons: o These buttons allow the user to save or load a schematic to or from a given button. o If the save button has already been selected, this button saves the current schematic
+	onCreate: Handles getting the resolution, setting objects and the contentView, as well as updating the screen initially. 
+	
+	setObjects: Handles the initialization of the objects needed to run the game. 
+	
+	getResolution: Handles getting the display size and setting that to a Point.
+ 
+	onTouchEvent: Handles getting the user touch as a motionEvent and sends that input into the TouchProcessor object. 
 
-o If the save button has not been selected, this button will load a saved schematic  If there is no saved schematic, an empty schematic will be loaded.
+TouchProcessor Class: This class handles the motionEvent from the LogicSimulator class and, based on the position of the motionEvent, sends a touchpoint to the GridAndMenu Class. It communicates with the GridAndMenu class to check for elements, buttons, or if we are wiring in order to determine what the user has selected. The user will have selected a button, Circuit element, or node. Based on which, the touchProcessor creates a touchpoint from that motionEvent with a specified cellSize. This touchpoint is sent to a specific method of the GridAndMenu object. 
 
-The Code Class Hierarchy: • LogicSimulator • TouchProcessor • GridAndMenu • Node o ElementOrButton  CircuitElement • SWITCH • LED • GATE o NOTGATE o TwoInOneOut LogicSimulator Class:  ANDGATE  ORGATE • NOT • WIRE • SWITCHBUTTON • LEDBUTTON • TOGGLE • SAVE •A •B •C  Button • ADD • PLAY • SUB • AND • OR This class handles the creation of the application. It has four major methods:
+GridAndMenu Class: This class is the largest and handles the bulk of the application. 
+	Fields: There are five fields that determine the state that we are in: 
+		Point selectedElement: this is the location of the element we have selected 
+		Point selectedButton: This is the location of the button we have selected 
+		Point selectedNode: This is the location of the Node we have selected If any of these points are null, we know that we are not in the state. 
+		Boolean fields playing and saving: both tell the system if we are playing the circuit or saving a schematic. 
+	
+		This class also has a Context field which is sent to each gate in order to enable the creation of their own bitmap images.
+		This class also has several arrays that it uses to track objects: 
+			CircuitElement [][]savedShematics: 
+				This is a 3d array that holds the saved schematics 
+			Button[] menu: 
+				This array holds each button. 
+				The x position of each button is the same value as its index in this array. 
+				This class uses this relationship to refer to the buttons. 
+			Node[][] cells: 
+				This array holds each cell of the visual grid on the screen. 
+				It is used to print this grid. 
+			CircuitElement[] elements: 
+				This array holds the Circuit Elements in the current schematic. 
+				Circuit Elements are held in an array because this class will often check each element for something. (ie checking each element to see if one is an LED, then calling lightUp if the LED is high) 
+		This class also has an int value for each cell size: small(node), large(CircuitElement), and menu(Button). 
 
-onCreate: Handles getting the resolution, setting objects and the contentView, as well as updating the screen initially. setObjects: Handles the initialization of the objects needed to run the game. getResolution: Handles getting the display size and setting that to a Point. onTouchEvent: Handles getting the user touch as a motionEvent and sends that input into the TouchProcessor object. TouchProcessor Class: This class handles the motionEvent from the LogicSimulator class and, based on the position of the motionEvent, sends a touchpoint to the GridAndMenu Class. It communicates with the GridAndMenu class to check for elements, buttons, or if we are wiring in order to determine what the user has selected. The user will have selected a button, Circuit element, or node. Based on which, the touchProcessor creates a touchpoint from that motionEvent with a specified cellSize. This touchpoint is sent to a specific method of the GridAndMenu object. GridAndMenu Class: This class is the largest and handles the bulk of the application. Because of this, the most important information is in bold. Fields: There are five fields that determine the state that we are in: Point selectedElement: this is the location of the element we have selected Point selectedButton: This is the location of the button we have selected Point selectedNode: This is the location of the Node we have selected If any of these points are null, we know that we are not in the state. Boolean fields playing and saving: both tell the system if we are playing the circuit or saving a schematic. It has a Context field which is sent to each gate in order to enable the creation of their own bitmap images.
-
-This class also has several arrays that it uses to track objects: CircuitElement [][]savedShematics: This is a 3d array that holds the saved schematics Button[] menu: This array holds each button. The x position of each button is the same value as its index in this array. This class uses this relationship to refer to the buttons. Node[][] cells: This array holds each cell of the visual grid on the screen. It is used to print this grid. CircuitElement[] elements: This array holds the Circuit Elements in the current schematic. Circuit Elements are held in an array because this class will often check each element for something. (ie checking each element to see if one is an LED, then calling lightUp if the LED is high) This class also has an int value for each cell size: small(node), large(CircuitElement), and menu(Button). There are also various fields for the numbers of things (ex. Horizontal cells, Active elements, savable schematics...) used for creating arrays, cell sizes, or printing. Printing Methods: There are various methods that print to the canvas. updateScreen is the main printing method this is called my LogicSimulator. It calls each individual printing/drawing method in a specific order. Of the other various printing/drawing methods there are three notable: updatePlay: This method checks for an LED and if we’re playing and .eval returns true, then the LED will light up. printWires: This method checks all the elements and, if the element has a connection(if element.a != null) , then it will drawWires to draw a wire from that elements output node to the connections input node. There is a conditional to tell if it is the top of bottom node being wired to. This information is send to the drawWires method as well as the type of element. drawWires: this method takes in a start point, end point, int value to tell which node is being wired, and a string for the type of element being wired. This information is used for the canvas to determine where an input node is on the screen.
+		There are also various fields for the numbers of things (ex. Horizontal cells, Active elements, savable schematics...) used for creating arrays, cell sizes, or printing. 
+	
+		Printing Methods: 
+			There are various methods that print to the canvas. 
+			updateScreen is the main printing method this is called my LogicSimulator. It calls each individual printing/drawing method in a specific order. Of the other various 
+printing/drawing methods there are three notable: updatePlay: This method checks for an LED and if we’re playing and .eval returns true, then the LED will light up. printWires: This method checks all the elements and, if the element has a connection(if element.a != null) , then it will drawWires to draw a wire from that elements output node to the connections input node. There is a conditional to tell if it is the top of bottom node being wired to. This information is send to the drawWires method as well as the type of element. drawWires: this method takes in a start point, end point, int value to tell which node is being wired, and a string for the type of element being wired. This information is used for the canvas to determine where an input node is on the screen.
 
 Menu Selection Handling: The menuSelect method is called by the TouchProcessor and given a Point based on the menuCellSize. The selectedButton field is set to this Point and the x coordinate of the selectedbutton field is sent to the processMenu method. The processMenu method takes the x coordinate a selectedMenu Point and uses a case statement to determine which button has been pressed. This is because the positions of each button are the same as their index in the menu array. Each case in this case statement calls a different method to handle that buttons functionality. Button Function methods: play: Checks for any null connections in the circuit then toggles playing in both this class and the PLAY class. add: Checks to make sure that: Top left region of the screen is not occupied (That is where an added gate spawns) We have not reached the maximum number of gates allowed Then the first null element in the elements array is instantiated as a CircuitElement. sub: This method first checks that selectedElement != null. Then, it calls removeConnections and sets the element that we have selected to null in our elements array. removeConnections: This method removes an elements wire connections. It checks each element in the elements array and if element.a or element.b (The inputs of those elements) is the element that we are removing, they are set to null. wire: This method first checks that we have selected an element and the element has an output node (Check that we have selected a valid element). After this, selectedNode is set to the postion of the selected elements output node. We are now in wiring mode. and, or, not, inputSwitch, led: These elements all first check that the selected element is a CircuitElement object, then replaces that object with an new instance of their own class(ie. and replaces a CircuitElement with an ANDGATE), passing in the position of the initial CircuitElement object into the constructor of that new gate. Save: This method toggles the saving Boolean in both this class as well as in the Save object in our menu array.
 
