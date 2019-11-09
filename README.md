@@ -10,10 +10,42 @@
 	
 ### Introduction:
 
-	The following is a design document for the UI of an android logic simulator. This logic simulator features NOT, AND, and OR logic gates as well as programmable input switches and output LEDs. Gates will be added and subtracted at the user’s discretion. The program also features wiring inputs to outputs. The goal of this application is to give these students an intuitive platform to test their knowledge of Boolean logic with circuit elementary tools. Customer/Users This app is developed for computer science students who have some exposure to Boolean logic. This means that they should have some understanding of the Boolean operations AND, OR, and NOT as well as how they function in Boolean algebra. This app provides an intuitive platform for students to test their knowledge of Boolean logic. In addition to this, students will create a basis of understanding for representing Boolean logic with logic circuits. How Do Logic Circuits Work? Logic circuits are circuits that utilize logic gates in order to process inputs and output outputs. Each logic gate processes specified inputs and gives an output based on the nature of that gate. An AND gate has two inputs and one output. This gate outputs a 1 when both inputs are 1 and outputs a 0 in all other cases. An OR gate has two inputs and one output. This gate outputs a 0 when both inputs are 0 and outputs a 1 in all other cases. A NOT gate has one input and one output. This gate outputs the opposite of its input. That is, an input of 1 will have an output of 0 and vice versa. Logic circuits are wired in a way such that the output of one gate is used as input of another. The output of one gate can be used as the input to as many other gates as needed.
+	The following is a design document for the UI of an android logic simulator. 
+	This logic simulator features NOT, AND, and OR logic gates as well as programmable input switches and output LEDs. 
+	Gates will be added and subtracted at the user’s discretion. 
+	The program also features wiring inputs to outputs. 
+	The goal of this application is to give these students an intuitive platform to test their knowledge of Boolean logic with circuit elementary tools. 
+	Customer/Users:
+		This app is developed for computer science students who have some exposure to Boolean logic.
+		This means that they should have some understanding of the Boolean operations AND, OR, and NOT as well as how they function in Boolean algebra.
+
+	This app provides an intuitive platform for students to test their knowledge of Boolean logic. 
+	Students will create a basis of understanding for representing Boolean logic with logic circuits. 
+### How Do Logic Circuits Work? 
+	
+	Logic circuits are circuits that utilize logic gates in order to process inputs and output outputs. Each logic gate processes specified inputs and gives an output based on the nature of that gate. An AND gate has two inputs and one output. This gate outputs a 1 when both inputs are 1 and outputs a 0 in all other cases. An OR gate has two inputs and one output. This gate outputs a 0 when both inputs are 0 and outputs a 1 in all other cases. A NOT gate has one input and one output. This gate outputs the opposite of its input. That is, an input of 1 will have an output of 0 and vice versa. Logic circuits are wired in a way such that the output of one gate is used as input of another. The output of one gate can be used as the input to as many other gates as needed.
 
 ### Visuals: 
-	The screen is segregated into two sections: A workspace and the button menu. The workspace is a 30x15 grid and takes up 80 percent of the screen. The remaining screen is reserved for the button menu. Each circuit element will only take up about 2% of the workspace (Give or take), with a maximum of 10 circuit elements. This means that a circuit with 10 circuit elements would take up 20% of the workspace. The remaining area of the workspace is preserved for wires and readability. The workspace is composed of a graph backdrop and circuit elements of the circuit whose positions are confined to the graph. A circuit element takes up a 3x3 square in the grid. Wire connections are also displayed in the workspace. The input and output nodes of each circuit element exist as cells in a circuit element. The output nodes are on the rightmost center node of an element. (If an element exists from (0, 0) to (2, 2), its output node will at (2, 1). The input node varies based on which element is being used. Wires are drawn as straight lines from one node to another. Another notable feature is the color of empty elements, the switches and LEDs. There are 10 preset colors for a maximum of 10 circuit elements. Elements cannot overlap in the workspace. Buttons are highlighted blue when selected and the Play/Save buttons become red when active. While the circuit is playing, and LED is yellow when high and grey when low.
+	The screen is segregated into two sections: 
+		A workspace and the button menu. 
+		The workspace is a 30x15 grid and takes up 80 percent of the screen. 
+	The remaining screen is reserved for the button menu. 
+	Each circuit element will only take up about 2% of the workspace (Give or take), with a maximum of 10 circuit elements. 
+		This means that a circuit with 10 circuit elements would take up 20% of the workspace. 
+		The remaining area of the workspace is preserved for wires and readability. 
+	The workspace is composed of a graph backdrop and circuit elements of the circuit whose positions are confined to the graph. 
+	A circuit element takes up a 3x3 square in the grid. 
+	Wire connections are also displayed in the workspace. 
+	The input and output nodes of each circuit element exist as cells in a circuit element. 
+	The output nodes are on the rightmost center node of an element. (If an element exists from (0, 0) to (2, 2), its output node will at (2, 1). 
+	The input node varies based on which element is being used. 
+	Wires are drawn as straight lines from one node to another. 
+	Another notable feature is the color of empty elements, the switches and LEDs. 
+	There are 10 preset colors for a maximum of 10 circuit elements. 
+	Stipulations:
+		Elements cannot overlap in the workspace. 
+		Buttons are highlighted blue when selected and the Play/Save buttons become red when active. 
+		While the circuit is playing, and LED is yellow when high and grey when low.
 
 ### Elements of the UI Circuit elements:
 	Input Switches:
