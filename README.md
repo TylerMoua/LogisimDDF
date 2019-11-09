@@ -6,9 +6,10 @@
 
 ### Members: Ali Ataya, Tyler Moua, Anthony Tisdale, Ian Hill, Kai Kit Lok
 
-### Featues to implement:Undo/Redo, Feedback, More Logic Gate Configurations(NAND, XOR, etc)
+### Featues to implement: Undo/Redo, Feedback, More Logic Gate Configurations(NAND and XOR)
 	
 ### Introduction:
+
 	The following is a design document for the UI of an android logic simulator. This logic simulator features NOT, AND, and OR logic gates as well as programmable input switches and output LEDs. Gates will be added and subtracted at the user’s discretion. The program also features wiring inputs to outputs. The goal of this application is to give these students an intuitive platform to test their knowledge of Boolean logic with circuit elementary tools. Customer/Users This app is developed for computer science students who have some exposure to Boolean logic. This means that they should have some understanding of the Boolean operations AND, OR, and NOT as well as how they function in Boolean algebra. This app provides an intuitive platform for students to test their knowledge of Boolean logic. In addition to this, students will create a basis of understanding for representing Boolean logic with logic circuits. How Do Logic Circuits Work? Logic circuits are circuits that utilize logic gates in order to process inputs and output outputs. Each logic gate processes specified inputs and gives an output based on the nature of that gate. An AND gate has two inputs and one output. This gate outputs a 1 when both inputs are 1 and outputs a 0 in all other cases. An OR gate has two inputs and one output. This gate outputs a 0 when both inputs are 0 and outputs a 1 in all other cases. A NOT gate has one input and one output. This gate outputs the opposite of its input. That is, an input of 1 will have an output of 0 and vice versa. Logic circuits are wired in a way such that the output of one gate is used as input of another. The output of one gate can be used as the input to as many other gates as needed.
 
 ### Visuals: 
@@ -169,9 +170,10 @@
  
 	onTouchEvent: Handles getting the user touch as a motionEvent and sends that input into the TouchProcessor object. 
 
-### TouchProcessor Class: This class handles the motionEvent from the LogicSimulator class and, based on the position of the motionEvent, sends a touchpoint to the GridAndMenu Class. It communicates with the GridAndMenu class to check for elements, buttons, or if we are wiring in order to determine what the user has selected. The user will have selected a button, Circuit element, or node. Based on which, the touchProcessor creates a touchpoint from that motionEvent with a specified cellSize. This touchpoint is sent to a specific method of the GridAndMenu object. 
+### TouchProcessor Class: 
+	This class handles the motionEvent from the LogicSimulator class and, based on the position of the motionEvent, sends a touchpoint to the GridAndMenu Class. It communicates with the GridAndMenu class to check for elements, buttons, or if we are wiring in order to determine what the user has selected. The user will have selected a button, Circuit element, or node. Based on which, the touchProcessor creates a touchpoint from that motionEvent with a specified cellSize. This touchpoint is sent to a specific method of the GridAndMenu object. 
 
-### GridAndMenu Class: This class is the largest and handles the bulk of the application. 
+### GridAndMenu Class: This class is the largest and handles the bulk of the application.
 	Fields: There are five fields that determine the state that we are in: 
 		Point selectedElement: this is the location of the element we have selected 
 		Point selectedButton: This is the location of the button we have selected 
