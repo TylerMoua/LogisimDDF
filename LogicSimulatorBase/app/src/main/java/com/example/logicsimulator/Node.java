@@ -385,6 +385,19 @@ class C extends  Button{
         this.label = "C";
     }
 }
+class UNDO extends Button{
+    UNDO(int x) {
+        position = new Point(x,0);
+        this.label = "UNDO";
+    }
+}
+
+class REDO extends Button{
+    REDO(int x) {
+        position = new Point(x,0);
+        this.label = "REDO";
+    }
+}
 
 //These buttons can change their color based on its state.
 abstract class SavedClick extends Button{
