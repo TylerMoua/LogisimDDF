@@ -211,7 +211,7 @@ abstract class TwoInOneOut extends  GATE{
 
 }
 
-class ANDGATE extends  TwoInOneOut{
+class ANDGATE extends TwoInOneOut{
 
     //bitmap to be resized into the icon bitmap
 

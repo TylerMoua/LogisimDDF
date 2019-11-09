@@ -22,9 +22,7 @@ class GridAndMenu {
     Point selectedElement, selectedNode;
     private Point selectedButton;
 
-
-    private boolean playing = false;
-    private boolean saving = false;
+    private boolean playing, saving = false;
     private Context context;
     private Canvas myCanvas;
     private Paint paint = new Paint();
