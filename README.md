@@ -234,10 +234,10 @@
 			There are various methods that print to the canvas. 
 			updateScreen is the main printing method this is called my LogicSimulator. It calls each individual printing/drawing method in a specific order. Of the other various
 			
-### Print and Drawing Methods
+### Printing and Drawing Methods
 	There are three notable printing and drawing methods: 
-		updatePlay: This method checks for an LED and if we’re playing and .eval returns true, then the LED will 		 light up. 
-		printWires: This method checks all the elements and, if the element has a connection(if element.a != null) , 		     then it will drawWires to draw a wire from that elements output node to the connections input node. There is   		  a conditional to tell if it is the top of bottom node being wired to. This information is send to the 		drawWires method as well as the type of element. 
+		updatePlay: This method checks for an LED and if we’re playing and .eval returns true, then the LED will light up. 
+		printWires: This method checks all the elements and, if the element has a connection(if element.a != null) , then it will drawWires to draw a wire from that elements output node to the connections input node. There is   		  a conditional to tell if it is the top of bottom node being wired to. This information is send to the 		drawWires method as well as the type of element. 
 		drawWires: this method takes in a start point, end point, int value to tell which node is being wired, and a string for the type of element being wired. This information is used for the canvas to determine where an input node is on the screen.
 
 ### Menu Selection Handling
