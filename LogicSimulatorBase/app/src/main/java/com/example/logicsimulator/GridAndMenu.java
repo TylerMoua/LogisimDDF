@@ -304,21 +304,18 @@ class GridAndMenu {
             case 11: // A Button
                 if(!playing) {
                     saveOrLoad(0);
-                    onScreenToast("Layout saved to A");
                 }
                 break;
             //-----------------------------------------------------------------
             case 12: //B Button
                 if(!playing) {
                     saveOrLoad(1);
-                    onScreenToast("Layout saved to B");
                 }
                 break;
             //-----------------------------------------------------------------
             case 13: // C Button
                 if(!playing) {
                     saveOrLoad(2);
-                    onScreenToast("Layout saved to C");
                 }
                 break;
         }
@@ -479,11 +476,13 @@ class GridAndMenu {
         if(saving){
             saveSchematic(input);
             save();
+            onScreenToast("Layout Saved");
         }
         else{
             loadSchematic(input);
             selectedElement = null;
             selectedNode = null;
+            onScreenToast("Layout Loaded");
         }
 
     }
@@ -491,6 +490,8 @@ class GridAndMenu {
     private void saveSchematic(int input){
 
             savedSchematics[input]=elements;
+
+
         Log.d("Debugging", "Saving Diagram");
 
     }
