@@ -318,6 +318,14 @@ class GridAndMenu {
                     saveOrLoad(2);
                 }
                 break;
+            //-----------------------------------------------------------------
+            case 14: //Undo Button
+                onScreenToast("Undo");
+                break;
+            //-----------------------------------------------------------------
+            case 15: //Redo Button
+                onScreenToast("Redo");
+                break;
         }
     }
 
