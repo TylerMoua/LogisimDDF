@@ -27,7 +27,7 @@ class GridAndMenu {
     private Canvas myCanvas;
     private Paint paint = new Paint();
     private final int numberOfCircuitElements = 10;
-    private final int numberOfButtons = 16;
+    private final int numberOfButtons = 17;
     private final int numberOfHorizontalCells = 30;
     private final int numberOfVerticalCells = 15;
     private int numberOfActiveElements = 0;
@@ -37,7 +37,7 @@ class GridAndMenu {
 
     private Button[] menu = {new PLAY(0), new ADD(1), new SUB(2), new WIRE(3)
             , new AND(4), new OR(5), new NOT(6), new SWITCHBUTTON(7)
-            , new LEDBUTTON(8), new TOGGLE(9), new Save(10), new A(11), new B(12), new C(13), new UNDO(14), new REDO(15)};
+            , new LEDBUTTON(8), new TOGGLE(9), new Save(10), new A(11), new B(12), new C(13), new UNDO(14), new REDO(15), new XAND(16)};
 
     private Node[][] cells =
             new Node[numberOfHorizontalCells][numberOfVerticalCells];

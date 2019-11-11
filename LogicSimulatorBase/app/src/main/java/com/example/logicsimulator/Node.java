@@ -307,6 +307,14 @@ class ADD extends Button {
     }
 }
 
+//button to create an example of the AND schematic
+class XAND extends Button {
+    XAND(int x) {
+        position = new Point(x, 0);
+        this.label = "XAND";
+    }
+}
+
 class SUB extends Button{
     SUB(int x) {
         position = new Point(x,0);
