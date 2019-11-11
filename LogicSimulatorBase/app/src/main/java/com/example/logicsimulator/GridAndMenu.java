@@ -246,7 +246,10 @@ class GridAndMenu {
             //----------------------------------------------------------------------------
             case 0: //PLAY BUTTON
                 play();
-                onScreenToast("Circuit is Running");
+                if(playing)
+                    onScreenToast("Circuit is Running");
+                else
+                    onScreenToast("Circuit Stopped");
                 break;
             //-------------------------------------------------------------------------------
             case 1: //ADD BUTTON
