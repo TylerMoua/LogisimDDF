@@ -7,6 +7,8 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
+
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 //This class represents any element that is positioned as a grid point

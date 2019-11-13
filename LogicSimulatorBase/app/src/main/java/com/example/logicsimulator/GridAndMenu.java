@@ -329,6 +329,10 @@ class GridAndMenu {
             case 15: //Redo Button
                 onScreenToast("Redo");
                 break;
+            //-----------------------------------------------------------------
+            case 16: //XAND Button
+                onScreenToast("XAND Sample Gate");
+                break;
         }
     }
 
@@ -517,6 +521,22 @@ class GridAndMenu {
         Log.d("Debugging", "Loading Diagram");
 
     }
+
+
+    //Methods for UNDO and REDO
+
+    private void undo() {
+
+
+
+    }
+
+    private void redo() {
+
+    }
+
+
+
     //------------------------------------------------------------------------------------------
     //These are methods called by the touch processor
 
