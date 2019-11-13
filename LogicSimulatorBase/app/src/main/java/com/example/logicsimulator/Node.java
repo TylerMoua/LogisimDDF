@@ -65,6 +65,7 @@ class CircuitElement extends ElementOrButton{
 
 
 
+
     CircuitElement(){}
     CircuitElement(Point in, int blockSize){
         updatePosition(in);
