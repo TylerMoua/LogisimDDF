@@ -63,6 +63,8 @@ class CircuitElement extends ElementOrButton{
     Node outputNode;
     ArrayList<Node>inputNodes;
 
+
+
     CircuitElement(){}
     CircuitElement(Point in, int blockSize){
         updatePosition(in);

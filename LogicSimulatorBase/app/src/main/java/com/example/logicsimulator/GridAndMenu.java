@@ -323,11 +323,17 @@ class GridAndMenu {
                 break;
             //-----------------------------------------------------------------
             case 14: //Undo Button
-                onScreenToast("Undo");
+                if(!playing){
+                    undo();
+                    onScreenToast("Undo");
+                }
                 break;
             //-----------------------------------------------------------------
             case 15: //Redo Button
-                onScreenToast("Redo");
+                if(!playing){
+                    redo();
+                    onScreenToast("Redo");
+                }
                 break;
             //-----------------------------------------------------------------
             case 16: //XAND Button
@@ -523,11 +529,13 @@ class GridAndMenu {
     }
 
 
-    //Methods for UNDO and REDO
-
+    /*Methods for UNDO and REDO-- not working... trying to make it so that it removes the last element in the array of elements created
+    However, it is crashing when undo is clicked. I dont understand the code enough so further help is appreciated...
+    To fix, just delete the first line and it wont crash anymore. - Ali
+     */
     private void undo() {
-
-
+            selectedElement = elements[elements.length].position;
+            sub();
 
     }
 
