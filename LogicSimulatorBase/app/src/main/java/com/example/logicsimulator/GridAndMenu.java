@@ -10,6 +10,8 @@ import android.util.Log;
 import android.view.Gravity;
 import android.widget.Toast;
 
+import java.util.Stack;
+
 
 /*
     This class handles all the operations that take place on the grid and menu
@@ -32,6 +34,10 @@ class GridAndMenu {
     private final int numberOfVerticalCells = 15;
     private int numberOfActiveElements = 0;
     private int numberOfSavableSchematic = 3;
+
+    //UNDO - REDO Stack
+    private UndoRedoStack stack = new UndoRedoStack();
+
 
     private CircuitElement[][] savedSchematics = new CircuitElement[numberOfSavableSchematic][];
 
@@ -346,7 +352,7 @@ class GridAndMenu {
     //Button Function Methods:
 
     //This method toggles the playing boolean value;
-    private  void play(){
+    private void play(){
         if(!nullConnections()) {
             Log.d("Debugging", "Now Playing");
             playing = !playing;
@@ -362,10 +368,14 @@ class GridAndMenu {
             for (int i = 0; i < numberOfCircuitElements; i++) {
                 if (elements[i] == null) {
                     elements[i] = new CircuitElement(location, largeCellSize);
+//                    testing stacks for undo/redo
+//                    stack.push(elements[i]);
                     break;
                 }
             }
+
             numberOfActiveElements++;
+
             Log.d("Debugging", "Current Elements:" + numberOfActiveElements);
         }else
             Log.d("Debugging","No Element Added, Space occupied OR Too many element");
@@ -422,9 +432,14 @@ class GridAndMenu {
     private void and() {
         if (selectedElement != null
                 && elements[getElement(selectedElement)].getClass()== new CircuitElement().getClass()) {
+//            original code
             elements[getElement(selectedElement)] = new ANDGATE(selectedElement, context, largeCellSize);
             selectedElement = null;
             onScreenToast("And Gate created");
+//            ----------------------------------------------------------------------------------------------------
+            //Code trying to implement a Stack for Undo / Redo
+
+
 
         }
     }
@@ -529,13 +544,13 @@ class GridAndMenu {
     }
 
 
-    /*Methods for UNDO and REDO -- looking into stack implementation - Ali
-     */
+    //Methods for UNDO and REDO -- looking into stack implementation - Ali
 
     private void undo() {
-        
+            stack.pop();
 
-    }
+        }
+
 
     private void redo() {
 

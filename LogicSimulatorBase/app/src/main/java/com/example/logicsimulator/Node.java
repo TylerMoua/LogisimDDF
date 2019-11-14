@@ -10,6 +10,9 @@ import android.graphics.Point;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Stack;
+
 
 //This class represents any element that is positioned as a grid point
 class Node {
@@ -64,8 +67,6 @@ class CircuitElement extends ElementOrButton{
     ArrayList<Node>inputNodes;
 
 
-
-
     CircuitElement(){}
     CircuitElement(Point in, int blockSize){
         updatePosition(in);
@@ -113,6 +114,8 @@ class CircuitElement extends ElementOrButton{
     boolean checkPosition(Point in){
         return (in.x == position.x && in.y == position.y);
     }
+
+
 }
 
 class SWITCH extends  CircuitElement{
