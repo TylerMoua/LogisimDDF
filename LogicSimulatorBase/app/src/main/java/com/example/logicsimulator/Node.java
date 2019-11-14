@@ -7,6 +7,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
+import android.os.CountDownTimer;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -394,14 +395,21 @@ class C extends  Button{
         this.label = "C";
     }
 }
-class UNDO extends Button{
+abstract class UndoAndRedo extends Button{
+    @Override
+    void color(int blockSize, Canvas myCanvas, int gridHeight) {
+        //Don't color these on select
+    }
+}
+class UNDO extends UndoAndRedo{
     UNDO(int x) {
         position = new Point(x,0);
         this.label = "UNDO";
     }
+
 }
 
-class REDO extends Button{
+class REDO extends UndoAndRedo{
     REDO(int x) {
         position = new Point(x,0);
         this.label = "REDO";

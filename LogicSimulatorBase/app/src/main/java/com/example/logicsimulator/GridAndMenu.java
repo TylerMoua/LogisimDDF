@@ -101,9 +101,7 @@ class GridAndMenu {
         printWires();
         updatePlay();
         updateSelection();
-
     }
-
     //This method may light up the LED based on the logic circuit.
     private void updatePlay(){
         if(playing){
@@ -139,7 +137,6 @@ class GridAndMenu {
 
     //This method whiteouts the screen
     private void whiteOut() {
-
         myCanvas.drawColor(Color.argb(255, 255, 255, 255));
     }
 
