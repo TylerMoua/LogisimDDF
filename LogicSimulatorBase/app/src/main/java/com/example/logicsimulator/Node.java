@@ -7,7 +7,6 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
-import android.os.CountDownTimer;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
