@@ -13,7 +13,7 @@ public class UndoRedoStack extends Stack {
         redoStack = new Stack();
     }
 
-    public Node push(Node value) {
+    public CircuitElement[] push(CircuitElement[] value) {
         super.push(value);
         undoStack.push("push");
         redoStack.clear();
@@ -21,15 +21,14 @@ public class UndoRedoStack extends Stack {
     }
 
 
-    public Node pop() {
-        Node value = (Node) super.pop();
+    public CircuitElement[] pop() {
+        CircuitElement[] value = (CircuitElement[]) super.pop();
         undoStack.push(value);
         undoStack.push("pop");
         redoStack.clear();
         return value;
 
     }
-
     public boolean canUndo() {
         return !undoStack.isEmpty();
     }
@@ -41,11 +40,11 @@ public class UndoRedoStack extends Stack {
         }
         Object action = undoStack.pop();
         if (action.equals("push")) {
-            Node value = (Node) super.pop();
+            CircuitElement[][] value = (CircuitElement[][]) super.pop();
             redoStack.push(value);
             redoStack.push("push");
         } else {
-            Node value = (Node) undoStack.pop();
+            CircuitElement[][] value = (CircuitElement[][]) undoStack.pop();
             super.push(value);
             redoStack.push("pop");
         }
@@ -61,11 +60,11 @@ public class UndoRedoStack extends Stack {
         }
         Object action = redoStack.pop();
         if (action.equals("push")) {
-            Node value = (Node) redoStack.pop();
+            CircuitElement[][] value = (CircuitElement[][]) redoStack.pop();
             super.push(value);
             undoStack.push("push");
         } else {
-            Node value = (Node) super.pop();
+            CircuitElement[][] value = (CircuitElement[][]) super.pop();
             undoStack.push(value);
             undoStack.push("pop");
         }

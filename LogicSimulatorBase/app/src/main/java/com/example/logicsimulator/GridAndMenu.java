@@ -35,9 +35,8 @@ class GridAndMenu {
     private int numberOfActiveElements = 0;
     private int numberOfSavableSchematic = 3;
 
-    //UNDO - REDO Stack
-    private UndoRedoStack stack = new UndoRedoStack();
-
+    Stack<CircuitElement[]> undoStack = new Stack<>();
+    Stack<CircuitElement[]> redoStack = new Stack<>();
 
     private CircuitElement[][] savedSchematics = new CircuitElement[numberOfSavableSchematic][];
 
@@ -126,13 +125,15 @@ class GridAndMenu {
         toast.show();
     }
 
-
     //Prints a debug message to indicate the state we are in.
     private void debugUpdate(){
         if(selectedButton == null)
             Log.d("Debugging", "Menu Selected: None"  + "\nElement Selected: " + selectedElement + "\nNode Selected:" + selectedNode);
         else
             Log.d("Debugging", "Menu Selected: " +  menu[selectedButton.x].label +"\nElement Selected: " + selectedElement + "\nNode Selected:" + selectedNode);
+        Log.d("Debugging", "Undo Stack:" + undoStack.toString());
+        Log.d("Debugging", "Redo Stack:" + redoStack.toString());
+
     }
 
     //This method whiteouts the screen
@@ -542,18 +543,24 @@ class GridAndMenu {
 
 
     //Methods for UNDO and REDO -- looking into stack implementation - Ali
+    //Changed to the java stack instad of creating our own
 
     private void undo() {
-            stack.pop();
+        //The redo stack is topped off with the top element of the
+        redoStack.push(elements);
 
+        //Our elements are replaced by the top of the undo Stack
+        elements = undoStack.pop();
         }
 
 
     private void redo() {
+        //The undo stack is topped off with the our current elements
+        undoStack.push(elements);
 
+        //Our elements are replaced by the top of the redo Stack
+        elements = redoStack.pop();
     }
-
-
 
     //------------------------------------------------------------------------------------------
     //These are methods called by the touch processor
@@ -595,7 +602,7 @@ class GridAndMenu {
         selectedNode = null;
         selectedElement = null;
         selectedButton = null;
-
+        undoStack.push(elements);
     }
 
     //-------------------------------------------------------------------------------------------
@@ -666,6 +673,7 @@ class GridAndMenu {
     private void move(Point touchPoint){
         Log.d("Debugging", "Element Moved to:" +touchPoint.x+", "+touchPoint.y);
         elements[getElement(selectedElement)].updatePosition(touchPoint);
+        undoStack.push(elements);
     }
 
     //This method checks that all the gates are connected before running.
