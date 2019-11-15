@@ -35,8 +35,8 @@ class GridAndMenu {
     private int numberOfActiveElements = 0;
     private int numberOfSavableSchematic = 3;
 
-    Stack<CircuitElement[]> undoStack = new Stack<>();
-    Stack<CircuitElement[]> redoStack = new Stack<>();
+    Stack<Schematic> undoStack = new Stack<>();
+    Stack<Schematic> redoStack = new Stack<>();
 
     private CircuitElement[][] savedSchematics = new CircuitElement[numberOfSavableSchematic][];
 
@@ -47,8 +47,9 @@ class GridAndMenu {
     private Node[][] cells =
             new Node[numberOfHorizontalCells][numberOfVerticalCells];
 
-    private CircuitElement[] elements =
-            new CircuitElement[numberOfCircuitElements];
+    //private CircuitElement[] elements =
+      //      new CircuitElement[numberOfCircuitElements];
+    private Schematic elements = new Schematic(numberOfCircuitElements);
 
     //largeCellSize: Circuit elements
     // menuCellSize: Buttons
@@ -104,7 +105,7 @@ class GridAndMenu {
     //This method may light up the LED based on the logic circuit.
     private void updatePlay(){
         if(playing){
-            for (CircuitElement element : elements)
+            for (CircuitElement element : elements.circuit)
             {
                 if(element instanceof LED){
                     if(element.eval()) {
@@ -131,9 +132,14 @@ class GridAndMenu {
             Log.d("Debugging", "Menu Selected: None"  + "\nElement Selected: " + selectedElement + "\nNode Selected:" + selectedNode);
         else
             Log.d("Debugging", "Menu Selected: " +  menu[selectedButton.x].label +"\nElement Selected: " + selectedElement + "\nNode Selected:" + selectedNode);
-        Log.d("Debugging", "Undo Stack:" + undoStack.toString());
-        Log.d("Debugging", "Redo Stack:" + redoStack.toString());
-
+        Log.d("Debugging", "Undo Stack:");
+        for (int i = 0; i < undoStack.size(); i++){
+            Log.d("Debugging", "\n" + undoStack.elementAt(i).toString());
+        }
+        Log.d("Debugging", "Redo Stack:");
+        for (int i = 0; i < redoStack.size(); i++){
+            Log.d("Debugging", "\n" + redoStack.elementAt(i).toString());
+        }
     }
 
     //This method whiteouts the screen
@@ -158,10 +164,10 @@ class GridAndMenu {
 
     //Colors in the circuit elements on the grid for visibility
     private void colorElements() {
-        if(elements!= null) {
-            for (int i = 0; i < numberOfCircuitElements; i++) {
-                if (elements[i] != null) {
-                    elements[i].idle(myCanvas, i);
+        if(elements.circuit!= null) {
+            for (int i = 0; i < elements.circuit.length; i++) {
+                if (elements.circuit[i] != null) {
+                    elements.circuit[i].idle(myCanvas, i);
                 }
             }
         }
@@ -170,8 +176,8 @@ class GridAndMenu {
     //Prints the wire connections between circuit elements.
     private void printWires() {
         //For all of the possible element
-        if (elements != null) {
-            for (CircuitElement element : elements) {
+        if (elements.circuit != null) {
+            for (CircuitElement element : elements.circuit) {
                 if (element != null) {
                     //if an element exists
                     if (element.a != null) {
@@ -227,7 +233,7 @@ class GridAndMenu {
     //Colors an element to indicate that it has been selected
     private void updateSelection() {
         if (selectedElement != null) {
-            elements[getElement(selectedElement)].select(myCanvas);
+            elements.circuit[getElement(selectedElement)].select(myCanvas);
         }
         if (selectedButton != null) {
             menu[selectedButton.x].select(menuCellSize, myCanvas, gridHeight);
@@ -259,13 +265,16 @@ class GridAndMenu {
             case 1: //ADD BUTTON
                 if(!playing){
                     add();
+                    pushToUndo();
                     onScreenToast("Element Added");
                 }
                 break;
             //---------------------------------------------------------------------------------
             case 2: //SUB BUTTON
-                if(!playing)
-                sub();
+                if(!playing) {
+                    sub();
+                    pushToUndo();
+                }
                 break;
             //-----------------------------------------------------------------------------
             case 3: //Wire BUTTON
@@ -363,9 +372,9 @@ class GridAndMenu {
         Point location = new Point(0,0);
         if((getElement(location)==-1)
                 &&numberOfActiveElements<numberOfCircuitElements) {
-            for (int i = 0; i < numberOfCircuitElements; i++) {
-                if (elements[i] == null) {
-                    elements[i] = new CircuitElement(location, largeCellSize);
+            for (int i = 0; i <numberOfCircuitElements; i++) {
+                if (elements.circuit[i] == null) {
+                    elements.circuit[i] = new CircuitElement(location, largeCellSize);
 //                    testing stacks for undo/redo
 //                    stack.push(elements[i]);
                     break;
@@ -385,7 +394,7 @@ class GridAndMenu {
             Log.d("Debugging", "Element Subtracted");
             removeConnections();
             int index = getElement(selectedElement);
-            elements[index] = null;
+            elements.circuit[index] = null;
             selectedElement = null;
             numberOfActiveElements--;
             onScreenToast("Element Subtracted");
@@ -395,7 +404,7 @@ class GridAndMenu {
 
     //This method removes an elements wire connections
     private void removeConnections(){
-        for(CircuitElement element : elements){
+        for(CircuitElement element : elements.circuit){
             if (element != null) {
                 if (element.a != null) {
                     if (element.a.checkPosition(selectedElement)) {
@@ -417,8 +426,8 @@ class GridAndMenu {
     //Note: Now that a node has been selected, out state has changed.
     // the next element that is selected will be wired.
     private void wire()  {
-        if (selectedElement != null && elements[getElement(selectedElement)].outputNode!=null) {
-            selectedNode = elements[getElement(selectedElement)].outputNode.position;
+        if (selectedElement != null && elements.circuit[getElement(selectedElement)].outputNode!=null) {
+            selectedNode = elements.circuit[getElement(selectedElement)].outputNode.position;
             Log.d("Debugging", "Output Node selected at:" + selectedNode);
         }
 
@@ -429,9 +438,9 @@ class GridAndMenu {
     //each methods respective circuit elements
     private void and() {
         if (selectedElement != null
-                && elements[getElement(selectedElement)].getClass()== new CircuitElement().getClass()) {
+                && elements.circuit[getElement(selectedElement)].getClass()== new CircuitElement().getClass()) {
 //            original code
-            elements[getElement(selectedElement)] = new ANDGATE(selectedElement, context, largeCellSize);
+            elements.circuit[getElement(selectedElement)] = new ANDGATE(selectedElement, context, largeCellSize);
             selectedElement = null;
             onScreenToast("And Gate created");
 //            ----------------------------------------------------------------------------------------------------
@@ -444,8 +453,8 @@ class GridAndMenu {
 
     private void or() {
         if (selectedElement != null
-                && elements[getElement(selectedElement)].getClass()== new CircuitElement().getClass()) {
-            elements[getElement(selectedElement)] = new ORGATE(selectedElement, context, largeCellSize);
+                && elements.circuit[getElement(selectedElement)].getClass()== new CircuitElement().getClass()) {
+            elements.circuit[getElement(selectedElement)] = new ORGATE(selectedElement, context, largeCellSize);
             selectedElement = null;
             onScreenToast("Or Gate Created");
 
@@ -454,8 +463,8 @@ class GridAndMenu {
 
     private void not(){
         if(selectedElement!=null
-                && elements[getElement(selectedElement)].getClass()== new CircuitElement().getClass()) {
-            elements[getElement(selectedElement)] = new NOTGATE(selectedElement, context, largeCellSize);
+                && elements.circuit[getElement(selectedElement)].getClass()== new CircuitElement().getClass()) {
+            elements.circuit[getElement(selectedElement)] = new NOTGATE(selectedElement, context, largeCellSize);
             selectedElement = null;
             onScreenToast("Not Gate Created");
 
@@ -464,8 +473,8 @@ class GridAndMenu {
 
     private void inputSwitch(){
         if (selectedElement != null
-                && elements[getElement(selectedElement)].getClass()== new CircuitElement().getClass()) {
-            elements[getElement(selectedElement)] = new SWITCH(selectedElement, largeCellSize);
+                && elements.circuit[getElement(selectedElement)].getClass()== new CircuitElement().getClass()) {
+            elements.circuit[getElement(selectedElement)] = new SWITCH(selectedElement, largeCellSize);
             selectedElement = null;
             onScreenToast("Switch Created");
 
@@ -475,8 +484,8 @@ class GridAndMenu {
     private void led() {
         Log.d("Debugging", "LED");
         if (selectedElement != null
-                && elements[getElement(selectedElement)].getClass()== new CircuitElement().getClass()) {
-            elements[getElement(selectedElement)] = new LED(selectedElement, largeCellSize);
+                && elements.circuit[getElement(selectedElement)].getClass()== new CircuitElement().getClass()) {
+            elements.circuit[getElement(selectedElement)] = new LED(selectedElement, largeCellSize);
             selectedElement = null;
             onScreenToast("LED Created");
 
@@ -487,9 +496,9 @@ class GridAndMenu {
     private void toggle() {
         Log.d("Debugging", "1/0");
         if (selectedElement != null) {
-            if (elements[getElement(selectedElement)] instanceof SWITCH) {
-                String label = elements[getElement(selectedElement)].label;
-                ((SWITCH) elements[getElement(selectedElement)]).toggle();
+            if (elements.circuit[getElement(selectedElement)] instanceof SWITCH) {
+                String label = elements.circuit[getElement(selectedElement)].label;
+                ((SWITCH) elements.circuit[getElement(selectedElement)]).toggle();
                 selectedElement = null;
                 onScreenToast("Switch Toggled");
 
@@ -523,7 +532,7 @@ class GridAndMenu {
 
     private void saveSchematic(int input){
 
-            savedSchematics[input]=elements;
+            savedSchematics[input]=elements.circuit;
 
 
         Log.d("Debugging", "Saving Diagram");
@@ -532,10 +541,10 @@ class GridAndMenu {
 
     private void loadSchematic(int input){
         if(savedSchematics[input]!=null) {
-            elements = savedSchematics[input];
+            elements.circuit = savedSchematics[input];
         }
         else{
-            elements = new CircuitElement[numberOfCircuitElements];
+            elements.circuit = new CircuitElement[numberOfCircuitElements];
         }
         Log.d("Debugging", "Loading Diagram");
 
@@ -543,23 +552,26 @@ class GridAndMenu {
 
 
     //Methods for UNDO and REDO -- looking into stack implementation - Ali
-    //Changed to the java stack instad of creating our own
+    //Changed to the java stack instead of creating our own
 
     private void undo() {
         //The redo stack is topped off with the top element of the
-        redoStack.push(elements);
+        pushToRedo();
 
         //Our elements are replaced by the top of the undo Stack
-        elements = undoStack.pop();
+        if(!undoStack.isEmpty())
+            elements = undoStack.pop();
+
         }
 
 
     private void redo() {
         //The undo stack is topped off with the our current elements
-        undoStack.push(elements);
+       pushToUndo();
 
         //Our elements are replaced by the top of the redo Stack
-        elements = redoStack.pop();
+        if(!redoStack.isEmpty())
+            elements = redoStack.pop();
     }
 
     //------------------------------------------------------------------------------------------
@@ -592,8 +604,8 @@ class GridAndMenu {
     //It also stores a value(nodeNumber) to tell which input node has been selected
     void wireTwoElements(Point touchPoint, Point nodeTouch){
         if(selectedElement != touchPoint) {
-            CircuitElement elementOutputting = elements[getElement((selectedElement))];
-            CircuitElement elementGettingInput= elements[getElement(touchPoint)];
+            CircuitElement elementOutputting = elements.circuit[getElement((selectedElement))];
+            CircuitElement elementGettingInput= elements.circuit[getElement(touchPoint)];
             if (elementGettingInput.inputNodes !=null) {
                 int nodeNumber = getClosestNode(touchPoint, nodeTouch);
                 setConnection(nodeNumber, elementGettingInput, elementOutputting);
@@ -602,7 +614,7 @@ class GridAndMenu {
         selectedNode = null;
         selectedElement = null;
         selectedButton = null;
-        undoStack.push(elements);
+        pushToUndo();
     }
 
     //-------------------------------------------------------------------------------------------
@@ -610,10 +622,10 @@ class GridAndMenu {
     //This method returns the index of an element
     //If an element is not found, it returns -1.
     int getElement(Point input){
-        if(elements!=null) {
+        if(elements.circuit!=null) {
             for (int i = 0; i < numberOfCircuitElements; i++) {
-                if (elements[i] != null) {
-                    if ((input.x == elements[i].position.x) && (input.y == elements[i].position.y)) {
+                if (elements.circuit[i] != null) {
+                    if ((input.x == elements.circuit[i].position.x) && (input.y == elements.circuit[i].position.y)) {
                         return i;
                     }
                 }
@@ -641,7 +653,7 @@ class GridAndMenu {
         //This value will always be overwritten in the first loop.
         int newDistance = 0;
         //get the element we have touched
-        CircuitElement element = elements[getElement(touchPoint)];
+        CircuitElement element = elements.circuit[getElement(touchPoint)];
         int numberOfNodes = element.inputNodes.size();
             int shortest=0;
             //For every input node an element has (Should only be 2)
@@ -672,13 +684,12 @@ class GridAndMenu {
     //This method changes the position of a circuit element
     private void move(Point touchPoint){
         Log.d("Debugging", "Element Moved to:" +touchPoint.x+", "+touchPoint.y);
-        elements[getElement(selectedElement)].updatePosition(touchPoint);
-        undoStack.push(elements);
+        elements.circuit[getElement(selectedElement)].updatePosition(touchPoint);
     }
 
     //This method checks that all the gates are connected before running.
     private boolean nullConnections(){
-        for(CircuitElement element : elements) {
+        for(CircuitElement element : elements.circuit) {
             if (element != null) {
                 if (!(element instanceof SWITCH)) {
                     if (element.a == null) {
@@ -697,5 +708,22 @@ class GridAndMenu {
         }
             Log.d("Debugging", "No Null Connections Found");
         return false;
+    }
+    private void pushToRedo(){
+        Schematic temp;
+        temp = createNewSchematic();
+        redoStack.push(temp);
+    }
+    private void pushToUndo(){
+        Schematic temp;
+        temp = createNewSchematic();
+        undoStack.push(temp);
+    }
+    private Schematic createNewSchematic(){
+        Schematic result = new Schematic(numberOfCircuitElements);
+        for(int i = 0; i < numberOfCircuitElements; i++){
+            result.circuit[i] = elements.circuit[i];
+        }
+        return result;
     }
 }
