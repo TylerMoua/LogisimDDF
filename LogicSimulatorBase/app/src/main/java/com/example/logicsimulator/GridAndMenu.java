@@ -537,7 +537,6 @@ class GridAndMenu {
     //Methods for UNDO and REDO -- looking into stack implementation - Ali
 
     private void undo() {
-//            stack.pop();
 
         }
 
