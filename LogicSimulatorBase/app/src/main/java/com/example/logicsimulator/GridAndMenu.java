@@ -36,7 +36,7 @@ class GridAndMenu {
     private int numberOfSavableSchematic = 3;
 
     //UNDO - REDO Stack
-    private UndoRedoStack stack = new UndoRedoStack();
+    private Stack<CircuitElement> stack = new Stack<>();
 
 
     private CircuitElement[][] savedSchematics = new CircuitElement[numberOfSavableSchematic][];
@@ -365,8 +365,6 @@ class GridAndMenu {
             for (int i = 0; i < numberOfCircuitElements; i++) {
                 if (elements[i] == null) {
                     elements[i] = new CircuitElement(location, largeCellSize);
-//                    testing stacks for undo/redo
-//                    stack.push(elements[i]);
                     break;
                 }
             }
@@ -433,11 +431,6 @@ class GridAndMenu {
             elements[getElement(selectedElement)] = new ANDGATE(selectedElement, context, largeCellSize);
             selectedElement = null;
             onScreenToast("And Gate created");
-//            ----------------------------------------------------------------------------------------------------
-            //Code trying to implement a Stack for Undo / Redo
-
-
-
         }
     }
 
@@ -544,7 +537,7 @@ class GridAndMenu {
     //Methods for UNDO and REDO -- looking into stack implementation - Ali
 
     private void undo() {
-            stack.pop();
+//            stack.pop();
 
         }
 
