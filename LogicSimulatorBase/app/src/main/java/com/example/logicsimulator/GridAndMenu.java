@@ -35,14 +35,8 @@ class GridAndMenu {
     private int numberOfActiveElements = 0;
     private int numberOfSavableSchematic = 3;
 
-<<<<<<< HEAD
     Stack<Schematic> undoStack = new Stack<>();
     Stack<Schematic> redoStack = new Stack<>();
-=======
-    //UNDO - REDO Stack
-    private Stack<CircuitElement> stack = new Stack<>();
-
->>>>>>> 1518465a54b32509f0c0de11f5f4c2ad96417e74
 
     private CircuitElement[][] savedSchematics = new CircuitElement[numberOfSavableSchematic][];
 
@@ -132,14 +126,12 @@ class GridAndMenu {
         toast.show();
     }
 
-
     //Prints a debug message to indicate the state we are in.
     private void debugUpdate(){
         if(selectedButton == null)
             Log.d("Debugging", "Menu Selected: None"  + "\nElement Selected: " + selectedElement + "\nNode Selected:" + selectedNode);
         else
             Log.d("Debugging", "Menu Selected: " +  menu[selectedButton.x].label +"\nElement Selected: " + selectedElement + "\nNode Selected:" + selectedNode);
-<<<<<<< HEAD
         Log.d("Debugging", "Undo Stack:");
         for (int i = 0; i < undoStack.size(); i++){
             Log.d("Debugging", "\n" + undoStack.elementAt(i).toString());
@@ -148,8 +140,6 @@ class GridAndMenu {
         for (int i = 0; i < redoStack.size(); i++){
             Log.d("Debugging", "\n" + redoStack.elementAt(i).toString());
         }
-=======
->>>>>>> 1518465a54b32509f0c0de11f5f4c2ad96417e74
     }
 
     //This method whiteouts the screen
@@ -382,17 +372,11 @@ class GridAndMenu {
         Point location = new Point(0,0);
         if((getElement(location)==-1)
                 &&numberOfActiveElements<numberOfCircuitElements) {
-<<<<<<< HEAD
             for (int i = 0; i <numberOfCircuitElements; i++) {
                 if (elements.circuit[i] == null) {
                     elements.circuit[i] = new CircuitElement(location, largeCellSize);
 //                    testing stacks for undo/redo
 //                    stack.push(elements[i]);
-=======
-            for (int i = 0; i < numberOfCircuitElements; i++) {
-                if (elements[i] == null) {
-                    elements[i] = new CircuitElement(location, largeCellSize);
->>>>>>> 1518465a54b32509f0c0de11f5f4c2ad96417e74
                     break;
                 }
             }
@@ -459,6 +443,11 @@ class GridAndMenu {
             elements.circuit[getElement(selectedElement)] = new ANDGATE(selectedElement, context, largeCellSize);
             selectedElement = null;
             onScreenToast("And Gate created");
+//            ----------------------------------------------------------------------------------------------------
+            //Code trying to implement a Stack for Undo / Redo
+
+
+
         }
     }
 
@@ -563,7 +552,6 @@ class GridAndMenu {
 
 
     //Methods for UNDO and REDO -- looking into stack implementation - Ali
-<<<<<<< HEAD
     //Changed to the java stack instead of creating our own
 
     private void undo() {
@@ -574,28 +562,17 @@ class GridAndMenu {
         if(!undoStack.isEmpty())
             elements = undoStack.pop();
 
-=======
-
-    private void undo() {
-
->>>>>>> 1518465a54b32509f0c0de11f5f4c2ad96417e74
         }
 
 
     private void redo() {
-<<<<<<< HEAD
         //The undo stack is topped off with the our current elements
        pushToUndo();
 
         //Our elements are replaced by the top of the redo Stack
         if(!redoStack.isEmpty())
             elements = redoStack.pop();
-=======
-
->>>>>>> 1518465a54b32509f0c0de11f5f4c2ad96417e74
     }
-
-
 
     //------------------------------------------------------------------------------------------
     //These are methods called by the touch processor
@@ -637,11 +614,7 @@ class GridAndMenu {
         selectedNode = null;
         selectedElement = null;
         selectedButton = null;
-<<<<<<< HEAD
         pushToUndo();
-=======
-
->>>>>>> 1518465a54b32509f0c0de11f5f4c2ad96417e74
     }
 
     //-------------------------------------------------------------------------------------------
@@ -711,11 +684,7 @@ class GridAndMenu {
     //This method changes the position of a circuit element
     private void move(Point touchPoint){
         Log.d("Debugging", "Element Moved to:" +touchPoint.x+", "+touchPoint.y);
-<<<<<<< HEAD
         elements.circuit[getElement(selectedElement)].updatePosition(touchPoint);
-=======
-        elements[getElement(selectedElement)].updatePosition(touchPoint);
->>>>>>> 1518465a54b32509f0c0de11f5f4c2ad96417e74
     }
 
     //This method checks that all the gates are connected before running.
