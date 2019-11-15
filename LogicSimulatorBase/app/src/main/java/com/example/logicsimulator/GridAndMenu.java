@@ -33,10 +33,10 @@ class GridAndMenu {
     private final int numberOfHorizontalCells = 30;
     private final int numberOfVerticalCells = 15;
     private int numberOfActiveElements = 0;
-    private int numberOfSavableSchematic = 3;
+    private int numberOfSavableSchematic = 4;
 
-    //UNDO - REDO Stack
-    private Stack<CircuitElement> stack = new Stack<>();
+    //UNDO - REDO Stack - -Shitty code..tyler save me
+    private Stack<CircuitElement[]> stack = new Stack<>();
 
 
     private CircuitElement[][] savedSchematics = new CircuitElement[numberOfSavableSchematic][];
@@ -259,6 +259,7 @@ class GridAndMenu {
                 if(!playing){
                     add();
                     onScreenToast("Element Added");
+
                 }
                 break;
             //---------------------------------------------------------------------------------
@@ -302,8 +303,13 @@ class GridAndMenu {
             //-----------------------------------------------------------------
             case 10: // Save Button
                 if (!playing) {
-                    save();
-                    onScreenToast("Choose A, B, C to Save Current Layout");
+                    if(numberOfActiveElements==0){
+                        onScreenToast("Nothing to Save");
+                    } else {
+                        save();
+                        onScreenToast("Choose A, B, C to Save Current Layout");
+                    }
+
                 }
                 break;
             //-----------------------------------------------------------------
@@ -513,6 +519,7 @@ class GridAndMenu {
 
     }
 
+
     private void saveSchematic(int input){
 
             savedSchematics[input]=elements;
@@ -534,7 +541,7 @@ class GridAndMenu {
     }
 
 
-    //Methods for UNDO and REDO -- looking into stack implementation - Ali
+    //Methods for UNDO and REDO -- -
 
     private void undo() {
 
