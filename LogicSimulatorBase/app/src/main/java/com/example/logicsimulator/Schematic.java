@@ -1,4 +1,4 @@
-dpackage com.example.logicsimulator;
+package com.example.logicsimulator;
 
 import androidx.annotation.NonNull;
 

@@ -240,7 +240,16 @@
 			updateScreen is the main printing method this is called my LogicSimulator. It calls each individual printing/drawing method in a specific order. Of the other various
 			
 ### Schematic Class
-	This class handles ... 
+	This class handles the array of circuit elements that represents our schematic.
+	Fields:
+		int numberOfCircuitElements
+
+		CircuitElement[] circuit:
+			This field is the container for the circuit elements in a given schematic.
+	Methods:
+		toString:
+			This method returns a string containing the labels of each element, seperated by commas.
+			It is used for tracking the contents of the undo/redo stack
 			
 ### Printing and Drawing Methods
 	There are three notable printing and drawing methods: 
