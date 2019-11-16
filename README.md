@@ -48,7 +48,7 @@
 		While the circuit is playing, and LED is yellow when high and grey when low.
 
 	Toast Messages:
-		Temporary, on-screen messages are handled by the built-in toast methods. A toast provides simple feedback about an operation in a small popup. It only fills the amount of space required for the message and the current activity remains visible and interactive. Toasts automatically disappear after a timeout. 
+		Temporary, on-screen messages to provide simple feedback.
 		
 ### Elements of the UI Circuit elements:
 	Input Switches:
@@ -357,3 +357,6 @@
 			
 		LED: 
 			An LED is a circuit element that has no output. It has a state “on” or “off” that depends on its input.
+
+		Toast: 
+			A toast provides simple feedback about an operation in a small popup. It only fills the amount of space required for the message and the current activity remains visible and interactive. Toasts automatically disappear after a timeout. 
