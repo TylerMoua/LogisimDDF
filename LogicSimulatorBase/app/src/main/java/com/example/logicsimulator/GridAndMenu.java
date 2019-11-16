@@ -120,7 +120,7 @@ class GridAndMenu {
 
     //Toast Messages for On Screen Feedback - Ali
     private void onScreenToast(String prompt) {
-        Toast toast= Toast.makeText(context,
+        Toast toast = Toast.makeText(context,
                 prompt, Toast.LENGTH_SHORT);
         toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 0);
         toast.show();
