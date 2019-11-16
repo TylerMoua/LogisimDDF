@@ -35,9 +35,6 @@ class GridAndMenu {
     private int numberOfActiveElements = 0;
     private int numberOfSavableSchematic = 4;
 
-    //UNDO - REDO Stack - -Shitty code..tyler save me
-    private Stack<CircuitElement[]> stack = new Stack<>();
-
     Stack<Schematic> undoStack = new Stack<>();
     Stack<Schematic> redoStack = new Stack<>();
 
@@ -270,7 +267,6 @@ class GridAndMenu {
                     add();
                     pushToUndo();
                     onScreenToast("Element Added");
-
                 }
                 break;
             //---------------------------------------------------------------------------------
@@ -284,7 +280,6 @@ class GridAndMenu {
             case 3: //Wire BUTTON
                 if(!playing) {
                     wire();
-                    //Displays prompt with certain condition
                     if(numberOfActiveElements >= 2)
                         onScreenToast("Choose an Element to Wire To");
                 }
@@ -346,15 +341,23 @@ class GridAndMenu {
             //-----------------------------------------------------------------
             case 14: //Undo Button
                 if(!playing){
-                    undo();
-                    onScreenToast("Undo");
+                    if(undoStack.isEmpty()){
+                        onScreenToast("Nothing to Undo");
+                    } else {
+                        undo();
+                        onScreenToast("Undo");
+                    }
                 }
                 break;
             //-----------------------------------------------------------------
             case 15: //Redo Button
                 if(!playing){
-                    redo();
-                    onScreenToast("Redo");
+                    if(redoStack.isEmpty()) {
+                        onScreenToast("Nothing to Redo");
+                    } else {
+                        redo();
+                        onScreenToast("Redo");
+                    }
                 }
                 break;
             //-----------------------------------------------------------------
@@ -379,22 +382,20 @@ class GridAndMenu {
     //This method adds an element to the elements Array
     private void add() {
         Point location = new Point(0,0);
-        if((getElement(location)==-1)
-                &&numberOfActiveElements<numberOfCircuitElements) {
+        if((getElement(location)==-1) && numberOfActiveElements<numberOfCircuitElements) {
             for (int i = 0; i <numberOfCircuitElements; i++) {
                 if (elements.circuit[i] == null) {
                     elements.circuit[i] = new CircuitElement(location, largeCellSize);
-//                    testing stacks for undo/redo
-//                    stack.push(elements[i]);
                     break;
                 }
             }
 
             numberOfActiveElements++;
-
             Log.d("Debugging", "Current Elements:" + numberOfActiveElements);
-        }else
+        } else
             Log.d("Debugging","No Element Added, Space occupied OR Too many element");
+
+
     }
 
     //This method removes an element from the elements Array and removes wire connections
@@ -409,7 +410,10 @@ class GridAndMenu {
             onScreenToast("Element Subtracted");
         } else
             Log.d("Debugging", "No Element Subtracted");
+
+
     }
+
 
     //This method removes an elements wire connections
     private void removeConnections(){
@@ -448,15 +452,9 @@ class GridAndMenu {
     private void and() {
         if (selectedElement != null
                 && elements.circuit[getElement(selectedElement)].getClass()== new CircuitElement().getClass()) {
-//            original code
             elements.circuit[getElement(selectedElement)] = new ANDGATE(selectedElement, context, largeCellSize);
             selectedElement = null;
             onScreenToast("And Gate created");
-//            ----------------------------------------------------------------------------------------------------
-            //Code trying to implement a Stack for Undo / Redo
-
-
-
         }
     }
 
@@ -541,10 +539,7 @@ class GridAndMenu {
 
 
     private void saveSchematic(int input){
-
             savedSchematics[input]=elements.circuit;
-
-
         Log.d("Debugging", "Saving Diagram");
 
     }
@@ -561,7 +556,7 @@ class GridAndMenu {
     }
 
 
-    //Methods for UNDO and REDO -- looking into stack implementation - Ali
+    //Methods for UNDO and REDO
     //Changed to the java stack instead of creating our own
 
     private void undo() {
@@ -719,6 +714,8 @@ class GridAndMenu {
             Log.d("Debugging", "No Null Connections Found");
         return false;
     }
+
+
     private void pushToRedo(){
         Schematic temp;
         temp = createNewSchematic();
