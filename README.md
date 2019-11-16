@@ -47,6 +47,9 @@
 		Buttons are highlighted blue when selected and the Play/Save buttons become red when active. 
 		While the circuit is playing, and LED is yellow when high and grey when low.
 
+	Toast Messages:
+		Temporary, on-screen messages are handled by the built-in toast methods. A toast provides simple feedback about an operation in a small popup. It only fills the amount of space required for the message and the current activity remains visible and interactive. Toasts automatically disappear after a timeout. 
+		
 ### Elements of the UI Circuit elements:
 	Input Switches:
 		These switches can be set to output a 1 or 0
@@ -156,8 +159,8 @@
 			If the save button has already been selected, this button saves the current schematic.
 			If the save button has not been selected, this button will load a saved schematic.
 			If there is no saved schematic, an empty schematic will be loaded.
-			UNDO Button:
-		This button allows the user to undo the last change they made to the circuit.
+		UNDO Button:
+			This button allows the user to undo the last change they made to the circuit.
 		REDO Button:
 			This button allows the user to redo the last undo command.
 ### The Code Class Hierarchy:
@@ -191,6 +194,8 @@
 				C 
 				UNDO
 				REDO
+	Schematic 
+				
 ### LogicSimulator Class:
 	This class handles the creation of the application. It has four major methods:
 
@@ -233,6 +238,9 @@
 		Printing Methods: 
 			There are various methods that print to the canvas. 
 			updateScreen is the main printing method this is called my LogicSimulator. It calls each individual printing/drawing method in a specific order. Of the other various
+			
+### Schematic Class
+	This class handles ... 
 			
 ### Printing and Drawing Methods
 	There are three notable printing and drawing methods: 
@@ -282,7 +290,13 @@
 						This method returns the closest input node from the users touch. move: This method changes the position of an element. 
 					nullConnections: 
 						This method returns a Boolean value: true if there are any null connections in the entire schematic(Meaning that it checks the .a and .b values of all the elements in the elements array for null), and false if there aren’t any.
-
+					onScreenToast:
+						This method creates a toast object to be used for displaying useful feedback.
+						
+### Undo and Redo Methods
+	The Undo method is called upon user interaction. It first pushes its top element onto the Redo stack. Then, it sets the elements variable to the value popped from the Undo stack. 
+	
+	The Redo method serves a similar purpose. It first pushes its top element onto the Undo stack. Then, it sets the elements variable to the value popped from the Redo stack.
 
 ### Classes 
 
