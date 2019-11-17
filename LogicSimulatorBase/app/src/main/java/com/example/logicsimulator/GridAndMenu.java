@@ -33,12 +33,14 @@ class GridAndMenu {
     private final int numberOfHorizontalCells = 30;
     private final int numberOfVerticalCells = 15;
     private int numberOfActiveElements = 0;
-    private int numberOfSavableSchematic = 4;
+    private int numberOfSavableSchematic = 3;
 
     Stack<Schematic> undoStack = new Stack<>();
     Stack<Schematic> redoStack = new Stack<>();
 
+
     private CircuitElement[][] savedSchematics = new CircuitElement[numberOfSavableSchematic][];
+
 
     private Button[] menu = {new PLAY(0), new ADD(1), new SUB(2), new WIRE(3)
             , new AND(4), new OR(5), new NOT(6), new SWITCHBUTTON(7)
@@ -264,21 +266,22 @@ class GridAndMenu {
             //-------------------------------------------------------------------------------
             case 1: //ADD BUTTON
                 if(!playing){
-                    add();
                     pushToUndo();
+                    add();
                     onScreenToast("Element Added");
                 }
                 break;
             //---------------------------------------------------------------------------------
             case 2: //SUB BUTTON
                 if(!playing) {
-                    sub();
                     pushToUndo();
+                    sub();
                 }
                 break;
             //-----------------------------------------------------------------------------
             case 3: //Wire BUTTON
                 if(!playing) {
+                    pushToUndo();
                     wire();
                     if(numberOfActiveElements >= 2)
                         onScreenToast("Choose an Element to Wire To");
@@ -286,26 +289,32 @@ class GridAndMenu {
                 break;
             //------------------------------------------------------------------------
             case 4: //AND BUTTON
+                pushToUndo();
                 and();
                 break;
             //------------------------------------------------------------------------
             case 5://OR BUTTON
+                pushToUndo();
                 or();
                 break;
             //----------------------------------------------------------------------
             case 6: //NOT BUTTON
+                pushToUndo();
                 not();
                 break;
             //----------------------------------------------------------------------
             case 7: //SWITCH BUTTON
+                pushToUndo();
                 inputSwitch();
                 break;
             //-----------------------------------------------------------------
             case 8: //LED BUTTON
+                pushToUndo();
                 led();
                 break;
             //--------------------------------------------------------------------
             case 9: // 1/0 BUTTON
+                pushToUndo();
                 toggle();
                 break;
             //-----------------------------------------------------------------
@@ -556,29 +565,6 @@ class GridAndMenu {
     }
 
 
-    //Methods for UNDO and REDO
-    //Changed to the java stack instead of creating our own
-
-    private void undo() {
-        //The redo stack is topped off with the top element of the
-        pushToRedo();
-
-        //Our elements are replaced by the top of the undo Stack
-        if(!undoStack.isEmpty())
-            elements = undoStack.pop();
-
-        }
-
-
-    private void redo() {
-        //The undo stack is topped off with the our current elements
-       pushToUndo();
-
-        //Our elements are replaced by the top of the redo Stack
-        if(!redoStack.isEmpty())
-            elements = redoStack.pop();
-    }
-
     //------------------------------------------------------------------------------------------
     //These are methods called by the touch processor
 
@@ -619,7 +605,6 @@ class GridAndMenu {
         selectedNode = null;
         selectedElement = null;
         selectedButton = null;
-        pushToUndo();
     }
 
     //-------------------------------------------------------------------------------------------
@@ -716,6 +701,30 @@ class GridAndMenu {
     }
 
 
+    //Methods for UNDO and REDO
+    //Changed to the java stack instead of creating our own
+
+    private void undo() {
+        //The redo stack is topped off with the top element of the
+        pushToRedo();
+
+        //Our elements are replaced by the top of the undo Stack
+        if(!undoStack.isEmpty())
+            elements = undoStack.pop();
+
+    }
+
+
+    private void redo() {
+        //The undo stack is topped off with the our current elements
+        pushToUndo();
+
+        //Our elements are replaced by the top of the redo Stack
+        if(!redoStack.isEmpty())
+            elements = redoStack.pop();
+    }
+
+
     private void pushToRedo(){
         Schematic temp;
         temp = createNewSchematic();
@@ -726,6 +735,7 @@ class GridAndMenu {
         temp = createNewSchematic();
         undoStack.push(temp);
     }
+
     private Schematic createNewSchematic(){
         Schematic result = new Schematic(numberOfCircuitElements);
         for(int i = 0; i < numberOfCircuitElements; i++){
