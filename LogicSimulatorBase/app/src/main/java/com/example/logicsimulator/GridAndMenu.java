@@ -202,7 +202,7 @@ class GridAndMenu {
             if (node == 0) {
                 if (type.equals("class com.example.logicsimulator.NOTGATE")||
                         type.equals("class com.example.logicsimulator.LED")) {
-                    //wire to the center of the element
+                    //wire to thes center of the element
                     myCanvas.drawLine(
                             smallCellSize * start.x,
                             (smallCellSize * start.y) + smallCellSize / 2,
@@ -386,6 +386,8 @@ class GridAndMenu {
             playing = !playing;
             ((PLAY) menu[0]).toggle();
         }
+        else
+            onScreenToast("Not all elements connected");
     }
 
     //This method adds an element to the elements Array

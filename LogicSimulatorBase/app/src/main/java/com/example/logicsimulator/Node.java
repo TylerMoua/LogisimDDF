@@ -292,7 +292,7 @@ abstract class Button extends ElementOrButton{
         printLabel(buttonBlockSize, myCanvas,gridHeight);
     }
     void select(int blockSize, Canvas myCanvas, int gridHeight){
-        paint.setColor(Color.argb(255, 0, 0, 255));
+        paint.setColor(Color.argb(125, 0, 0, 125));
         color(blockSize, myCanvas, gridHeight);
     }
 
