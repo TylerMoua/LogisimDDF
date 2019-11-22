@@ -3,9 +3,13 @@ package com.example.logicsimulator;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.Point;
+import android.media.MediaPlayer;
+import android.net.Uri;
+import android.opengl.Visibility;
 import android.os.Bundle;
 import android.view.Display;
 import android.view.MotionEvent;
+import android.view.View;
 import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.VideoView;
@@ -23,9 +27,8 @@ public class LogicSimulator extends Activity {
         super.onCreate(savedInstanceState);
         getResolution();
         setObjects();
-        setContentView(gameView);
+//        setContentView(gameView);
         mediaPlayer();
-
         gameView.setImageBitmap(blankBitmap);
         gridAndMenu.updateScreen();
     }
@@ -45,9 +48,23 @@ public class LogicSimulator extends Activity {
     }
 
     void mediaPlayer(){
-        VideoView wview = new VideoView(this);
-//        wview.setVideoPath("file:///android_asset/introvid.mp4");
-//        setContentView(wview);
+        final VideoView wview = new VideoView(this);
+        Uri uri = Uri.parse("android.resource://"+getPackageName()+"/"+R.raw.introvid);
+        wview.setVideoURI(uri);
+        wview.start();
+        setContentView(wview);
+
+        wview.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                // TODO Auto-generated method stub
+
+                //write your code after complete video play
+                wview.setVisibility(View.GONE);
+                setContentView(gameView);
+            }
+        });
 
     }
 
