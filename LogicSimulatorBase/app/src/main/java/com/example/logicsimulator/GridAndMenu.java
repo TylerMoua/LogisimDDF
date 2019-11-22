@@ -6,10 +6,11 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
+import android.media.MediaPlayer;
 import android.util.Log;
 import android.view.Gravity;
+import android.webkit.WebView;
 import android.widget.Toast;
-
 import java.util.Stack;
 
 
@@ -24,12 +25,12 @@ class GridAndMenu {
     Point selectedElement, selectedNode;
     private Point selectedButton;
 
-    private boolean playing, saving = false;
+    private boolean playing, saving, introducing = false;
     private Context context;
     private Canvas myCanvas;
     private Paint paint = new Paint();
     private final int numberOfCircuitElements = 10;
-    private final int numberOfButtons = 17;
+    private final int numberOfButtons = 18;
     private final int numberOfHorizontalCells = 30;
     private final int numberOfVerticalCells = 15;
     private int numberOfActiveElements = 0;
@@ -44,13 +45,11 @@ class GridAndMenu {
 
     private Button[] menu = {new PLAY(0), new ADD(1), new SUB(2), new WIRE(3)
             , new AND(4), new OR(5), new NOT(6), new SWITCHBUTTON(7)
-            , new LEDBUTTON(8), new TOGGLE(9), new Save(10), new A(11), new B(12), new C(13), new UNDO(14), new REDO(15), new XAND(16)};
+            , new LEDBUTTON(8), new TOGGLE(9), new Save(10), new A(11), new B(12), new C(13), new UNDO(14), new REDO(15), new XAND(16), new INTRO(17)};
 
     private Node[][] cells =
             new Node[numberOfHorizontalCells][numberOfVerticalCells];
 
-    //private CircuitElement[] elements =
-      //      new CircuitElement[numberOfCircuitElements];
     private Schematic elements = new Schematic(numberOfCircuitElements);
 
     //largeCellSize: Circuit elements
@@ -373,6 +372,11 @@ class GridAndMenu {
             case 16: //XAND Button
                 onScreenToast("XAND Sample Gate");
                 break;
+            //-----------------------------------------------------------------
+
+            case 17: //Intro Button
+                intro();
+                break;
         }
     }
 
@@ -524,11 +528,23 @@ class GridAndMenu {
         }
     }
 
+    //this method toggles our intro state
+    private void intro() {
+        introducing = !introducing;
+    }
+
+    private void videoPlayer() {
+
+
+
+    }
+
     //This method toggles our save state.
     private void save(){
         saving = !saving;
         ((Save) menu[10]).toggle();
     }
+
 
     // This method is called by the A, B, and C buttons.
     //Based on the saving boolean value, it will save or load a state from
@@ -675,6 +691,7 @@ class GridAndMenu {
 
     //This method changes the position of a circuit element
     private void move(Point touchPoint){
+        pushToUndo();
         Log.d("Debugging", "Element Moved to:" +touchPoint.x+", "+touchPoint.y);
         elements.circuit[getElement(selectedElement)].updatePosition(touchPoint);
     }

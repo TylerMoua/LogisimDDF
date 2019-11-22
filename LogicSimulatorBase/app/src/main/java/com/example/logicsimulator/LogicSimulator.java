@@ -6,7 +6,9 @@ import android.graphics.Point;
 import android.os.Bundle;
 import android.view.Display;
 import android.view.MotionEvent;
+import android.webkit.WebView;
 import android.widget.ImageView;
+import android.widget.VideoView;
 
 public class LogicSimulator extends Activity {
     Point size;
@@ -22,6 +24,7 @@ public class LogicSimulator extends Activity {
         getResolution();
         setObjects();
         setContentView(gameView);
+        mediaPlayer();
 
         gameView.setImageBitmap(blankBitmap);
         gridAndMenu.updateScreen();
@@ -41,6 +44,13 @@ public class LogicSimulator extends Activity {
         display.getSize(size);
     }
 
+    void mediaPlayer(){
+        VideoView wview = new VideoView(this);
+//        wview.setVideoPath("file:///android_asset/introvid.mp4");
+//        setContentView(wview);
+
+    }
+
     @Override
     public boolean onTouchEvent(MotionEvent motionEvent) {
         // Has the player removed their finger from the screen?
@@ -51,4 +61,5 @@ public class LogicSimulator extends Activity {
         }
         return true;
     }
+
 }

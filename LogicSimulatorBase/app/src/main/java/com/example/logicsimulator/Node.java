@@ -423,6 +423,15 @@ class XAND extends Button {
     }
 }
 
+//button to create an example of the AND schematic
+class INTRO extends Button {
+    INTRO(int x) {
+        position = new Point(x, 0);
+        this.label = "INTRO";
+    }
+}
+
+
 //These buttons can change their color based on its state.
 abstract class SavedClick extends Button{
     boolean state = false;
