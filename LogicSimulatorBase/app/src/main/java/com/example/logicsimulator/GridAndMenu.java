@@ -420,7 +420,7 @@ class GridAndMenu {
     private void sub() {
         if (selectedElement != null) {
             Log.d("Debugging", "Element Subtracted");
-            removeConnections();
+            elements.removeConnections(selectedElement);
             int index = elements.getElement(selectedElement);
             elements.circuit[index] = null;
             selectedElement = null;
@@ -433,25 +433,6 @@ class GridAndMenu {
     }
 
 
-    //This method removes an elements wire connections
-    private void removeConnections(){
-        for(CircuitElement element : elements.circuit){
-            if (element != null) {
-                if (element.a != null) {
-                    if (element.a.checkPosition(selectedElement)) {
-                        element.a = null;
-                    }
-                    if (element instanceof TwoInOneOut) {
-                        if (((TwoInOneOut) element).b != null) {
-                            if (((TwoInOneOut) element).b.checkPosition(selectedElement)) {
-                                ((TwoInOneOut) element).b = null;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
 
     //This method selects the output node of the selected element.
     //Note: Now that a node has been selected, out state has changed.
@@ -522,7 +503,6 @@ class GridAndMenu {
         Log.d("Debugging", "1/0");
         if (selectedElement != null) {
             if (elements.circuit[elements.getElement(selectedElement)] instanceof SWITCH) {
-                String label = elements.circuit[elements.getElement(selectedElement)].label;
                 ((SWITCH) elements.circuit[elements.getElement(selectedElement)]).toggle();
                 selectedElement = null;
                 onScreenToast("Switch Toggled");

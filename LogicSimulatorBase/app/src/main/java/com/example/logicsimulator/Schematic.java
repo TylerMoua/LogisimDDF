@@ -105,7 +105,25 @@ public class Schematic {
         circuit[getElement(selectedElement)].updatePosition(touchPoint);
     }
 
-
+    //This method removes an elements wire connections
+    void removeConnections(Point selectedElement){
+        for(CircuitElement element : circuit){
+            if (element != null) {
+                if (element.a != null) {
+                    if (element.a.checkPosition(selectedElement)) {
+                        element.a = null;
+                    }
+                    if (element instanceof TwoInOneOut) {
+                        if (((TwoInOneOut) element).b != null) {
+                            if (((TwoInOneOut) element).b.checkPosition(selectedElement)) {
+                                ((TwoInOneOut) element).b = null;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
     boolean nullConnections() {
         for (CircuitElement element : circuit) {
             if (element != null) {
@@ -127,6 +145,7 @@ public class Schematic {
         Log.d("Debugging", "No Null Connections Found");
         return false;
     }
+
     Schematic copy(){
         Schematic result = new Schematic(numberOfCircuitElements);
         for(int i = 0; i < numberOfCircuitElements; i++){
