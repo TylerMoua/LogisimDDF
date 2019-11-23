@@ -478,7 +478,7 @@ class XOR extends Button {
 
 }
 
-class menuSwap extends Button{
+class menuSwap extends UndoAndRedo{
     menuSwap(int x) {
         position = new Point(x, 0);
         this.label = "Change Menu";
