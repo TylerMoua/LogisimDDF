@@ -3,10 +3,16 @@ package com.example.logicsimulator;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.Point;
+import android.media.MediaPlayer;
+import android.net.Uri;
+import android.opengl.Visibility;
 import android.os.Bundle;
 import android.view.Display;
 import android.view.MotionEvent;
+import android.view.View;
+import android.webkit.WebView;
 import android.widget.ImageView;
+import android.widget.VideoView;
 
 public class LogicSimulator extends Activity {
     Point size;
@@ -22,7 +28,7 @@ public class LogicSimulator extends Activity {
         getResolution();
         setObjects();
         setContentView(gameView);
-
+   //     mediaPlayer();
         gameView.setImageBitmap(blankBitmap);
         gridAndMenu.updateScreen();
     }
@@ -41,6 +47,27 @@ public class LogicSimulator extends Activity {
         display.getSize(size);
     }
 
+    void mediaPlayer(){
+        final VideoView wview = new VideoView(this);
+        Uri uri = Uri.parse("android.resource://"+getPackageName()+"/"+R.raw.introvid);
+        wview.setVideoURI(uri);
+        wview.start();
+        setContentView(wview);
+
+        wview.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                // TODO Auto-generated method stub
+
+                //write your code after complete video play
+                wview.setVisibility(View.GONE);
+                setContentView(gameView);
+            }
+        });
+
+    }
+
     @Override
     public boolean onTouchEvent(MotionEvent motionEvent) {
         // Has the player removed their finger from the screen?
@@ -51,4 +78,5 @@ public class LogicSimulator extends Activity {
         }
         return true;
     }
+
 }
