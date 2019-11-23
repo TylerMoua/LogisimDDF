@@ -400,14 +400,12 @@ class GridAndMenu {
 
     //This method adds an element to the elements Array
     private void add() {
-        Point location = new Point(0,0);
-        if((elements.getElement(location)==-1) && numberOfActiveElements<numberOfCircuitElements) {
+        if((elements.getElement(new Point(0,0))==-1) && numberOfActiveElements<numberOfCircuitElements) {
             elements.add();
             numberOfActiveElements++;
             Log.d("Debugging", "Current Elements:" + numberOfActiveElements);
         } else
             Log.d("Debugging","No Element Added, Space occupied OR Too many element");
-
     }
 
     //This method removes an element from the elements Array and removes wire connections
@@ -420,8 +418,6 @@ class GridAndMenu {
             onScreenToast("Element Subtracted");
         } else
             Log.d("Debugging", "No Element Subtracted");
-
-
     }
 
 
@@ -434,8 +430,6 @@ class GridAndMenu {
             selectedNode = elements.circuit[elements.getElement(selectedElement)].outputNode.position;
             Log.d("Debugging", "Output Node selected at:" + selectedNode);
         }
-
-
     }
 
     //The following methods (from and to led) changes an unclassified circuit element into

@@ -27,8 +27,8 @@ public class LogicSimulator extends Activity {
         super.onCreate(savedInstanceState);
         getResolution();
         setObjects();
-//        setContentView(gameView);
-        mediaPlayer();
+        setContentView(gameView);
+   //     mediaPlayer();
         gameView.setImageBitmap(blankBitmap);
         gridAndMenu.updateScreen();
     }

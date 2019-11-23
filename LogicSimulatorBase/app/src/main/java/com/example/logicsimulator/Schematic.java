@@ -90,7 +90,7 @@ public class Schematic {
         return shortest;
     }
 
-    int getDistance(Point in, Point nodeTouch){
+    private int getDistance(Point in, Point nodeTouch){
         int horizontalGap = nodeTouch.x -
                 in.x;
         int verticalGap = nodeTouch.y -
@@ -107,7 +107,7 @@ public class Schematic {
     }
 
     //This method removes an elements wire connections
-    void removeConnections(Point selectedElement){
+    private void removeConnections(Point selectedElement){
         for(CircuitElement element : circuit){
             if (element != null) {
                 if (element.a != null) {
@@ -163,9 +163,7 @@ public class Schematic {
 
     Schematic copy(){
         Schematic result = new Schematic(numberOfCircuitElements,largeCellSize);
-        for(int i = 0; i < numberOfCircuitElements; i++){
-            result.circuit[i] = circuit[i];
-        }
+        System.arraycopy(circuit, 0, result.circuit, 0, numberOfCircuitElements);
         return result;
     }
 }
