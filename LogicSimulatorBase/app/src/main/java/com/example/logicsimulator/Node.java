@@ -499,7 +499,7 @@ class menuSwap extends UndoAndRedo{
     }
 }
 //button to create an example of the AND schematic
-class INTRO extends Button {
+class INTRO extends UndoAndRedo {
     INTRO(int x) {
         position = new Point(x, 0);
         this.label = "INTRO";
