@@ -42,7 +42,7 @@ class GridAndMenu {
 
     private Button[] menu = {new PLAY(0), new ADD(1), new SUB(2), new WIRE(3)
             , new AND(4), new OR(5), new NOT(6), new SWITCHBUTTON(7)
-            , new LEDBUTTON(8), new TOGGLE(9), new Save(10), new A(11), new B(12), new C(13), new UNDO(14), new REDO(15), new XAND(16)};
+            , new LEDBUTTON(8), new TOGGLE(9), new Save(10), new A(11), new B(12), new C(13), new UNDO(14), new REDO(15), new NAND(16)};
 
     private Node[][] cells =
             new Node[numberOfHorizontalCells][numberOfVerticalCells];
@@ -361,8 +361,8 @@ class GridAndMenu {
                 }
                 break;
             //-----------------------------------------------------------------
-            case 16: //XAND Button
-                onScreenToast("XAND Sample Gate");
+            case 16: //NAND Button
+                nand();
                 break;
         }
     }
@@ -454,8 +454,12 @@ class GridAndMenu {
                 && elements.circuit[getElement(selectedElement)].getClass()== new CircuitElement().getClass()) {
             elements.circuit[getElement(selectedElement)] = new ANDGATE(selectedElement, context, largeCellSize);
             selectedElement = null;
-            onScreenToast("And Gate created");
+            onScreenToast("AND Gate created");
         }
+    }
+
+    private void nand() {
+
     }
 
     private void or() {
@@ -463,7 +467,7 @@ class GridAndMenu {
                 && elements.circuit[getElement(selectedElement)].getClass()== new CircuitElement().getClass()) {
             elements.circuit[getElement(selectedElement)] = new ORGATE(selectedElement, context, largeCellSize);
             selectedElement = null;
-            onScreenToast("Or Gate Created");
+            onScreenToast("OR Gate Created");
 
         }
     }
@@ -473,7 +477,7 @@ class GridAndMenu {
                 && elements.circuit[getElement(selectedElement)].getClass()== new CircuitElement().getClass()) {
             elements.circuit[getElement(selectedElement)] = new NOTGATE(selectedElement, context, largeCellSize);
             selectedElement = null;
-            onScreenToast("Not Gate Created");
+            onScreenToast("NOT Gate Created");
 
         }
     }

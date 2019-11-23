@@ -202,7 +202,7 @@ class NOTGATE extends  GATE {
 //This class is used for the AND and OR gates.
 //In its constructor, it creates two input node Points.
 //It also has a CircuitElement b for the second input.
-abstract class TwoInOneOut extends  GATE{
+abstract class TwoInOneOut extends GATE{
     CircuitElement b;
 
     void setB (CircuitElement b){this.b = b;}
@@ -237,6 +237,10 @@ class ANDGATE extends TwoInOneOut{
     public boolean eval() {
         return a.eval() && b.eval();
     }
+
+}
+
+class NANDGATE extends TwoInOneOut {
 
 }
 
@@ -415,11 +419,10 @@ class REDO extends UndoAndRedo{
     }
 }
 
-//button to create an example of the AND schematic
-class XAND extends Button {
-    XAND(int x) {
+class NAND extends Button {
+    NAND(int x) {
         position = new Point(x, 0);
-        this.label = "XAND";
+        this.label = "NAND";
     }
 }
 
