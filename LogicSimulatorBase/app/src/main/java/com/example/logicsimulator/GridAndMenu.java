@@ -51,7 +51,9 @@ class GridAndMenu {
     private Button[] menu1 = {new PLAY(0), new ADD(1), new SUB(2), new WIRE(3)
             , new AND(4), new OR(5), new NOT(6), new SWITCHBUTTON(7)
             , new LEDBUTTON(8), new TOGGLE(9), new menuSwap(10)};
-    private Button[] menu2 = {new Save(0), new A(1), new B(2), new C(3), new UNDO(4), new REDO(5), new NAND(6), new INTRO(7), new menuSwap(8), new menuSwap(9), new menuSwap(10)};
+    private Button[] menu2 = {new Save(0), new A(1), new B(2), new C(3),
+            new UNDO(4), new REDO(5), new NAND(6), new INTRO(7), new menuSwap(8),
+            new menuSwap(9), new menuSwap(10)};
 
 
     private Node[][] cells =
@@ -367,25 +369,21 @@ class GridAndMenu {
         }}
         else{
             switch (buttonNumber) {
-
-                case 0: // Save Button
-                if (!playing) {
-                    if(numberOfActiveElements==0){
-                        onScreenToast("Nothing to Save");
-                    } else {
-                        save();
-                        onScreenToast("Choose A, B, C to Save Current Layout");
-                    }
-
+            //-----------------------------------------------------------------
+            case 0: // Save Button
+            if (!playing) {
+                if(numberOfActiveElements==0){
+                    onScreenToast("Nothing to Save");
+                } else {
+                    save();
+                    onScreenToast("Choose A, B, C to Save Current Layout");
                 }
-                break;
+
+            }
+            break;
             //-----------------------------------------------------------------
             case 1: // A Button
-
-            //-----------------------------------------------------------------
-            case 2: //B Button
-
-            //-----------------------------------------------------------------
+            case 2: // B Button
             case 3: // C Button
                 if(!playing) {
                     saveOrLoad(buttonNumber);
@@ -419,13 +417,16 @@ class GridAndMenu {
                 nand();
                 break;
             //-----------------------------------------------------------------
-
             case 7: //Intro Button
                 intro();
                 break;
-           case 8:
-                case 9:
-
+            //-----------------------------------------------------------------
+            case 8:
+                pushToUndo();
+                xor();
+                break;
+            //-----------------------------------------------------------------
+            case 9:
             case 10: //Menu Swap
                 menuNumber = 1;
                 break;
@@ -511,14 +512,17 @@ class GridAndMenu {
         }
     }
 
-    private void not(){
-        if(selectedElement!=null
+    private void xor() {
+        if (selectedElement != null
                 && elements.circuit[elements.getElement(selectedElement)].getClass()== new CircuitElement().getClass()) {
-            elements.circuit[elements.getElement(selectedElement)] = new NOTGATE(selectedElement, context, largeCellSize);
+            elements.circuit[elements.getElement(selectedElement)] = new NANDGATE(selectedElement, context, largeCellSize);
             selectedElement = null;
-            onScreenToast("NOT Gate Created");
-
+            onScreenToast("NAND Gate created");
         }
+    }
+
+    private void not(){
+
     }
 
     private void inputSwitch(){
