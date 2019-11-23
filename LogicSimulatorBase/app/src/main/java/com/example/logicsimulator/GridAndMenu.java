@@ -1,5 +1,6 @@
 package com.example.logicsimulator;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -10,6 +11,8 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.View;
+import android.view.WindowManager;
 import android.webkit.WebView;
 import android.widget.Toast;
 import android.widget.VideoView;
@@ -22,7 +25,7 @@ import java.util.Stack;
     The class stores information about the grid as well as the objects that
     exist and interact on the grid.
  */
-class GridAndMenu {
+class GridAndMenu extends Activity {
     //These points tell the system if we are in a given state(See Design Doc)
     // based on if they == null or have a value.
     Point selectedElement, selectedNode;
@@ -534,6 +537,31 @@ class GridAndMenu {
     //this method toggles our intro state
     private void intro() {
         introducing = !introducing;
+        mediaPlayer();
+    }
+
+
+    //Plays Intro Video
+    void mediaPlayer(){
+        final VideoView wview = new VideoView(context);
+        Uri uri = Uri.parse("android.resource://"+context.getPackageName()+"/"+R.raw.introvid);
+        wview.setVideoURI(uri);
+        wview.start();
+        setContentView(wview);
+        //Disable TouchScreen
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+        wview.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                // TODO Auto-generated method stub
+
+                //write your code after complete video play
+                wview.setVisibility(View.GONE);
+                //Re-Enables TouchScreen
+                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+            }
+        });
     }
 
     //This method toggles our save state.
