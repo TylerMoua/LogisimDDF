@@ -5,7 +5,6 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-//Working on a class to replace the elements array. -Tyler
 
 public class Schematic {
     private int numberOfCircuitElements, largeCellSize;

@@ -43,7 +43,7 @@ class GridAndMenu {
     Stack<Schematic> redoStack = new Stack<>();
 
 
-    private CircuitElement[][] savedSchematics = new CircuitElement[numberOfSavableSchematic][];
+    private Schematic[] savedSchematics = new Schematic[numberOfSavableSchematic];
 
 
     private Button[] menu = {new PLAY(0), new ADD(1), new SUB(2), new WIRE(3)
@@ -334,20 +334,14 @@ class GridAndMenu {
                 break;
             //-----------------------------------------------------------------
             case 11: // A Button
-                if(!playing) {
-                    saveOrLoad(0);
-                }
-                break;
+
             //-----------------------------------------------------------------
             case 12: //B Button
-                if(!playing) {
-                    saveOrLoad(1);
-                }
-                break;
+
             //-----------------------------------------------------------------
             case 13: // C Button
                 if(!playing) {
-                    saveOrLoad(2);
+                    saveOrLoad(buttonNumber);
                 }
                 break;
             //-----------------------------------------------------------------
@@ -513,6 +507,7 @@ class GridAndMenu {
     //Based on the saving boolean value, it will save or load a state from
     //The savedSchematics array.
     private void saveOrLoad(int input){
+        input -= 11;
         if(saving){
             saveSchematic(input);
             save();
@@ -529,14 +524,13 @@ class GridAndMenu {
 
 
     private void saveSchematic(int input){
-            savedSchematics[input]=elements.circuit;
+            savedSchematics[input]=elements.copy();
         Log.d("Debugging", "Saving Diagram");
-
     }
 
     private void loadSchematic(int input){
         if(savedSchematics[input]!=null) {
-            elements.circuit = savedSchematics[input];
+            elements = savedSchematics[input];
         }
         else{
             elements.circuit = new CircuitElement[numberOfCircuitElements];
@@ -544,7 +538,6 @@ class GridAndMenu {
         Log.d("Debugging", "Loading Diagram");
 
     }
-
 
     //------------------------------------------------------------------------------------------
     //These are methods called by the touch processor
@@ -584,7 +577,6 @@ class GridAndMenu {
     //-------------------------------------------------------------------------------------------
 
     //Methods for UNDO and REDO
-    //Changed to the java stack instead of creating our own
 
     private void undo() {
         //The redo stack is topped off with the top element of the
@@ -596,7 +588,6 @@ class GridAndMenu {
 
     }
 
-
     private void redo() {
         //The undo stack is topped off with the our current elements
         pushToUndo();
@@ -605,7 +596,6 @@ class GridAndMenu {
         if(!redoStack.isEmpty())
             elements = redoStack.pop();
     }
-
 
     private void pushToRedo(){
         Schematic temp;

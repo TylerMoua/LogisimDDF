@@ -8,10 +8,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.Stack;
 
 
 //This class represents any element that is positioned as a grid point
@@ -373,22 +370,49 @@ class TOGGLE extends Button{
     }
 }
 
+class Loadable extends Button{
+    boolean hasState = false;
 
-class A extends  Button{
+    @Override
+    void printButtons(Canvas myCanvas, int buttonBlockSize, int gridHeight, int gridLength){
+        // Change the paint color
+        paint.setColor(Color.argb(255, 20*position.x, 10*position.y, 255-(position.x*position.y)));
+        // Draw Vertical Line
+        myCanvas.drawLine(
+                buttonBlockSize * position.x,
+                gridHeight,
+                buttonBlockSize * position.x,
+                gridHeight+buttonBlockSize, paint);
+        // Draw Horizontal Line
+        myCanvas.drawLine(
+                0,
+                gridHeight,
+                gridLength,
+                gridHeight,
+                paint);
+        if(hasState){
+            paint.setColor(Color.argb(255, 20*position.x, 10*position.y, 255-(position.x*position.y)));
+            color(blockSize, myCanvas, gridHeight);
+        }
+        printLabel(buttonBlockSize, myCanvas,gridHeight);
+    }
+}
+
+class A extends  Loadable{
     A(int x) {
         position = new Point(x,0);
         this.label = "A";
     }
 }
 
-class B extends  Button{
+class B extends  Loadable{
     B(int x) {
         position = new Point(x,0);
         this.label = "B";
     }
 }
 
-class C extends  Button{
+class C extends  Loadable{
     C(int x) {
         position = new Point(x,0);
         this.label = "C";
