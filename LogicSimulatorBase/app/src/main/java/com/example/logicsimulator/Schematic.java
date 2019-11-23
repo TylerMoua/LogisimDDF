@@ -168,7 +168,7 @@ public class Schematic {
     boolean isEmpty(){
         for (CircuitElement e : circuit){
             if ( e != null){
-                return true;
+                return false;
             }
         }
         return true;

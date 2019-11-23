@@ -413,11 +413,17 @@ class Loadable extends Button{
                 gridHeight,
                 paint);
         if(hasState){
-            paint.setColor(Color.argb(255, 20*position.x, 10*position.y, 255-(position.x*position.y)));
-            color(blockSize, myCanvas, gridHeight);
+            paint.setColor(Color.argb(255, 100, 100, 100));
+            myCanvas.drawRect(position.x * blockSize,
+                    position.y * blockSize,
+                    (position.x * blockSize) + blockSize,
+                    (position.y * blockSize)+ blockSize,
+                    paint );
+
         }
         printLabel(buttonBlockSize, myCanvas,gridHeight);
     }
+
 }
 
 class A extends  Loadable{
