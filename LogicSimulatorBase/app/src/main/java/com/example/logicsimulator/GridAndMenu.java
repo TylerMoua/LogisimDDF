@@ -33,7 +33,8 @@ class GridAndMenu extends Activity {
 
     int menuNumber = 1;
     private int loadSaveOffset = 1;
-    private boolean playing, saving, introducing = false;
+    private boolean playing, saving = false;
+    boolean introducing = false;
     private Context context;
     private Canvas myCanvas;
     private Paint paint = new Paint();
