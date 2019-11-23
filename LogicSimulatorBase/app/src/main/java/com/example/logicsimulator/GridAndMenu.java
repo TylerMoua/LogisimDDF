@@ -530,6 +530,7 @@ class GridAndMenu extends Activity {
         if (selectedElement != null
                 && elements.circuit[elements.getElement(selectedElement)].getClass()== new CircuitElement().getClass()) {
             elements.circuit[elements.getElement(selectedElement)] = new NOTGATE(selectedElement, context, largeCellSize);
+
             selectedElement = null;
             onScreenToast("NOT Gate created");
         }
