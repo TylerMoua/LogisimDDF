@@ -238,7 +238,9 @@ class ANDGATE extends TwoInOneOut{
 }
 
 class NANDGATE extends TwoInOneOut {
+    NANDGATE(Point in, Context context, int blockSize) {
 
+    }
 }
 
 class ORGATE extends  TwoInOneOut{

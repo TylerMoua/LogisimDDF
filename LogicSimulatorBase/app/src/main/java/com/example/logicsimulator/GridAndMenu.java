@@ -438,7 +438,12 @@ class GridAndMenu {
     }
 
     private void nand() {
-
+        if (selectedElement != null
+                && elements.circuit[elements.getElement(selectedElement)].getClass()== new CircuitElement().getClass()) {
+            elements.circuit[elements.getElement(selectedElement)] = new NANDGATE(selectedElement, context, largeCellSize);
+            selectedElement = null;
+            onScreenToast("NAND Gate created");
+        }
     }
 
     private void or() {
