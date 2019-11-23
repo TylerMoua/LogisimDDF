@@ -109,7 +109,7 @@ class GridAndMenu {
     void updateScreen() {
         debugUpdate();
         whiteOut();
-  //      checkStates();
+        checkStates();
         drawButtons();
         colorElements();
         drawGrid();
@@ -364,7 +364,8 @@ class GridAndMenu {
             case 10: //Menu Swap
                 menuNumber = 2;
                 break;
-        }}
+            }
+        }
         else{
             switch (buttonNumber) {
 
@@ -422,9 +423,8 @@ class GridAndMenu {
             case 7: //Intro Button
                 intro();
                 break;
-           case 8:
-                case 9:
-
+            case 8:
+            case 9:
             case 10: //Menu Swap
                 menuNumber = 1;
                 break;
