@@ -572,32 +572,32 @@ class GridAndMenu extends Activity {
     //this method toggles our intro state
     private void intro() {
         introducing = !introducing;
-        mediaPlayer();
+//        mediaPlayer();
     }
 
 
-    //Plays Intro Video
-    void mediaPlayer(){
-        final VideoView wview = new VideoView(context);
-        Uri uri = Uri.parse("android.resource://"+context.getPackageName()+"/"+R.raw.introvid);
-        wview.setVideoURI(uri);
-        wview.start();
-        setContentView(wview);
-        //Disable TouchScreen
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-        wview.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-
-            @Override
-            public void onCompletion(MediaPlayer mp) {
-                // TODO Auto-generated method stub
-
-                //write your code after complete video play
-                wview.setVisibility(View.GONE);
-                //Re-Enables TouchScreen
-                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-            }
-        });
-    }
+//    //Plays Intro Video
+//    void mediaPlayer(){
+//        final VideoView wview = new VideoView(context);
+//        Uri uri = Uri.parse("android.resource://"+context.getPackageName()+"/"+R.raw.introvid);
+//        wview.setVideoURI(uri);
+//        wview.start();
+//        setContentView(wview);
+//        //Disable TouchScreen
+//        getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+//        wview.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+//
+//            @Override
+//            public void onCompletion(MediaPlayer mp) {
+//                // TODO Auto-generated method stub
+//
+//                //write your code after complete video play
+//                wview.setVisibility(View.GONE);
+//                //Re-Enables TouchScreen
+//                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+//            }
+//        });
+//    }
 
     //This method toggles our save state.
     private void save(){
