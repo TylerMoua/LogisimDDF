@@ -519,12 +519,17 @@ class GridAndMenu {
                 && elements.circuit[elements.getElement(selectedElement)].getClass()== new CircuitElement().getClass()) {
             elements.circuit[elements.getElement(selectedElement)] = new NANDGATE(selectedElement, context, largeCellSize);
             selectedElement = null;
-            onScreenToast("NAND Gate created");
+            onScreenToast("XOR Gate created");
         }
     }
 
     private void not(){
-
+        if (selectedElement != null
+                && elements.circuit[elements.getElement(selectedElement)].getClass()== new CircuitElement().getClass()) {
+            elements.circuit[elements.getElement(selectedElement)] = new NOTGATE(selectedElement, context, largeCellSize);
+            selectedElement = null;
+            onScreenToast("NOT Gate created");
+        }
     }
 
     private void inputSwitch(){
