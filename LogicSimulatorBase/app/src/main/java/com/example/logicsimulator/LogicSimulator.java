@@ -32,11 +32,13 @@ public class LogicSimulator extends Activity {
         super.onCreate(savedInstanceState);
         getResolution();
         setObjects();
-        mediaPlayer();
+        setContentView(gameView);
+        //    mediaPlayer();
         gameView.setImageBitmap(blankBitmap);
         gridAndMenu.updateScreen();
 
     }
+
 
     //Create our objects
     void setObjects() {
@@ -60,7 +62,10 @@ public class LogicSimulator extends Activity {
         if ((motionEvent.getAction() & MotionEvent.ACTION_MASK) == MotionEvent.ACTION_UP) {
             gameView.setImageBitmap(blankBitmap);
             touchProcessor.processTouch(motionEvent);
-            gridAndMenu.updateScreen();
+            if(gridAndMenu.introducing){
+                mediaPlayer();
+            }else
+                gridAndMenu.updateScreen();
         }
         return true;
     }
@@ -92,6 +97,8 @@ public class LogicSimulator extends Activity {
 
                 //Re-Enables TouchScreen
                 getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                //Disable introducing.
+                gridAndMenu.introducing=false;
             }
         });
     }
