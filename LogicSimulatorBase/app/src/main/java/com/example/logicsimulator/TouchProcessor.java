@@ -36,7 +36,7 @@ class TouchProcessor{
 
         //--------------------------------------------------------------------------------------------
         //If there is an element at our touchPoint:
-        }else if(gridAndMenu.getElement(touchPoint)!=-1) {
+        }else if(gridAndMenu.elements.getElement(touchPoint)!=-1) {
                 Log.d("Debugging", "Element Found at:" + touchPoint);
 
             //---------------------------------------------------------------------------

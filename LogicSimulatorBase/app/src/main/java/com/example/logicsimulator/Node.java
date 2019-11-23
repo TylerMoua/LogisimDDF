@@ -8,10 +8,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.Stack;
 
 
 //This class represents any element that is positioned as a grid point
@@ -202,7 +199,7 @@ class NOTGATE extends  GATE {
 //This class is used for the AND and OR gates.
 //In its constructor, it creates two input node Points.
 //It also has a CircuitElement b for the second input.
-abstract class TwoInOneOut extends  GATE{
+abstract class TwoInOneOut extends GATE{
     CircuitElement b;
 
     void setB (CircuitElement b){this.b = b;}
@@ -240,7 +237,23 @@ class ANDGATE extends TwoInOneOut{
 
 }
 
-class ORGATE extends  TwoInOneOut{
+class NANDGATE extends TwoInOneOut {
+    NANDGATE(Point in, Context context, int blockSize) {
+        this.blockSize = blockSize;
+        position = in;
+        setBitmap(context);
+        update();
+    }
+    private void setBitmap(Context context) {
+        temp = BitmapFactory.decodeResource(context.getResources(), R.drawable.and);
+        icon = Bitmap.createScaledBitmap(temp, blockSize, blockSize, false);
+    }
+    public boolean eval() {
+        return !(a.eval() && b.eval());
+    }
+}
+
+class ORGATE extends TwoInOneOut {
     ORGATE(Point in, Context context, int blockSize){
         this.blockSize = blockSize;
         position = in;
@@ -256,6 +269,12 @@ class ORGATE extends  TwoInOneOut{
         return a.eval() || b.eval();
     }
 
+}
+
+class XORGATE extends TwoInOneOut {
+    XORGATE(Point in, Context context, int blockSize){
+
+    }
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -373,22 +392,55 @@ class TOGGLE extends Button{
     }
 }
 
+class Loadable extends Button{
+    boolean hasState = false;
 
-class A extends  Button{
+    @Override
+    void printButtons(Canvas myCanvas, int buttonBlockSize, int gridHeight, int gridLength){
+        // Change the paint color
+        paint.setColor(Color.argb(255, 20*position.x, 10*position.y, 255-(position.x*position.y)));
+        // Draw Vertical Line
+        myCanvas.drawLine(
+                buttonBlockSize * position.x,
+                gridHeight,
+                buttonBlockSize * position.x,
+                gridHeight+buttonBlockSize, paint);
+        // Draw Horizontal Line
+        myCanvas.drawLine(
+                0,
+                gridHeight,
+                gridLength,
+                gridHeight,
+                paint);
+        if(hasState){
+            paint.setColor(Color.argb(255, 100, 100, 100));
+            myCanvas.drawRect(position.x * blockSize,
+                    position.y * blockSize,
+                    (position.x * blockSize) + blockSize,
+                    (position.y * blockSize)+ blockSize,
+                    paint );
+
+        }
+        printLabel(buttonBlockSize, myCanvas,gridHeight);
+    }
+
+}
+
+class A extends  Loadable{
     A(int x) {
         position = new Point(x,0);
         this.label = "A";
     }
 }
 
-class B extends  Button{
+class B extends  Loadable{
     B(int x) {
         position = new Point(x,0);
         this.label = "B";
     }
 }
 
-class C extends  Button{
+class C extends  Loadable{
     C(int x) {
         position = new Point(x,0);
         this.label = "C";
@@ -415,14 +467,23 @@ class REDO extends UndoAndRedo{
     }
 }
 
-//button to create an example of the AND schematic
-class XAND extends Button {
-    XAND(int x) {
+class NAND extends Button {
+    NAND(int x) {
         position = new Point(x, 0);
-        this.label = "XAND";
+        this.label = "NAND";
     }
 }
 
+class XOR extends Button {
+
+}
+
+class menuSwap extends Button{
+    menuSwap(int x) {
+        position = new Point(x, 0);
+        this.label = "Change Menu";
+    }
+}
 //button to create an example of the AND schematic
 class INTRO extends Button {
     INTRO(int x) {
