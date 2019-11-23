@@ -13,6 +13,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.webkit.WebView;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.MediaController;
 import android.widget.RelativeLayout;
@@ -73,6 +74,9 @@ public class LogicSimulator extends Activity {
         Uri uri = Uri.parse(videoPath);
         wview.setVideoURI(uri);
         wview.start();
+
+//        Button exitButton = new Button(this);
+//        exitButton = (Button)findViewById(R.id.exitButton);
 
         //Disable TouchScreen
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
