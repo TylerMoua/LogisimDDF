@@ -39,8 +39,8 @@ class GridAndMenu {
     private int numberOfActiveElements = 0;
     private int numberOfSavableSchematic = 3;
 
-    Stack<Schematic> undoStack = new Stack<>();
-    Stack<Schematic> redoStack = new Stack<>();
+    private Stack<Schematic> undoStack = new Stack<>();
+    private Stack<Schematic> redoStack = new Stack<>();
 
 
     private Schematic[] savedSchematics = new Schematic[numberOfSavableSchematic];
@@ -80,9 +80,14 @@ class GridAndMenu {
         gridLength = smallCellSize * numberOfHorizontalCells;
 
         elements = new Schematic(numberOfCircuitElements, largeCellSize);
+        fillSchematics();
         populate();
     }
-
+    private void fillSchematics(){
+        for (int i = 0; i < numberOfSavableSchematic; i++){
+            savedSchematics[i] = new Schematic(numberOfCircuitElements, largeCellSize);
+        }
+    }
     //Fills the array of grid elements.
     private void populate() {
         for (int i = 0; i < numberOfHorizontalCells; i++) {
@@ -538,12 +543,8 @@ class GridAndMenu {
     }
 
     private void loadSchematic(int input){
-        if(savedSchematics[input]!=null) {
-            elements = savedSchematics[input];
-        }
-        else{
-            elements.circuit = new CircuitElement[numberOfCircuitElements];
-        }
+            elements = savedSchematics[input].copy();
+
         Log.d("Debugging", "Loading Diagram");
 
     }
