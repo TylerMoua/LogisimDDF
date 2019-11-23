@@ -53,6 +53,7 @@ class GridAndMenu {
             , new LEDBUTTON(8), new TOGGLE(9), new menuSwap(10)};
     private Button[] menu2 = {new Save(0), new A(1), new B(2), new C(3), new UNDO(4), new REDO(5), new NAND(6), new INTRO(7), new menuSwap(8), new menuSwap(9), new menuSwap(10)};
 
+
     private Node[][] cells =
             new Node[numberOfHorizontalCells][numberOfVerticalCells];
 

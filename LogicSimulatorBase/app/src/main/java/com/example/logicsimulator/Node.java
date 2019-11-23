@@ -241,15 +241,15 @@ class NANDGATE extends TwoInOneOut {
     NANDGATE(Point in, Context context, int blockSize) {
         this.blockSize = blockSize;
         position = in;
-        setBtimap(context);
+        setBitmap(context);
         update();
     }
-    private void setBtimap(Context context) {
+    private void setBitmap(Context context) {
         temp = BitmapFactory.decodeResource(context.getResources(), R.drawable.and);
         icon = Bitmap.createScaledBitmap(temp, blockSize, blockSize, false);
     }
     public boolean eval() {
-        return a.eval() && b.eval();
+        return !(a.eval() && b.eval());
     }
 }
 
