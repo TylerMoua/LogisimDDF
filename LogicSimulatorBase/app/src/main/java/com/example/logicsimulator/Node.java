@@ -260,7 +260,6 @@ class ORGATE extends TwoInOneOut {
         setBitmap(context);
         update();
     }
-
     private void setBitmap(Context context) {
         temp = BitmapFactory.decodeResource(context.getResources(), R.drawable.or);
         icon = Bitmap.createScaledBitmap(temp, blockSize, blockSize, false);
@@ -278,10 +277,14 @@ class XORGATE extends TwoInOneOut {
         setBitmap(context);
         update();
     }
-
     private void setBitmap(Context context) {
 //        temp = BitmapFactory.decodeResource(context.getResources(), R.drawable.xor);
         icon = Bitmap.createScaledBitmap(temp, blockSize, blockSize, false);
+    }
+    public boolean eval() {
+        if (a.eval() == b.eval())
+            return false;
+        return true;
     }
 }
 
