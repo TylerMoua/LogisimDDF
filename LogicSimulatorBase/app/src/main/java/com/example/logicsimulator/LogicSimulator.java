@@ -27,7 +27,6 @@ public class LogicSimulator extends Activity {
         getResolution();
         setObjects();
         setContentView(gameView);
-        //    mediaPlayer();
         gameView.setImageBitmap(blankBitmap);
         gridAndMenu.updateScreen();
 
@@ -73,27 +72,20 @@ public class LogicSimulator extends Activity {
         Uri uri = Uri.parse(videoPath);
         wview.setVideoURI(uri);
         wview.start();
-
-
         //Disable TouchScreen
         wview.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-
             @Override
             public void onCompletion(MediaPlayer mp) {
                 // TODO Auto-generated method stub
-
                 //write your code after complete video play
                 wview.setVisibility(View.GONE);
                 setContentView(gameView);
-
                 //Disable introducing
                 gridAndMenu.introducing=false;
             }
         });
-
         //Exit Button
-        Button exitButton = new Button(this);
-        exitButton = (Button)findViewById(R.id.exitButton);
+        Button exitButton = findViewById(R.id.exitButton);
         exitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

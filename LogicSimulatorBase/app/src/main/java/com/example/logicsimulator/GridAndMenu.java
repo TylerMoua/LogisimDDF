@@ -43,6 +43,7 @@ class GridAndMenu extends Activity {
     private Stack<Schematic> redoStack = new Stack<>();
 
 
+
     private Schematic[] savedSchematics = new Schematic[numberOfSavableSchematic];
 
 
@@ -50,7 +51,7 @@ class GridAndMenu extends Activity {
             , new AND(4), new OR(5), new NOT(6), new SWITCHBUTTON(7)
             , new LEDBUTTON(8), new TOGGLE(9), new menuSwap(10)};
     private Button[] menu2 = {new Save(0), new A(1), new B(2), new C(3),
-            new UNDO(4), new REDO(5), new NAND(6), new INTRO(7), new XOR(8),
+            new UNDO(4), new REDO(5), new NAND(6), new XOR(7), new INTRO(8),
             new menuSwap(9), new menuSwap(10)};
 
 
@@ -416,14 +417,14 @@ class GridAndMenu extends Activity {
                 nand();
                 break;
             //-----------------------------------------------------------------
-            case 7: //Intro Button
-                intro();
+            case 7: //XOR Button
+                pushToUndo();
+                xor();
                 break;
 
             //-----------------------------------------------------------------
-            case 8: //XOR Button
-                pushToUndo();
-                xor();
+            case 8: //Intro Button
+                intro();
                 break;
             //-----------------------------------------------------------------
             case 9:
