@@ -245,7 +245,7 @@ class NANDGATE extends TwoInOneOut {
         update();
     }
     private void setBtimap(Context context) {
-        temp = BitmapFactory.decodeResource(context.getResources(), R.drawable.xand);
+        temp = BitmapFactory.decodeResource(context.getResources(), R.drawable.and);
         icon = Bitmap.createScaledBitmap(temp, blockSize, blockSize, false);
     }
     public boolean eval() {
@@ -462,6 +462,12 @@ class NAND extends Button {
     }
 }
 
+class menuSwap extends Button{
+    menuSwap(int x) {
+        position = new Point(x, 0);
+        this.label = "Change Menu";
+    }
+}
 //button to create an example of the AND schematic
 class INTRO extends Button {
     INTRO(int x) {

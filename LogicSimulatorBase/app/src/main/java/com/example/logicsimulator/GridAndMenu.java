@@ -28,13 +28,14 @@ class GridAndMenu {
     Point selectedElement, selectedNode;
     private Point selectedButton;
 
-    private int loadSaveOffset = 11;
+    int menuNumber = 1;
+    private int loadSaveOffset = 1;
     private boolean playing, saving, introducing = false;
     private Context context;
     private Canvas myCanvas;
     private Paint paint = new Paint();
     private final int numberOfCircuitElements = 10;
-    private final int numberOfButtons = 18;
+    private final int numberOfButtons = 11;
     private final int numberOfHorizontalCells = 30;
     private final int numberOfVerticalCells = 15;
     private int numberOfActiveElements = 0;
@@ -47,9 +48,10 @@ class GridAndMenu {
     private Schematic[] savedSchematics = new Schematic[numberOfSavableSchematic];
 
 
-    private Button[] menu = {new PLAY(0), new ADD(1), new SUB(2), new WIRE(3)
+    private Button[] menu1 = {new PLAY(0), new ADD(1), new SUB(2), new WIRE(3)
             , new AND(4), new OR(5), new NOT(6), new SWITCHBUTTON(7)
-            , new LEDBUTTON(8), new TOGGLE(9), new Save(10), new A(11), new B(12), new C(13), new UNDO(14), new REDO(15), new NAND(16), new INTRO(17)};
+            , new LEDBUTTON(8), new TOGGLE(9), new menuSwap(10)};
+    private Button[] menu2 = {new Save(0), new A(1), new B(2), new C(3), new UNDO(4), new REDO(5), new NAND(6), new INTRO(7), new menuSwap(8), new menuSwap(9), new menuSwap(10)};
 
     private Node[][] cells =
             new Node[numberOfHorizontalCells][numberOfVerticalCells];
@@ -106,7 +108,7 @@ class GridAndMenu {
     void updateScreen() {
         debugUpdate();
         whiteOut();
-        checkStates();
+  //      checkStates();
         drawButtons();
         colorElements();
         drawGrid();
@@ -117,10 +119,10 @@ class GridAndMenu {
     private void checkStates(){
         for(int i=0; i < numberOfSavableSchematic; i++){
             if (savedSchematics[i].isEmpty()){
-                ((Loadable)menu[i+loadSaveOffset]).hasState = false;
+                ((Loadable)menu2[i+loadSaveOffset]).hasState = false;
             }
             else
-                ((Loadable)menu[i+loadSaveOffset]).hasState = true;
+                ((Loadable)menu2[i+loadSaveOffset]).hasState = true;
 
         }
     }
@@ -153,7 +155,11 @@ class GridAndMenu {
         if(selectedButton == null)
             Log.d("Debugging", "Menu Selected: None"  + "\nElement Selected: " + selectedElement + "\nNode Selected:" + selectedNode);
         else
-            Log.d("Debugging", "Menu Selected: " +  menu[selectedButton.x].label +"\nElement Selected: " + selectedElement + "\nNode Selected:" + selectedNode);
+            if(menuNumber==1)
+                Log.d("Debugging", "Menu Selected: " +  menu1[selectedButton.x].label +"\nElement Selected: " + selectedElement + "\nNode Selected:" + selectedNode);
+            else
+                Log.d("Debugging", "Menu Selected: " +  menu2[selectedButton.x].label +"\nElement Selected: " + selectedElement + "\nNode Selected:" + selectedNode);
+
         Log.d("Debugging", "Undo Stack:");
         for (int i = 0; i < undoStack.size(); i++){
             Log.d("Debugging", "\n" + undoStack.elementAt(i).toString());
@@ -171,8 +177,15 @@ class GridAndMenu {
 
     //Draws the menu and labels for each button
     private void drawButtons() {
-        for (int i = 0; i < numberOfButtons; i++)
-            menu[i].printButtons(myCanvas, menuCellSize, gridHeight, gridLength);
+        if (menuNumber ==1) {
+            for (Button b : menu1) {
+                b.printButtons(myCanvas, menuCellSize, gridHeight, gridLength);
+            }
+        }else {
+            for (Button b : menu2) {
+                b.printButtons(myCanvas, menuCellSize, gridHeight, gridLength);
+            }
+        }
     }
 
     //Draws the grid lines
@@ -258,15 +271,23 @@ class GridAndMenu {
             elements.circuit[elements.getElement(selectedElement)].select(myCanvas);
         }
         if (selectedButton != null) {
-            menu[selectedButton.x].select(menuCellSize, myCanvas, gridHeight);
+            if(menuNumber ==1) {
+                menu1[selectedButton.x].select(menuCellSize, myCanvas, gridHeight);
+            }else
+                menu2[selectedButton.x].select(menuCellSize, myCanvas, gridHeight);
+
         }
+
     }
 
     //-------------------------------------------------------------------------------------------
     //This method hands the users menu button selection based on their touch
     void menuSelect(Point touchPoint) {
         selectedButton = touchPoint;
-        menu[selectedButton.x].select(menuCellSize, myCanvas, gridHeight);
+        if(menuNumber == 1)
+            menu1[selectedButton.x].select(menuCellSize, myCanvas, gridHeight);
+        else
+            menu2[selectedButton.x].select(menuCellSize, myCanvas, gridHeight);
         processMenu(selectedButton);
     }
 
@@ -274,18 +295,19 @@ class GridAndMenu {
     //the selection
     private void processMenu(Point input)  {
         int buttonNumber = input.x;
-        switch (buttonNumber) {
+        if(menuNumber ==1 ){
+            switch (buttonNumber) {
             //----------------------------------------------------------------------------
             case 0: //PLAY BUTTON
                 play();
-                if(playing)
+                if (playing)
                     onScreenToast("Circuit is Running");
                 else
                     onScreenToast("Circuit Stopped");
                 break;
             //-------------------------------------------------------------------------------
             case 1: //ADD BUTTON
-                if(!playing){
+                if (!playing) {
                     pushToUndo();
                     add();
                     onScreenToast("Element Added");
@@ -293,17 +315,17 @@ class GridAndMenu {
                 break;
             //---------------------------------------------------------------------------------
             case 2: //SUB BUTTON
-                if(!playing) {
+                if (!playing) {
                     pushToUndo();
                     sub();
                 }
                 break;
             //-----------------------------------------------------------------------------
             case 3: //Wire BUTTON
-                if(!playing) {
+                if (!playing) {
                     pushToUndo();
                     wire();
-                    if(numberOfActiveElements >= 2)
+                    if (numberOfActiveElements >= 2)
                         onScreenToast("Choose an Element to Wire To");
                 }
                 break;
@@ -338,7 +360,14 @@ class GridAndMenu {
                 toggle();
                 break;
             //-----------------------------------------------------------------
-            case 10: // Save Button
+            case 10: //Menu Swap
+                menuNumber = 2;
+                break;
+        }}
+        else{
+            switch (buttonNumber) {
+
+                case 0: // Save Button
                 if (!playing) {
                     if(numberOfActiveElements==0){
                         onScreenToast("Nothing to Save");
@@ -350,19 +379,19 @@ class GridAndMenu {
                 }
                 break;
             //-----------------------------------------------------------------
-            case 11: // A Button
+            case 1: // A Button
 
             //-----------------------------------------------------------------
-            case 12: //B Button
+            case 2: //B Button
 
             //-----------------------------------------------------------------
-            case 13: // C Button
+            case 3: // C Button
                 if(!playing) {
                     saveOrLoad(buttonNumber);
                 }
                 break;
             //-----------------------------------------------------------------
-            case 14: //Undo Button
+            case 4: //Undo Button
                 if(!playing){
                     if(undoStack.isEmpty()){
                         onScreenToast("Nothing to Undo");
@@ -373,7 +402,7 @@ class GridAndMenu {
                 }
                 break;
             //-----------------------------------------------------------------
-            case 15: //Redo Button
+            case 5: //Redo Button
                 if(!playing){
                     if(redoStack.isEmpty()) {
                         onScreenToast("Nothing to Redo");
@@ -384,14 +413,21 @@ class GridAndMenu {
                 }
                 break;
             //-----------------------------------------------------------------
-            case 16: //NAND Button
+            case 6: //NAND Button
                 nand();
                 break;
             //-----------------------------------------------------------------
 
-            case 17: //Intro Button
+            case 7: //Intro Button
                 intro();
                 break;
+           case 8:
+                case 9:
+
+            case 10: //Menu Swap
+                menuNumber = 1;
+                break;
+            }
         }
     }
 
@@ -403,7 +439,7 @@ class GridAndMenu {
         if(!elements.nullConnections()) {
             Log.d("Debugging", "Now Playing");
             playing = !playing;
-            ((PLAY) menu[0]).toggle();
+            ((PLAY) menu1[0]).toggle();
         }
         else
             onScreenToast("Not all elements connected");
@@ -525,7 +561,7 @@ class GridAndMenu {
     //This method toggles our save state.
     private void save(){
         saving = !saving;
-        ((Save) menu[10]).toggle();
+        ((Save) menu2[0]).toggle();
     }
 
 
