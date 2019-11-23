@@ -239,7 +239,17 @@ class ANDGATE extends TwoInOneOut{
 
 class NANDGATE extends TwoInOneOut {
     NANDGATE(Point in, Context context, int blockSize) {
-
+        this.blockSize = blockSize;
+        position = in;
+        setBtimap(context);
+        update();
+    }
+    private void setBtimap(Context context) {
+        temp = BitmapFactory.decodeResource(context.getResources(), R.drawable.xand);
+        icon = Bitmap.createScaledBitmap(temp, blockSize, blockSize, false);
+    }
+    public boolean eval() {
+        return a.eval() && b.eval();
     }
 }
 
