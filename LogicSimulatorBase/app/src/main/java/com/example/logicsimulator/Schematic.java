@@ -165,4 +165,12 @@ public class Schematic {
         System.arraycopy(circuit, 0, result.circuit, 0, numberOfCircuitElements);
         return result;
     }
+    boolean isEmpty(){
+        for (CircuitElement e : circuit){
+            if ( e != null){
+                return true;
+            }
+        }
+        return true;
+    }
 }
