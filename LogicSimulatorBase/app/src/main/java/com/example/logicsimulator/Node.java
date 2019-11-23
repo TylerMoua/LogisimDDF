@@ -253,7 +253,7 @@ class NANDGATE extends TwoInOneOut {
     }
 }
 
-class ORGATE extends  TwoInOneOut{
+class ORGATE extends TwoInOneOut {
     ORGATE(Point in, Context context, int blockSize){
         this.blockSize = blockSize;
         position = in;
@@ -269,6 +269,12 @@ class ORGATE extends  TwoInOneOut{
         return a.eval() || b.eval();
     }
 
+}
+
+class XORGATE extends TwoInOneOut {
+    XORGATE(Point in, Context context, int blockSize){
+
+    }
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -466,6 +472,10 @@ class NAND extends Button {
         position = new Point(x, 0);
         this.label = "NAND";
     }
+}
+
+class XOR extends Button {
+
 }
 
 class menuSwap extends Button{
