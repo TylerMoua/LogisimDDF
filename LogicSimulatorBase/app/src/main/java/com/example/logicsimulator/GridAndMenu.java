@@ -106,6 +106,7 @@ class GridAndMenu {
     void updateScreen() {
         debugUpdate();
         whiteOut();
+        checkStates();
         drawButtons();
         colorElements();
         drawGrid();
