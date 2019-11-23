@@ -245,7 +245,7 @@ class NANDGATE extends TwoInOneOut {
         update();
     }
     private void setBitmap(Context context) {
-        temp = BitmapFactory.decodeResource(context.getResources(), R.drawable.and);
+        temp = BitmapFactory.decodeResource(context.getResources(), R.drawable.nand);
         icon = Bitmap.createScaledBitmap(temp, blockSize, blockSize, false);
     }
     public boolean eval() {
@@ -272,8 +272,16 @@ class ORGATE extends TwoInOneOut {
 }
 
 class XORGATE extends TwoInOneOut {
-    XORGATE(Point in, Context context, int blockSize){
+    XORGATE(Point in, Context context, int blockSize) {
+        this.blockSize = blockSize;
+        position = in;
+        setBitmap(context);
+        update();
+    }
 
+    private void setBitmap(Context context) {
+        temp = BitmapFactory.decodeResource(context.getResources(), R.drawable.xor);
+        icon = Bitmap.createScaledBitmap(temp, blockSize, blockSize, false);
     }
 }
 
@@ -475,7 +483,10 @@ class NAND extends Button {
 }
 
 class XOR extends Button {
-
+    XOR(int x) {
+        position = new Point(x, 0);
+        this.label = "XOR";
+    }
 }
 
 class menuSwap extends Button{

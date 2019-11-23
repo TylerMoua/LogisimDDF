@@ -55,7 +55,7 @@ class GridAndMenu extends Activity {
             , new AND(4), new OR(5), new NOT(6), new SWITCHBUTTON(7)
             , new LEDBUTTON(8), new TOGGLE(9), new menuSwap(10)};
     private Button[] menu2 = {new Save(0), new A(1), new B(2), new C(3),
-            new UNDO(4), new REDO(5), new NAND(6), new INTRO(7), new menuSwap(8),
+            new UNDO(4), new REDO(5), new NAND(6), new INTRO(7), new XOR(8),
             new menuSwap(9), new menuSwap(10)};
 
 
@@ -426,7 +426,7 @@ class GridAndMenu extends Activity {
                 break;
 
             //-----------------------------------------------------------------
-            case 8:
+            case 8: //XOR Button
                 pushToUndo();
                 xor();
                 break;
@@ -520,16 +520,16 @@ class GridAndMenu extends Activity {
     private void xor() {
         if (selectedElement != null
                 && elements.circuit[elements.getElement(selectedElement)].getClass()== new CircuitElement().getClass()) {
-            elements.circuit[elements.getElement(selectedElement)] = new NANDGATE(selectedElement, context, largeCellSize);
+            elements.circuit[elements.getElement(selectedElement)] = new XORGATE(selectedElement, context, largeCellSize);
             selectedElement = null;
-            onScreenToast("NAND Gate created");
+            onScreenToast("XOR Gate created");
         }
     }
 
     private void not(){
         if (selectedElement != null
                 && elements.circuit[elements.getElement(selectedElement)].getClass()== new CircuitElement().getClass()) {
-            elements.circuit[elements.getElement(selectedElement)] = new NANDGATE(selectedElement, context, largeCellSize);
+            elements.circuit[elements.getElement(selectedElement)] = new NOTGATE(selectedElement, context, largeCellSize);
             selectedElement = null;
             onScreenToast("NOT Gate created");
         }
