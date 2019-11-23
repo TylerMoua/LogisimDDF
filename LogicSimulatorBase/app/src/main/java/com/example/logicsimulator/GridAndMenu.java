@@ -522,7 +522,12 @@ class GridAndMenu {
     }
 
     private void not(){
-
+        if (selectedElement != null
+                && elements.circuit[elements.getElement(selectedElement)].getClass()== new CircuitElement().getClass()) {
+            elements.circuit[elements.getElement(selectedElement)] = new NANDGATE(selectedElement, context, largeCellSize);
+            selectedElement = null;
+            onScreenToast("NOT Gate created");
+        }
     }
 
     private void inputSwitch(){
