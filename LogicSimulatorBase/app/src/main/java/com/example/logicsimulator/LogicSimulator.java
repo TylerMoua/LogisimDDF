@@ -13,7 +13,9 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.webkit.WebView;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.MediaController;
 import android.widget.RelativeLayout;
 import android.widget.VideoView;
 
@@ -31,10 +33,12 @@ public class LogicSimulator extends Activity {
         getResolution();
         setObjects();
         setContentView(gameView);
-//        mediaPlayer();
+        //    mediaPlayer();
         gameView.setImageBitmap(blankBitmap);
         gridAndMenu.updateScreen();
+
     }
+
 
     //Create our objects
     void setObjects() {
@@ -51,29 +55,6 @@ public class LogicSimulator extends Activity {
         display.getSize(size);
     }
 
-//    //Plays Intro Video
-//    void mediaPlayer(){
-//        final VideoView wview = new VideoView(this);
-//        Uri uri = Uri.parse("android.resource://"+getPackageName()+"/"+R.raw.introvid);
-//        wview.setVideoURI(uri);
-//        wview.start();
-//        setContentView(wview);
-//        //Disable TouchScreen
-//        getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-//        wview.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-//
-//            @Override
-//            public void onCompletion(MediaPlayer mp) {
-//                // TODO Auto-generated method stub
-//
-//                //write your code after complete video play
-//                wview.setVisibility(View.GONE);
-//                //Re-Enables TouchScreen
-//                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-//                setContentView(gameView);
-//            }
-//        });
-//    }
 
     @Override
     public boolean onTouchEvent(MotionEvent motionEvent) {
@@ -81,9 +62,45 @@ public class LogicSimulator extends Activity {
         if ((motionEvent.getAction() & MotionEvent.ACTION_MASK) == MotionEvent.ACTION_UP) {
             gameView.setImageBitmap(blankBitmap);
             touchProcessor.processTouch(motionEvent);
-            gridAndMenu.updateScreen();
+            if(gridAndMenu.introducing){
+                mediaPlayer();
+            }else
+                gridAndMenu.updateScreen();
         }
         return true;
+    }
+
+
+    //Plays Intro Video
+    void mediaPlayer(){
+        setContentView(R.layout.activity_main);
+        final VideoView wview = findViewById(R.id.videoview);
+        String videoPath = "android.resource://"+ getPackageName()+ "/" + R.raw.introvid;
+        Uri uri = Uri.parse(videoPath);
+        wview.setVideoURI(uri);
+        wview.start();
+
+//        Button exitButton = new Button(this);
+//        exitButton = (Button)findViewById(R.id.exitButton);
+
+        //Disable TouchScreen
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+        wview.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                // TODO Auto-generated method stub
+
+                //write your code after complete video play
+                wview.setVisibility(View.GONE);
+                setContentView(gameView);
+
+                //Re-Enables TouchScreen
+                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                //Disable introducing.
+                gridAndMenu.introducing=false;
+            }
+        });
     }
 
 }
