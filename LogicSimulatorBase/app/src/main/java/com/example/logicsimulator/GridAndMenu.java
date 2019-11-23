@@ -46,9 +46,9 @@ class GridAndMenu {
     private Schematic[] savedSchematics = new Schematic[numberOfSavableSchematic];
 
 
-    private Button[] menu = {new PLAY(0), new ADD(1), new SUB(2), new WIRE(3)
-            , new AND(4), new OR(5), new NOT(6), new SWITCHBUTTON(7)
-            , new LEDBUTTON(8), new TOGGLE(9), new Save(10), new A(11), new B(12), new C(13), new UNDO(14), new REDO(15), new NAND(16), new INTRO(17)};
+    private Button[] menu = {new PLAY(0), new ADD(1), new SUB(2), new WIRE(3),
+            new AND(4), new OR(5), new NOT(6), new SWITCHBUTTON(7),
+            new LEDBUTTON(8), new TOGGLE(9), new Save(10), new A(11), new B(12), new C(13), new UNDO(14), new REDO(15), new NAND(16), new INTRO(17)};
 
     private Node[][] cells =
             new Node[numberOfHorizontalCells][numberOfVerticalCells];
