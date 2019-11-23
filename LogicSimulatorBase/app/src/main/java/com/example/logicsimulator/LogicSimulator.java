@@ -80,11 +80,8 @@ public class LogicSimulator extends Activity {
         wview.setVideoURI(uri);
         wview.start();
 
-//        Button exitButton = new Button(this);
-//        exitButton = (Button)findViewById(R.id.exitButton);
 
         //Disable TouchScreen
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
         wview.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
 
             @Override
@@ -95,9 +92,21 @@ public class LogicSimulator extends Activity {
                 wview.setVisibility(View.GONE);
                 setContentView(gameView);
 
-                //Re-Enables TouchScreen
-                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                //Disable introducing.
+                //Disable introducing
+                gridAndMenu.introducing=false;
+            }
+        });
+
+        //Exit Button
+        Button exitButton = new Button(this);
+        exitButton = (Button)findViewById(R.id.exitButton);
+        exitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //write your code after complete video play
+                wview.setVisibility(View.GONE);
+                setContentView(gameView);
+                //Disable introducing
                 gridAndMenu.introducing=false;
             }
         });
