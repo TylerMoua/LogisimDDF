@@ -28,6 +28,7 @@ class GridAndMenu {
     Point selectedElement, selectedNode;
     private Point selectedButton;
 
+    private int loadSaveOffset = 11;
     private boolean playing, saving, introducing = false;
     private Context context;
     private Canvas myCanvas;
@@ -105,12 +106,23 @@ class GridAndMenu {
     void updateScreen() {
         debugUpdate();
         whiteOut();
+        checkStates();
         drawButtons();
         colorElements();
         drawGrid();
         printWires();
         updatePlay();
         updateSelection();
+    }
+    private void checkStates(){
+        for(int i=0; i < numberOfSavableSchematic; i++){
+            if (savedSchematics[i].isEmpty()){
+                ((Loadable)menu[i+loadSaveOffset]).hasState = false;
+            }
+            else
+                ((Loadable)menu[i+loadSaveOffset]).hasState = true;
+
+        }
     }
     //This method may light up the LED based on the logic circuit.
     private void updatePlay(){
@@ -521,7 +533,7 @@ class GridAndMenu {
     //Based on the saving boolean value, it will save or load a state from
     //The savedSchematics array.
     private void saveOrLoad(int input){
-        input -= 11;
+        input -= loadSaveOffset;
         if(saving){
             saveSchematic(input);
             save();
