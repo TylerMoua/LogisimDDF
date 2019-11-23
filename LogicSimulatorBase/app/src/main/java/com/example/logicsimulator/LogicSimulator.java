@@ -37,33 +37,6 @@ public class LogicSimulator extends Activity {
 
     }
 
-    //Plays Intro Video
-    void mediaPlayer(){
-        setContentView(R.layout.activity_main);
-        final VideoView wview = findViewById(R.id.videoview);
-        String videoPath = "android.resource://"+ getPackageName()+ "/" + R.raw.introvid;
-        Uri uri = Uri.parse(videoPath);
-        wview.setVideoURI(uri);
-        wview.start();
-
-        //Disable TouchScreen
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-        wview.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-
-            @Override
-            public void onCompletion(MediaPlayer mp) {
-                // TODO Auto-generated method stub
-
-                //write your code after complete video play
-                wview.setVisibility(View.GONE);
-                setContentView(gameView);
-
-                //Re-Enables TouchScreen
-                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-            }
-        });
-    }
-
     //Create our objects
     void setObjects() {
         blankBitmap = Bitmap.createBitmap(size.x, size.y,
@@ -89,6 +62,34 @@ public class LogicSimulator extends Activity {
             gridAndMenu.updateScreen();
         }
         return true;
+    }
+
+
+    //Plays Intro Video
+    void mediaPlayer(){
+        setContentView(R.layout.activity_main);
+        final VideoView wview = findViewById(R.id.videoview);
+        String videoPath = "android.resource://"+ getPackageName()+ "/" + R.raw.introvid;
+        Uri uri = Uri.parse(videoPath);
+        wview.setVideoURI(uri);
+        wview.start();
+
+        //Disable TouchScreen
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+        wview.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                // TODO Auto-generated method stub
+
+                //write your code after complete video play
+                wview.setVisibility(View.GONE);
+                setContentView(gameView);
+
+                //Re-Enables TouchScreen
+                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+            }
+        });
     }
 
 }
