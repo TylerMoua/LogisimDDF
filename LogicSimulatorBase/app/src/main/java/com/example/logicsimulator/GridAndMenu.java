@@ -53,7 +53,7 @@ class GridAndMenu {
     private Node[][] cells =
             new Node[numberOfHorizontalCells][numberOfVerticalCells];
 
-    Schematic elements = new Schematic(numberOfCircuitElements);
+    Schematic elements;
 
     //largeCellSize: Circuit elements
     // menuCellSize: Buttons
@@ -79,6 +79,7 @@ class GridAndMenu {
         gridHeight = smallCellSize * numberOfVerticalCells;
         gridLength = smallCellSize * numberOfHorizontalCells;
 
+        elements = new Schematic(numberOfCircuitElements, largeCellSize);
         populate();
     }
 
@@ -401,18 +402,11 @@ class GridAndMenu {
     private void add() {
         Point location = new Point(0,0);
         if((elements.getElement(location)==-1) && numberOfActiveElements<numberOfCircuitElements) {
-            for (int i = 0; i <numberOfCircuitElements; i++) {
-                if (elements.circuit[i] == null) {
-                    elements.circuit[i] = new CircuitElement(location, largeCellSize);
-                    break;
-                }
-            }
-
+            elements.add();
             numberOfActiveElements++;
             Log.d("Debugging", "Current Elements:" + numberOfActiveElements);
         } else
             Log.d("Debugging","No Element Added, Space occupied OR Too many element");
-
 
     }
 
@@ -420,9 +414,7 @@ class GridAndMenu {
     private void sub() {
         if (selectedElement != null) {
             Log.d("Debugging", "Element Subtracted");
-            elements.removeConnections(selectedElement);
-            int index = elements.getElement(selectedElement);
-            elements.circuit[index] = null;
+            elements.sub(selectedElement);
             selectedElement = null;
             numberOfActiveElements--;
             onScreenToast("Element Subtracted");

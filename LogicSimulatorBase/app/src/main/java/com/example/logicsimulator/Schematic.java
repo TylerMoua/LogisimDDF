@@ -8,11 +8,12 @@ import androidx.annotation.NonNull;
 //Working on a class to replace the elements array. -Tyler
 
 public class Schematic {
-    int numberOfCircuitElements;
-    public CircuitElement[] circuit;
+    private int numberOfCircuitElements, largeCellSize;
+    CircuitElement[] circuit;
 
-    public Schematic(int numberOfCircuitElements){
+    Schematic(int numberOfCircuitElements, int largeCellSize){
         this.numberOfCircuitElements = numberOfCircuitElements;
+        this.largeCellSize = largeCellSize;
         circuit = new CircuitElement[numberOfCircuitElements];
     }
     @NonNull
@@ -124,6 +125,20 @@ public class Schematic {
             }
         }
     }
+
+    void add(){
+        for (int i = 0; i <numberOfCircuitElements; i++) {
+            if (circuit[i] == null) {
+                circuit[i] = new CircuitElement(new Point(0,0), largeCellSize);
+                break;
+            }
+        }
+    }
+    void sub(Point selectedElement){
+        int index = getElement(selectedElement);
+        removeConnections(selectedElement);
+        circuit[index] = null;
+    }
     boolean nullConnections() {
         for (CircuitElement element : circuit) {
             if (element != null) {
@@ -147,7 +162,7 @@ public class Schematic {
     }
 
     Schematic copy(){
-        Schematic result = new Schematic(numberOfCircuitElements);
+        Schematic result = new Schematic(numberOfCircuitElements,largeCellSize);
         for(int i = 0; i < numberOfCircuitElements; i++){
             result.circuit[i] = circuit[i];
         }
