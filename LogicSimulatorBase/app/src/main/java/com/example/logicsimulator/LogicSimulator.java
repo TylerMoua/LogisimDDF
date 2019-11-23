@@ -93,6 +93,7 @@ public class LogicSimulator extends Activity {
 
                 //Re-Enables TouchScreen
                 getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                //Disable introducing.
                 gridAndMenu.introducing=false;
             }
         });
