@@ -127,4 +127,11 @@ public class Schematic {
         Log.d("Debugging", "No Null Connections Found");
         return false;
     }
+    Schematic copy(){
+        Schematic result = new Schematic(numberOfCircuitElements);
+        for(int i = 0; i < numberOfCircuitElements; i++){
+            result.circuit[i] = circuit[i];
+        }
+        return result;
+    }
 }

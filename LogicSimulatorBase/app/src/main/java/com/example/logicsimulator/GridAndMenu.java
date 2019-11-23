@@ -643,20 +643,13 @@ class GridAndMenu {
 
     private void pushToRedo(){
         Schematic temp;
-        temp = createNewSchematic();
+        temp = elements.copy();
         redoStack.push(temp);
     }
     private void pushToUndo(){
         Schematic temp;
-        temp = createNewSchematic();
+        temp = elements.copy();
         undoStack.push(temp);
     }
 
-    private Schematic createNewSchematic(){
-        Schematic result = new Schematic(numberOfCircuitElements);
-        for(int i = 0; i < numberOfCircuitElements; i++){
-            result.circuit[i] = elements.circuit[i];
-        }
-        return result;
-    }
 }
