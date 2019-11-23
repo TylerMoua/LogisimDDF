@@ -5,18 +5,12 @@ import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.media.MediaPlayer;
 import android.net.Uri;
-import android.opengl.Visibility;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.WindowManager;
-import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.MediaController;
-import android.widget.RelativeLayout;
 import android.widget.VideoView;
 
 public class LogicSimulator extends Activity {

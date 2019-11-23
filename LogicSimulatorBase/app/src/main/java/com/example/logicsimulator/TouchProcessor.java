@@ -3,7 +3,6 @@ package com.example.logicsimulator;
 import android.graphics.Point;
 import android.util.Log;
 import android.view.MotionEvent;
-import android.widget.Toast;
 
 /*
     This class processes the users touch and calls methods of the GridAndMenu class.

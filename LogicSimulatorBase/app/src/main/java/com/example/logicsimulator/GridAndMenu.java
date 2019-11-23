@@ -7,15 +7,9 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
-import android.media.MediaPlayer;
-import android.net.Uri;
 import android.util.Log;
 import android.view.Gravity;
-import android.view.View;
-import android.view.WindowManager;
-import android.webkit.WebView;
 import android.widget.Toast;
-import android.widget.VideoView;
 
 import java.util.Stack;
 
