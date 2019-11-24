@@ -300,12 +300,18 @@ class GridAndMenu extends Activity {
             switch (buttonNumber) {
             //----------------------------------------------------------------------------
             case 0: //PLAY BUTTON
-                play();
-                if (playing)
-                    onScreenToast("Circuit is Running");
-                else
-                    onScreenToast("Circuit Stopped");
+                if(numberOfActiveElements!=0){
+                    play();
+                    if (playing)
+                        onScreenToast("Circuit is Running");
+                    else
+                        onScreenToast("Circuit Stopped");
+
+                } else {
+                    onScreenToast("Add some elements to begin!");
+                }
                 break;
+
             //-------------------------------------------------------------------------------
             case 1: //ADD BUTTON
                 if (!playing) {
@@ -571,7 +577,6 @@ class GridAndMenu extends Activity {
     private void intro() {
         introducing = !introducing;
     }
-
 
     //This method toggles our save state.
     private void save(){
