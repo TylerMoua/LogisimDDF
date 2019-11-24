@@ -7,10 +7,12 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Display;
+import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 import android.widget.VideoView;
 
 public class LogicSimulator extends Activity {
@@ -19,7 +21,7 @@ public class LogicSimulator extends Activity {
     ImageView gameView;
     GridAndMenu gridAndMenu;
     TouchProcessor touchProcessor;
-
+    Toast toast;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,8 +29,13 @@ public class LogicSimulator extends Activity {
         getResolution();
         setObjects();
         setContentView(gameView);
-        gameView.setImageBitmap(blankBitmap);
         gridAndMenu.updateScreen();
+        toast = Toast.makeText(this,
+                "Welcome to our App. For a Quick Intro, click 'Change Menu', then Click Intro!", Toast.LENGTH_LONG);
+        toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 0);
+        toast.show();
+        gameView.setImageBitmap(blankBitmap);
+
 
     }
 
