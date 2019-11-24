@@ -19,6 +19,24 @@
             android:id="@+id/llButtons"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:orientation="vertical" />
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/play"
+                style='"?android:attr/buttonBarButtonStyle"'
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/play_button" />
+
+            <Button
+                android:id="@+id/add"
+                style='"?android:attr/buttonBarButtonStyle"'
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/add_button" />
+
+        </LinearLayout>
     </HorizontalScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
