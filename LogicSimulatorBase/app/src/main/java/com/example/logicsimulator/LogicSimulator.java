@@ -35,8 +35,6 @@ public class LogicSimulator extends Activity {
         toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 0);
         toast.show();
         gameView.setImageBitmap(blankBitmap);
-
-
     }
 
 

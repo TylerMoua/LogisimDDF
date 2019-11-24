@@ -495,9 +495,17 @@ class XOR extends Button {
 class menuSwap extends UndoAndRedo{
     menuSwap(int x) {
         position = new Point(x, 0);
-        this.label = "Change Menu";
+        this.label = "Next Menu";
     }
 }
+
+class menuReverse extends UndoAndRedo{
+    menuReverse(int x) {
+        position = new Point(x, 0);
+        this.label = "Prev Menu";
+    }
+}
+
 //button to create an example of the AND schematic
 class INTRO extends UndoAndRedo {
     INTRO(int x) {

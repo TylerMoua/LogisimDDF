@@ -10,7 +10,6 @@ import android.graphics.Point;
 import android.util.Log;
 import android.view.Gravity;
 import android.widget.Toast;
-
 import java.util.Stack;
 
 
@@ -51,8 +50,8 @@ class GridAndMenu extends Activity {
             , new AND(4), new OR(5), new NOT(6), new SWITCHBUTTON(7)
             , new LEDBUTTON(8), new TOGGLE(9), new menuSwap(10)};
     private Button[] menu2 = {new Save(0), new A(1), new B(2), new C(3),
-            new UNDO(4), new REDO(5), new NAND(6), new XOR(7), new menuSwap(8),
-            new INTRO(9), new menuSwap(10)};
+            new UNDO(4), new REDO(5), new NAND(6), new XOR(7), new menuReverse(8),
+            new INTRO(9), new menuReverse(10)};
 
 
     private Node[][] cells =
@@ -144,7 +143,7 @@ class GridAndMenu extends Activity {
         }
     }
 
-    //Toast Messages for On Screen Feedback - Ali
+    //Toast Messages for On Screen Feedback
     void onScreenToast(String prompt) {
         Toast toast = Toast.makeText(context,
                 prompt, Toast.LENGTH_SHORT);
