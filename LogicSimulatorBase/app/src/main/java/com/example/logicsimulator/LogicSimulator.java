@@ -31,7 +31,7 @@ public class LogicSimulator extends Activity {
         setContentView(gameView);
         gridAndMenu.updateScreen();
         toast = Toast.makeText(this,
-                "Welcome to our App. For a Quick Intro, click 'Change Menu', then Click Intro!", Toast.LENGTH_LONG);
+                "Welcome to our App. For a Quick Intro, click 'Next Menu', then Click Intro!", Toast.LENGTH_LONG);
         toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 0);
         toast.show();
         gameView.setImageBitmap(blankBitmap);
