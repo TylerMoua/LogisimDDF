@@ -51,8 +51,8 @@ class GridAndMenu extends Activity {
             , new AND(4), new OR(5), new NOT(6), new SWITCHBUTTON(7)
             , new LEDBUTTON(8), new TOGGLE(9), new menuSwap(10)};
     private Button[] menu2 = {new Save(0), new A(1), new B(2), new C(3),
-            new UNDO(4), new REDO(5), new NAND(6), new XOR(7), new INTRO(8),
-            new menuSwap(9), new menuSwap(10)};
+            new UNDO(4), new REDO(5), new NAND(6), new XOR(7), new menuSwap(8),
+            new INTRO(9), new menuSwap(10)};
 
 
     private Node[][] cells =
@@ -423,11 +423,14 @@ class GridAndMenu extends Activity {
                 break;
 
             //-----------------------------------------------------------------
-            case 8: //Intro Button
+            case 8: // **CHANGE TO SOMETHING ELSE JUST PLACE HOLDER**
+                menuNumber = 1;
+                break;
+            //-----------------------------------------------------------------
+            case 9: //Intro Button
                 intro();
                 break;
             //-----------------------------------------------------------------
-            case 9:
             case 10: //Menu Swap
                 menuNumber = 1;
                 break;
