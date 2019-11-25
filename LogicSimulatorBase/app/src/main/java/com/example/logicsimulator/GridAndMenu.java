@@ -611,12 +611,16 @@ class GridAndMenu extends Activity {
     }
 
     private void saveSchematic(int input){
+            undoStack.clear();
+            redoStack.clear();
             savedSchematics[input]=elements.copySchematic();
         Log.d("Debugging", "Saving Diagram");
     }
 
     private void loadSchematic(int input){
-            elements = savedSchematics[input].copySchematic();
+        undoStack.clear();
+        redoStack.clear();
+        elements = savedSchematics[input].copySchematic();
         Log.d("Debugging", "Loading Diagram");
     }
 

@@ -22,6 +22,7 @@ public class Schematic {
         for(int i = 0; i < circuit.length; i++){
             if(circuit[i]!= null) {
                 string += circuit[i].label;
+                string += "("+circuit[i].position.toString()+")";
                 string += ", ";
             }
         }
