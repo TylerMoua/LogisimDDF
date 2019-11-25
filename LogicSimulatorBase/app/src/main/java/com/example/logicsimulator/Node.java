@@ -217,13 +217,10 @@ abstract class TwoInOneOut extends GATE{
         this.inputNodes.add(new Node (new Point (position.x*3, position.y*3)));
         this.inputNodes.add(new Node (new Point (position.x*3, position.y*3+2)));
     }
-
 }
 
 class ANDGATE extends TwoInOneOut{
-
     //bitmap to be resized into the icon bitmap
-
     ANDGATE(Point in, Context context, int blockSize){
         this.blockSize = blockSize;
         position = in;
@@ -238,7 +235,6 @@ class ANDGATE extends TwoInOneOut{
     public boolean eval() {
         return a.eval() && b.eval();
     }
-
 }
 
 class NANDGATE extends TwoInOneOut {
