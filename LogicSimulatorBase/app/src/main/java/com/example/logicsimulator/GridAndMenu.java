@@ -465,9 +465,11 @@ class GridAndMenu extends Activity {
         if((elements.getElement(new Point(0,0))==-1) && numberOfActiveElements<numberOfCircuitElements) {
             elements.add();
             numberOfActiveElements++;
+//            selectedElement = elements.getElement(new Point(0, 0));
             Log.d("Debugging", "Current Elements:" + numberOfActiveElements);
-        } else
+        } else {
             Log.d("Debugging","No Element Added, Space occupied OR Too many element");
+        }
     }
 
     //This method removes an element from the elements Array and removes wire connections
@@ -499,6 +501,7 @@ class GridAndMenu extends Activity {
     //The following methods (from and to led) changes an unclassified circuit element into
     //each methods respective circuit elements
     private void and() {
+//        add();
         if (selectedElement != null
                 && elements.circuit[elements.getElement(selectedElement)].getClass() == new CircuitElement().getClass()) {
             elements.circuit[elements.getElement(selectedElement)] = new ANDGATE(selectedElement, context, largeCellSize);
