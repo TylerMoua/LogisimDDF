@@ -336,7 +336,6 @@ class GridAndMenu extends Activity {
                     }
                     else
                         onScreenToast("There are not enough elements to wire!");
-
                 }
                 break;
             //------------------------------------------------------------------------
@@ -391,7 +390,6 @@ class GridAndMenu extends Activity {
                     save();
                     onScreenToast("Choose A, B, C to Save Current Layout");
                 }
-
             }
             break;
             //-----------------------------------------------------------------
@@ -437,11 +435,11 @@ class GridAndMenu extends Activity {
 
             //-----------------------------------------------------------------
             case 8: // **CHANGE TO SOMETHING ELSE JUST PLACE HOLDER**
-                menuNumber = 1;
+//                menuNumber = 1;
                 break;
             //-----------------------------------------------------------------
-            case 9: //Intro Button
-                intro();
+            case 9: //Delete All Button or Random Circuit Maker?
+//                intro();
                 break;
             //-----------------------------------------------------------------
             case 10: //Menu Swap
