@@ -300,7 +300,7 @@ class GridAndMenu extends Activity {
             switch (buttonNumber) {
             //----------------------------------------------------------------------------
             case 0: //PLAY BUTTON
-                if(numberOfActiveElements!=0){
+                if(numberOfActiveElements>=3){
                     play();
                     if (playing)
                         onScreenToast("Circuit is Running");
@@ -308,7 +308,7 @@ class GridAndMenu extends Activity {
                         onScreenToast("Circuit Stopped");
 
                 } else {
-                    onScreenToast("Add some elements to begin!");
+                    onScreenToast("Add some more elements to begin!");
                 }
                 break;
 
