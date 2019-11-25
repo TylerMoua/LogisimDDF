@@ -51,7 +51,7 @@ class GridAndMenu extends Activity {
             , new LEDBUTTON(7), new TOGGLE(8), new INTRO(9), new menuSwap(10)};
     private Button[] menu2 = {new Save(0), new A(1), new B(2), new C(3),
             new UNDO(4), new REDO(5), new NAND(6), new XOR(7), new menuReverse(8),
-            new menuReverse(9), new menuReverse(10)};
+            new RANDOM(9), new menuReverse(10)};
 
 
     private Node[][] cells =
@@ -306,7 +306,6 @@ class GridAndMenu extends Activity {
                         onScreenToast("Circuit is Running");
                     else
                         onScreenToast("Circuit Stopped");
-
                 } else {
                     onScreenToast("Add some more elements to begin!");
                 }
@@ -369,7 +368,7 @@ class GridAndMenu extends Activity {
                 toggle();
                 break;
             //--------------------------------------------------------------------
-            case 9: //Intro
+            case 9: //INTRO
                 intro();
                 break;
             //--------------------------------------------------------------------
@@ -438,8 +437,9 @@ class GridAndMenu extends Activity {
 //                menuNumber = 1;
                 break;
             //-----------------------------------------------------------------
-            case 9: //Delete All Button or Random Circuit Maker?
-//                intro();
+            case 9: //Random Circuit Creator
+                randomCircuitGenerator();
+                onScreenToast("Random Circuit Created");
                 break;
             //-----------------------------------------------------------------
             case 10: //Menu Swap
@@ -632,6 +632,11 @@ class GridAndMenu extends Activity {
         redoStack.clear();
         elements = savedSchematics[input].copySchematic();
         Log.d("Debugging", "Loading Diagram");
+    }
+
+    private void randomCircuitGenerator() {
+
+
     }
 
     //------------------------------------------------------------------------------------------

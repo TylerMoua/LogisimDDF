@@ -520,6 +520,13 @@ class INTRO extends NoColor {
     }
 }
 
+class RANDOM extends NoColor {
+    RANDOM(int x) {
+        position = new Point(x, 0);
+        this.label = "RANDOM";
+    }
+}
+
 
 //These buttons can change their color based on its state.
 abstract class SavedClick extends Button{
