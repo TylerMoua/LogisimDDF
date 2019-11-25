@@ -434,7 +434,6 @@ class GridAndMenu extends Activity {
 
             //-----------------------------------------------------------------
             case 8: // **CHANGE TO SOMETHING ELSE JUST PLACE HOLDER**
-//                menuNumber = 1;
                 break;
             //-----------------------------------------------------------------
             case 9: //Random Circuit Creator
@@ -635,8 +634,7 @@ class GridAndMenu extends Activity {
     }
 
     private void randomCircuitGenerator() {
-
-
+//            and();
     }
 
     //------------------------------------------------------------------------------------------
