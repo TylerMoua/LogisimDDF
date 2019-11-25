@@ -338,7 +338,7 @@ abstract class Button extends ElementOrButton{
 }
 
 //Each button class has a unique label value based on their name.
-class ADD extends Button {
+class ADD extends NoColor {
     ADD(int x) {
         position = new Point(x,0);
         this.label = "ADD";
@@ -346,7 +346,7 @@ class ADD extends Button {
 }
 
 
-class SUB extends Button{
+class SUB extends NoColor{
     SUB(int x) {
         position = new Point(x,0);
         this.label = "SUB";
@@ -457,13 +457,13 @@ class C extends  Loadable{
         this.label = "C";
     }
 }
-abstract class UndoAndRedo extends Button{
+abstract class NoColor extends Button{
     @Override
     void color(int blockSize, Canvas myCanvas, int gridHeight) {
         //Don't color these on select
     }
 }
-class UNDO extends UndoAndRedo{
+class UNDO extends NoColor{
     UNDO(int x) {
         position = new Point(x,0);
         this.label = "UNDO";
@@ -471,7 +471,7 @@ class UNDO extends UndoAndRedo{
 
 }
 
-class REDO extends UndoAndRedo{
+class REDO extends NoColor{
     REDO(int x) {
         position = new Point(x,0);
         this.label = "REDO";
@@ -492,14 +492,14 @@ class XOR extends Button {
     }
 }
 
-class menuSwap extends UndoAndRedo{
+class menuSwap extends NoColor{
     menuSwap(int x) {
         position = new Point(x, 0);
         this.label = "Next Menu";
     }
 }
 
-class menuReverse extends UndoAndRedo{
+class menuReverse extends NoColor{
     menuReverse(int x) {
         position = new Point(x, 0);
         this.label = "Prev Menu";
@@ -507,7 +507,7 @@ class menuReverse extends UndoAndRedo{
 }
 
 //button to create an example of the AND schematic
-class INTRO extends UndoAndRedo {
+class INTRO extends NoColor {
     INTRO(int x) {
         position = new Point(x, 0);
         this.label = "INTRO";
