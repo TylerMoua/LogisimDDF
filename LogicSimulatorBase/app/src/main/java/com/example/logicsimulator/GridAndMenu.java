@@ -330,10 +330,11 @@ class GridAndMenu extends Activity {
             //-----------------------------------------------------------------------------
             case 3: //Wire BUTTON
                 if (!playing) {
-                    pushToUndo();
-                    wire();
-                    if (numberOfActiveElements >= 2)
+                    if (numberOfActiveElements >= 2){
                         onScreenToast("Choose an Element to Wire To");
+                        pushToUndo();
+                        wire();
+                    }
                     else
                         onScreenToast("There are not enough elements to wire!");
 
@@ -500,13 +501,14 @@ class GridAndMenu extends Activity {
     //each methods respective circuit elements
     private void and() {
         if (selectedElement != null
-                && elements.circuit[elements.getElement(selectedElement)].getClass()== new CircuitElement().getClass()) {
+                && elements.circuit[elements.getElement(selectedElement)].getClass() == new CircuitElement().getClass()) {
             elements.circuit[elements.getElement(selectedElement)] = new ANDGATE(selectedElement, context, largeCellSize);
             selectedElement = null;
             onScreenToast("AND Gate created");
-        }
-    }
+        } else
+            onScreenToast("Please Select an Element First. If None Exist, Add Some!");
 
+    }
     private void nand() {
         if (selectedElement != null
                 && elements.circuit[elements.getElement(selectedElement)].getClass()== new CircuitElement().getClass()) {
@@ -522,8 +524,8 @@ class GridAndMenu extends Activity {
             elements.circuit[elements.getElement(selectedElement)] = new ORGATE(selectedElement, context, largeCellSize);
             selectedElement = null;
             onScreenToast("OR Gate Created");
-
-        }
+        } else
+            onScreenToast("Please Select an Element First. If None Exist, Add Some!");
     }
 
     private void xor() {
@@ -541,7 +543,8 @@ class GridAndMenu extends Activity {
             elements.circuit[elements.getElement(selectedElement)] = new NOTGATE(selectedElement, context, largeCellSize);
             selectedElement = null;
             onScreenToast("NOT Gate created");
-        }
+        } else
+            onScreenToast("Please Select an Element First. If None Exist, Add Some!");
     }
 
     private void inputSwitch(){
@@ -550,8 +553,8 @@ class GridAndMenu extends Activity {
             elements.circuit[elements.getElement(selectedElement)] = new SWITCH(selectedElement, largeCellSize);
             selectedElement = null;
             onScreenToast("Switch Created");
-
-        }
+        } else
+            onScreenToast("Please Select an Element First. If None Exist, Add Some!");
     }
 
     private void led() {
@@ -561,8 +564,8 @@ class GridAndMenu extends Activity {
             elements.circuit[elements.getElement(selectedElement)] = new LED(selectedElement, largeCellSize);
             selectedElement = null;
             onScreenToast("LED Created");
-
-        }
+        } else
+            onScreenToast("Please Select an Element First. If None Exist, Add Some!");
     }
 
     //This method changes the label of a switch from 0 to 1 or from 1 to 0
@@ -573,9 +576,9 @@ class GridAndMenu extends Activity {
                 ((SWITCH) elements.circuit[elements.getElement(selectedElement)]).toggle();
                 selectedElement = null;
                 onScreenToast("Switch Toggled");
-
             }
-        }
+        } else
+            onScreenToast("Please Select an Element First. If None Exist, Add Some!");
     }
 
     //this method toggles our intro state
