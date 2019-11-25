@@ -332,7 +332,6 @@ class GridAndMenu extends Activity {
                 if (!playing) {
                     if (numberOfActiveElements >= 2){
                         onScreenToast("Choose an Element to Wire To");
-                        pushToUndo();
                         wire();
                     }
                     else
@@ -609,7 +608,6 @@ class GridAndMenu extends Activity {
             selectedNode = null;
             onScreenToast("Layout Loaded");
         }
-
     }
 
     private void saveSchematic(int input){
@@ -619,9 +617,7 @@ class GridAndMenu extends Activity {
 
     private void loadSchematic(int input){
             elements = savedSchematics[input].copy();
-
         Log.d("Debugging", "Loading Diagram");
-
     }
 
     //------------------------------------------------------------------------------------------
