@@ -334,6 +334,9 @@ class GridAndMenu extends Activity {
                     wire();
                     if (numberOfActiveElements >= 2)
                         onScreenToast("Choose an Element to Wire To");
+                    else
+                        onScreenToast("There are not enough elements to wire!");
+
                 }
                 break;
             //------------------------------------------------------------------------
@@ -475,8 +478,10 @@ class GridAndMenu extends Activity {
             selectedElement = null;
             numberOfActiveElements--;
             onScreenToast("Element Subtracted");
-        } else
+        } else {
+            onScreenToast("Please Select an Element to Subtract. If None Exist, Add Some!");
             Log.d("Debugging", "No Element Subtracted");
+        }
     }
 
 
