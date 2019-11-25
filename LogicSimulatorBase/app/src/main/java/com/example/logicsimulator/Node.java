@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 
 //This class represents any element that is positioned as a grid point
-class Node {
+class Node{
     Paint paint = new Paint();
     Point position;
 
@@ -58,7 +58,7 @@ abstract class ElementOrButton extends Node{
 //This class represents the circuit elements on the screen
 //The classes that extend this class handle both the visual and functional
 //methods of each gate.
-class CircuitElement extends ElementOrButton{
+class CircuitElement extends ElementOrButton implements Cloneable{
     CircuitElement a;
     Node outputNode;
     ArrayList<Node>inputNodes;
@@ -92,6 +92,10 @@ class CircuitElement extends ElementOrButton{
                 (position.x * blockSize) + blockSize,
                 (position.y * blockSize)+ blockSize,
                 paint );
+    }
+
+    public Object clone()throws CloneNotSupportedException{
+        return super.clone();
     }
 
     //This method is for coloring a label white when an element is selected

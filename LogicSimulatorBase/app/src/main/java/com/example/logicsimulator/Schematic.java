@@ -165,6 +165,15 @@ public class Schematic {
         System.arraycopy(circuit, 0, result.circuit, 0, numberOfCircuitElements);
         return result;
     }
+    Schematic copySchematic(){
+        Schematic result = new Schematic(numberOfCircuitElements,largeCellSize);
+        for( int i = 0; i < numberOfCircuitElements; i++){
+            try {
+                result.circuit[i] = (CircuitElement)circuit[i].clone();
+            }catch (CloneNotSupportedException c){ }
+        }
+        return result;
+    }
     boolean isEmpty(){
         for (CircuitElement e : circuit){
             if ( e != null){
