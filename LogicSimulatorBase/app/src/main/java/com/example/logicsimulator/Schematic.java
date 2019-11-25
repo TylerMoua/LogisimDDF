@@ -167,10 +167,13 @@ public class Schematic {
     }
     Schematic copySchematic(){
         Schematic result = new Schematic(numberOfCircuitElements,largeCellSize);
-        for( int i = 0; i < numberOfCircuitElements; i++){
-            try {
-                result.circuit[i] = (CircuitElement)circuit[i].clone();
-            }catch (CloneNotSupportedException c){ }
+        for( int i = 0; i < numberOfCircuitElements; i++) {
+            if (circuit[i] != null) {
+                try {
+                    result.circuit[i] = (CircuitElement) circuit[i].clone();
+                } catch (CloneNotSupportedException c) {
+                }
+            }
         }
         return result;
     }
