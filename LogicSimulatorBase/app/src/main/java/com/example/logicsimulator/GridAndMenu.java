@@ -511,7 +511,7 @@ class GridAndMenu extends Activity {
             selectedElement = null;
             onScreenToast("AND Gate created");
         } else
-            onScreenToast("Please Select an Element First. If None Exist, Add Some!");
+            onScreenToast("Move the Gate you created First!");
 
     }
     private void nand() {
@@ -531,7 +531,7 @@ class GridAndMenu extends Activity {
             selectedElement = null;
             onScreenToast("OR Gate Created");
         } else
-            onScreenToast("Please Select an Element First. If None Exist, Add Some!");
+            onScreenToast("Move the Gate you created First!");
     }
 
     private void xor() {
@@ -551,7 +551,7 @@ class GridAndMenu extends Activity {
             selectedElement = null;
             onScreenToast("NOT Gate created");
         } else
-            onScreenToast("Please Select an Element First. If None Exist, Add Some!");
+            onScreenToast("Move the Gate you created First!");
     }
 
     private void inputSwitch(){
@@ -562,7 +562,7 @@ class GridAndMenu extends Activity {
             selectedElement = null;
             onScreenToast("Switch Created");
         } else
-            onScreenToast("Please Select an Element First. If None Exist, Add Some!");
+            onScreenToast("Move the Gate you created First!");
     }
 
     private void led() {
@@ -574,7 +574,7 @@ class GridAndMenu extends Activity {
             selectedElement = null;
             onScreenToast("LED Created");
         } else
-            onScreenToast("Please Select an Element First. If None Exist, Add Some!");
+            onScreenToast("Move the Gate you created First!");
     }
 
     //This method changes the label of a switch from 0 to 1 or from 1 to 0
@@ -586,8 +586,7 @@ class GridAndMenu extends Activity {
                 selectedElement = null;
                 onScreenToast("Switch Toggled");
             }
-        } else
-            onScreenToast("Please Select an Element First. If None Exist, Add Some!");
+        }
     }
 
     //this method toggles our intro state
