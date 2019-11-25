@@ -22,6 +22,7 @@ public class Schematic {
         for(int i = 0; i < circuit.length; i++){
             if(circuit[i]!= null) {
                 string += circuit[i].label;
+                string += "("+circuit[i].position.toString()+")";
                 string += ", ";
             }
         }
@@ -163,6 +164,18 @@ public class Schematic {
     Schematic copy(){
         Schematic result = new Schematic(numberOfCircuitElements,largeCellSize);
         System.arraycopy(circuit, 0, result.circuit, 0, numberOfCircuitElements);
+        return result;
+    }
+    Schematic copySchematic(){
+        Schematic result = new Schematic(numberOfCircuitElements,largeCellSize);
+        for( int i = 0; i < numberOfCircuitElements; i++) {
+            if (circuit[i] != null) {
+                try {
+                    result.circuit[i] = (CircuitElement) circuit[i].clone();
+                } catch (CloneNotSupportedException c) {
+                }
+            }
+        }
         return result;
     }
     boolean isEmpty(){

@@ -614,12 +614,16 @@ class GridAndMenu extends Activity {
     }
 
     private void saveSchematic(int input){
-            savedSchematics[input]=elements.copy();
+            undoStack.clear();
+            redoStack.clear();
+            savedSchematics[input]=elements.copySchematic();
         Log.d("Debugging", "Saving Diagram");
     }
 
     private void loadSchematic(int input){
-            elements = savedSchematics[input].copy();
+        undoStack.clear();
+        redoStack.clear();
+        elements = savedSchematics[input].copySchematic();
         Log.d("Debugging", "Loading Diagram");
     }
 
@@ -642,6 +646,7 @@ class GridAndMenu extends Activity {
     void gridSelect(Point touchPoint){
         if(selectedElement!=null && selectedButton==null) {
             elements.move(touchPoint, selectedElement);
+            pushToUndo();
             selectedElement = null;
         }else{
             Log.d("Debugging", "No action taken.");
@@ -653,6 +658,7 @@ class GridAndMenu extends Activity {
     //It also stores a value(nodeNumber) to tell which input node has been selected
     void wireTwoElements(Point touchPoint, Point nodeTouch){
         elements.wireTwoElements(touchPoint, nodeTouch, selectedElement);
+        pushToUndo();
         selectedNode = null;
         selectedElement = null;
         selectedButton = null;
@@ -683,12 +689,12 @@ class GridAndMenu extends Activity {
 
     private void pushToRedo(){
         Schematic temp;
-        temp = elements.copy();
+        temp = elements.copySchematic();
         redoStack.push(temp);
     }
     private void pushToUndo(){
         Schematic temp;
-        temp = elements.copy();
+        temp = elements.copySchematic();
         undoStack.push(temp);
     }
 
