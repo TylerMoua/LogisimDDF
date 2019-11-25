@@ -161,11 +161,6 @@ public class Schematic {
         return false;
     }
 
-    Schematic copy(){
-        Schematic result = new Schematic(numberOfCircuitElements,largeCellSize);
-        System.arraycopy(circuit, 0, result.circuit, 0, numberOfCircuitElements);
-        return result;
-    }
     Schematic copySchematic(){
         Schematic result = new Schematic(numberOfCircuitElements,largeCellSize);
         for( int i = 0; i < numberOfCircuitElements; i++) {

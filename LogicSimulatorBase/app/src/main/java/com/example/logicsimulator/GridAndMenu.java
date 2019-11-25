@@ -666,22 +666,23 @@ class GridAndMenu extends Activity {
     //Methods for UNDO and REDO
 
     private void undo() {
-        //The redo stack is topped off with the top element of the
-        pushToRedo();
-
-        //Our elements are replaced by the top of the undo Stack
         if(!undoStack.isEmpty())
+            //The redo stack is topped off with the our current elements
+            pushToRedo();
+            //Our elements are replaced by the top of the undo Stack
             elements = undoStack.pop();
 
     }
 
     private void redo() {
-        //The undo stack is topped off with the our current elements
-        pushToUndo();
-
-        //Our elements are replaced by the top of the redo Stack
         if(!redoStack.isEmpty())
+            //The undo stack is topped off with the our current elements
+            pushToUndo();
+            //Our elements are replaced by the top of the redo Stack
             elements = redoStack.pop();
+
+
+
     }
 
     private void pushToRedo(){
