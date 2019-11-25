@@ -337,6 +337,14 @@ abstract class Button extends ElementOrButton{
     }
 }
 
+
+abstract class NoColor extends Button{
+    @Override
+    void color(int blockSize, Canvas myCanvas, int gridHeight) {
+        //Don't color these on select
+    }
+}
+
 //Each button class has a unique label value based on their name.
 class ADD extends NoColor {
     ADD(int x) {
@@ -437,6 +445,8 @@ class Loadable extends Button{
 
 }
 
+
+
 class A extends  Loadable{
     A(int x) {
         position = new Point(x,0);
@@ -457,12 +467,8 @@ class C extends  Loadable{
         this.label = "C";
     }
 }
-abstract class NoColor extends Button{
-    @Override
-    void color(int blockSize, Canvas myCanvas, int gridHeight) {
-        //Don't color these on select
-    }
-}
+
+
 class UNDO extends NoColor{
     UNDO(int x) {
         position = new Point(x,0);
