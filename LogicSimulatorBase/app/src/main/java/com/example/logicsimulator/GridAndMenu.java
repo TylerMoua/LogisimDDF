@@ -46,9 +46,9 @@ class GridAndMenu extends Activity {
     private Schematic[] savedSchematics = new Schematic[numberOfSavableSchematic];
 
 
-    private Button[] menu1 = {new PLAY(0), new ADD(1), new SUB(2), new WIRE(3)
-            , new AND(4), new OR(5), new NOT(6), new SWITCHBUTTON(7)
-            , new LEDBUTTON(8), new TOGGLE(9), new menuSwap(10)};
+    private Button[] menu1 = {new PLAY(0), new SUB(1), new WIRE(2)
+            , new AND(3), new OR(4), new NOT(5), new SWITCHBUTTON(6)
+            , new LEDBUTTON(7), new TOGGLE(8), new INTRO(9), new menuSwap(10)};
     private Button[] menu2 = {new Save(0), new A(1), new B(2), new C(3),
             new UNDO(4), new REDO(5), new NAND(6), new XOR(7), new menuReverse(8),
             new INTRO(9), new menuReverse(10)};
@@ -313,22 +313,22 @@ class GridAndMenu extends Activity {
                 break;
 
             //-------------------------------------------------------------------------------
-            case 1: //ADD BUTTON
-                if (!playing) {
-                    pushToUndo();
-                    add();
-                    onScreenToast("Element Added");
-                }
-                break;
+//            case 1: //ADD BUTTON
+//                if (!playing) {
+//                    pushToUndo();
+//                    add();
+//                    onScreenToast("Element Added");
+//                }
+//                break;
             //---------------------------------------------------------------------------------
-            case 2: //SUB BUTTON
+            case 1: //SUB BUTTON
                 if (!playing) {
                     pushToUndo();
                     sub();
                 }
                 break;
             //-----------------------------------------------------------------------------
-            case 3: //Wire BUTTON
+            case 2: //Wire BUTTON
                 if (!playing) {
                     if (numberOfActiveElements >= 2){
                         onScreenToast("Choose an Element to Wire To");
@@ -340,39 +340,44 @@ class GridAndMenu extends Activity {
                 }
                 break;
             //------------------------------------------------------------------------
-            case 4: //AND BUTTON
+            case 3: //AND BUTTON
                 pushToUndo();
                 and();
                 break;
             //------------------------------------------------------------------------
-            case 5://OR BUTTON
+            case 4://OR BUTTON
                 pushToUndo();
                 or();
                 break;
             //----------------------------------------------------------------------
-            case 6: //NOT BUTTON
+            case 5: //NOT BUTTON
                 pushToUndo();
                 not();
                 break;
             //----------------------------------------------------------------------
-            case 7: //SWITCH BUTTON
+            case 6: //SWITCH BUTTON
                 pushToUndo();
                 inputSwitch();
                 break;
             //-----------------------------------------------------------------
-            case 8: //LED BUTTON
+            case 7: //LED BUTTON
                 pushToUndo();
                 led();
                 break;
             //--------------------------------------------------------------------
-            case 9: // 1/0 BUTTON
+            case 8: // 1/0 BUTTON
                 pushToUndo();
                 toggle();
                 break;
-            //-----------------------------------------------------------------
-            case 10: //Menu Swap
-                menuNumber = 2;
+            //--------------------------------------------------------------------
+            case 9: //Intro
+                intro();
                 break;
+            //--------------------------------------------------------------------
+                case 10: //Menu Swap
+                    menuNumber = 2;
+                    break;
+
             }
         }
         else{
@@ -465,7 +470,7 @@ class GridAndMenu extends Activity {
         if((elements.getElement(new Point(0,0))==-1) && numberOfActiveElements<numberOfCircuitElements) {
             elements.add();
             numberOfActiveElements++;
-//            selectedElement = elements.getElement(new Point(0, 0));
+            selectedElement = new Point(0, 0);
             Log.d("Debugging", "Current Elements:" + numberOfActiveElements);
         } else {
             Log.d("Debugging","No Element Added, Space occupied OR Too many element");
@@ -501,7 +506,7 @@ class GridAndMenu extends Activity {
     //The following methods (from and to led) changes an unclassified circuit element into
     //each methods respective circuit elements
     private void and() {
-//        add();
+        add();
         if (selectedElement != null
                 && elements.circuit[elements.getElement(selectedElement)].getClass() == new CircuitElement().getClass()) {
             elements.circuit[elements.getElement(selectedElement)] = new ANDGATE(selectedElement, context, largeCellSize);
@@ -521,6 +526,7 @@ class GridAndMenu extends Activity {
     }
 
     private void or() {
+        add();
         if (selectedElement != null
                 && elements.circuit[elements.getElement(selectedElement)].getClass()== new CircuitElement().getClass()) {
             elements.circuit[elements.getElement(selectedElement)] = new ORGATE(selectedElement, context, largeCellSize);
@@ -540,6 +546,7 @@ class GridAndMenu extends Activity {
     }
 
     private void not(){
+        add();
         if (selectedElement != null
                 && elements.circuit[elements.getElement(selectedElement)].getClass()== new CircuitElement().getClass()) {
             elements.circuit[elements.getElement(selectedElement)] = new NOTGATE(selectedElement, context, largeCellSize);
@@ -550,6 +557,7 @@ class GridAndMenu extends Activity {
     }
 
     private void inputSwitch(){
+        add();
         if (selectedElement != null
                 && elements.circuit[elements.getElement(selectedElement)].getClass()== new CircuitElement().getClass()) {
             elements.circuit[elements.getElement(selectedElement)] = new SWITCH(selectedElement, largeCellSize);
@@ -560,6 +568,7 @@ class GridAndMenu extends Activity {
     }
 
     private void led() {
+        add();
         Log.d("Debugging", "LED");
         if (selectedElement != null
                 && elements.circuit[elements.getElement(selectedElement)].getClass()== new CircuitElement().getClass()) {
