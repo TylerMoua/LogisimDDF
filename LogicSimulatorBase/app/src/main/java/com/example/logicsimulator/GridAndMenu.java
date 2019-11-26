@@ -504,8 +504,7 @@ class GridAndMenu extends Activity {
     //each methods respective circuit elements
     private void and() {
         add();
-        if (selectedElement != null
-                && elements.circuit[elements.getElement(selectedElement)].getClass() == new CircuitElement().getClass()) {
+        if (selectedElement != null) {
             elements.circuit[elements.getElement(selectedElement)] = new ANDGATE(selectedElement, context, largeCellSize);
             selectedElement = null;
             onScreenToast("AND Gate created");
@@ -514,8 +513,7 @@ class GridAndMenu extends Activity {
 
     }
     private void nand() {
-        if (selectedElement != null
-                && elements.circuit[elements.getElement(selectedElement)].getClass()== new CircuitElement().getClass()) {
+        if (selectedElement != null) {
             elements.circuit[elements.getElement(selectedElement)] = new NANDGATE(selectedElement, context, largeCellSize);
             selectedElement = null;
             onScreenToast("NAND Gate created");
@@ -524,8 +522,7 @@ class GridAndMenu extends Activity {
 
     private void or() {
         add();
-        if (selectedElement != null
-                && elements.circuit[elements.getElement(selectedElement)].getClass()== new CircuitElement().getClass()) {
+        if (selectedElement != null){
             elements.circuit[elements.getElement(selectedElement)] = new ORGATE(selectedElement, context, largeCellSize);
             selectedElement = null;
             onScreenToast("OR Gate Created");
@@ -534,8 +531,7 @@ class GridAndMenu extends Activity {
     }
 
     private void xor() {
-        if (selectedElement != null
-                && elements.circuit[elements.getElement(selectedElement)].getClass()== new CircuitElement().getClass()) {
+        if (selectedElement != null) {
             elements.circuit[elements.getElement(selectedElement)] = new XORGATE(selectedElement, context, largeCellSize);
             selectedElement = null;
             onScreenToast("XOR Gate created");
@@ -544,8 +540,7 @@ class GridAndMenu extends Activity {
 
     private void not(){
         add();
-        if (selectedElement != null
-                && elements.circuit[elements.getElement(selectedElement)].getClass()== new CircuitElement().getClass()) {
+        if (selectedElement != null) {
             elements.circuit[elements.getElement(selectedElement)] = new NOTGATE(selectedElement, context, largeCellSize);
             selectedElement = null;
             onScreenToast("NOT Gate created");
@@ -555,8 +550,7 @@ class GridAndMenu extends Activity {
 
     private void inputSwitch(){
         add();
-        if (selectedElement != null
-                && elements.circuit[elements.getElement(selectedElement)].getClass()== new CircuitElement().getClass()) {
+        if (selectedElement != null) {
             elements.circuit[elements.getElement(selectedElement)] = new SWITCH(selectedElement, largeCellSize);
             selectedElement = null;
             onScreenToast("Switch Created");
@@ -567,8 +561,7 @@ class GridAndMenu extends Activity {
     private void led() {
         add();
         Log.d("Debugging", "LED");
-        if (selectedElement != null
-                && elements.circuit[elements.getElement(selectedElement)].getClass()== new CircuitElement().getClass()) {
+        if (selectedElement != null) {
             elements.circuit[elements.getElement(selectedElement)] = new LED(selectedElement, largeCellSize);
             selectedElement = null;
             onScreenToast("LED Created");
