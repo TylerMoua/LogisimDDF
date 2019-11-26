@@ -493,6 +493,14 @@ class GridAndMenu extends Activity {
         }
     }
 
+    private void deleteAll() {
+       for(int i = 0; i < numberOfActiveElements; i++){
+//           selectedElement =
+           sub();
+       }
+    }
+
+
 
 
     //This method selects the output node of the selected element.
@@ -632,7 +640,7 @@ class GridAndMenu extends Activity {
     }
 
     private void randomCircuitGenerator() {
-
+        deleteAll();
         Random rand = new Random();
 
         switch (rand.nextInt(2)) {
