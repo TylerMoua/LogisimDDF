@@ -637,6 +637,10 @@ class GridAndMenu extends Activity {
             elements.move(new Point(9, 4), selectedElement);
             selectedElement = null;
 //        }
+        and();
+        selectedElement = new Point(0, 0);
+        elements.move(new Point(2, 3), selectedElement);
+        selectedElement = null;
     }
 
     //------------------------------------------------------------------------------------------
