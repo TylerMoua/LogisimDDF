@@ -627,7 +627,9 @@ class GridAndMenu extends Activity {
     }
 
     private void randomCircuitGenerator() {
-//            and();
+        and();
+        selectedElement = new Point(0, 0);
+        elements.move(new Point(200, 300), selectedElement);
     }
 
     //------------------------------------------------------------------------------------------
@@ -677,7 +679,6 @@ class GridAndMenu extends Activity {
             pushToRedo();
             //Our elements are replaced by the top of the undo Stack
             elements = undoStack.pop();
-
     }
 
     private void redo() {
@@ -686,9 +687,6 @@ class GridAndMenu extends Activity {
             pushToUndo();
             //Our elements are replaced by the top of the redo Stack
             elements = redoStack.pop();
-
-
-
     }
 
     private void pushToRedo(){

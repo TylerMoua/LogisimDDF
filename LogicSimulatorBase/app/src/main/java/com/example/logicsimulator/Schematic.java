@@ -126,14 +126,16 @@ public class Schematic {
         }
     }
 
-    void add(){
-        for (int i = 0; i <numberOfCircuitElements; i++) {
+
+    void add() {
+        for (int i = 0; i < numberOfCircuitElements; i++) {
             if (circuit[i] == null) {
-                circuit[i] = new CircuitElement(new Point(0,0), largeCellSize);
+                circuit[i] = new CircuitElement(new Point(0, 0), largeCellSize);
                 break;
             }
         }
     }
+
     void sub(Point selectedElement){
         int index = getElement(selectedElement);
         removeConnections(selectedElement);
