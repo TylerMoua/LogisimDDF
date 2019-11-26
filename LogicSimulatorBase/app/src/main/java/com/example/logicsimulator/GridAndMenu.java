@@ -632,79 +632,81 @@ class GridAndMenu extends Activity {
     }
 
     private void randomCircuitGenerator() {
+
         Random rand = new Random();
 
-        //Circuit 1
-        //SWITCH
-        inputSwitch();
-        randomMover(2,2);
+        switch (rand.nextInt(2)) {
+            case 0 :
+                //Circuit 1
+                //SWITCH
+                inputSwitch();
+                randomMover(2,2);
 
-        //AND
-        and();
-        randomMover(4,1);
+                //AND
+                and();
+                randomMover(4,1);
 
-        and();
-        randomMover(4,3);
+                and();
+                randomMover(4,3);
 
-        //OR
-        or();
-        randomMover(6,2);
+                //OR
+                or();
+                randomMover(6,2);
 
-        //LED
-        led();
-        randomMover(8,2);
+                //LED
+                led();
+                randomMover(8,2);
+                break;
+            case 1:
+                //Circuit 2
+                //SWITCH
+                inputSwitch();
+                randomMover(2,1);
+                inputSwitch();
+                randomMover(2, 3);
 
+                //AND
+                and();
+                randomMover(4,1);
 
+                //OR
+                or();
+                randomMover(4, 3);
+                or();
+                randomMover(6, 1);
+                or();
+                randomMover(6, 3);
 
-        //-----------------------------------------------
-//
-//        //Circuit 2
-//        //SWITCH
-//        inputSwitch();
-//        randomMover(2,1);
-//        inputSwitch();
-//        randomMover(2, 3);
-//
-//        //AND
-//        and();
-//        randomMover(4,1);
-//
-//        //OR
-//        or();
-//        randomMover(4, 3);
-//        or();
-//        randomMover(6, 1);
-//        or();
-//        randomMover(6, 3);
-//
-//        //LED
-//        led();
-//        randomMover(8, 1);
-//        led();
-//        randomMover(8, 3);
+                //LED
+                led();
+                randomMover(8, 1);
+                led();
+                randomMover(8, 3);
+                break;
 
-        //-----------------------------------------------
+            case 2:
+                //Circuit 3
+                //SWITCH
+                inputSwitch();
+                randomMover(1,2);
 
-//        //Circuit 3
-//        //SWITCH
-//        inputSwitch();
-//        randomMover(1,2);
-//
-//        //NOT
-//        not();
-//        randomMover(3,1);
-//        not();
-//        randomMover(3,3);
-//        not();
-//        randomMover(7,2);
-//
-//        //OR
-//        or();
-//        randomMover(5,2);
-//
-//        //LED
-//        led();
-//        randomMover(9,2);
+                //NOT
+                not();
+                randomMover(3,1);
+                not();
+                randomMover(3,3);
+                not();
+                randomMover(7,2);
+
+                //OR
+                or();
+                randomMover(5,2);
+
+                //LED
+                led();
+                randomMover(9,2);
+                break;
+        }
     }
 
     //Places Elements in Hard Coded Locations for Creating Preset Circuits
