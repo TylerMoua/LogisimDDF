@@ -484,14 +484,14 @@ class REDO extends NoColor{
     }
 }
 
-class NAND extends Button {
+class NAND extends NoColor {
     NAND(int x) {
         position = new Point(x, 0);
         this.label = "NAND";
     }
 }
 
-class XOR extends Button {
+class XOR extends NoColor {
     XOR(int x) {
         position = new Point(x, 0);
         this.label = "XOR";

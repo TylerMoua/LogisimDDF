@@ -428,11 +428,13 @@ class GridAndMenu extends Activity {
             case 6: //NAND Button
                 pushToUndo();
                 nand();
+                onScreenToast("NAND Gate Created");
                 break;
             //-----------------------------------------------------------------
             case 7: //XOR Button
                 pushToUndo();
                 xor();
+                onScreenToast("XOR Gate Created");
                 break;
 
             //-----------------------------------------------------------------
@@ -652,7 +654,7 @@ class GridAndMenu extends Activity {
         led();
         randomMover(8,2);
 
-        
+
 
         //-----------------------------------------------
 //
