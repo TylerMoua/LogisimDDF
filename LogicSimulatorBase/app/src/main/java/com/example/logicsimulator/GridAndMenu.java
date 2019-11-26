@@ -627,19 +627,12 @@ class GridAndMenu extends Activity {
     }
 
     private void randomCircuitGenerator() {
-<<<<<<< HEAD
-//        and();
-////        selectedElement
-////        elements.move(new Point(200, 300), selectedElement);
-=======
         and();
         selectedElement = new Point(0, 0);
         elements.move(new Point(2, 3), selectedElement);
         selectedElement = null;
-<<<<<<< HEAD
->>>>>>> 348f90b2e0a617046b404dc69889dd2bb07b18a1
-=======
->>>>>>> 348f90b2e0a617046b404dc69889dd2bb07b18a1
+        //commment
+
     }
 
     //------------------------------------------------------------------------------------------
