@@ -627,67 +627,58 @@ class GridAndMenu extends Activity {
     }
 
     private void randomCircuitGenerator() {
-     //Circuit 1
-        //SWITCH
-        inputSwitch();
-        selectedElement = new Point(0, 0);
-        elements.move(new Point(2,2), selectedElement);
-        selectedElement = null;
-        //and
-        and();
-        selectedElement = new Point(0, 0);
-        elements.move(new Point(4, 1), selectedElement);
-        selectedElement = null;
-        and();
-        selectedElement = new Point(0, 0);
-        elements.move(new Point(4, 3), selectedElement);
-        selectedElement = null;
-        //OR
-        or();
-        selectedElement = new Point(0, 0);
-        elements.move(new Point( 6, 2), selectedElement);
-        selectedElement = null;
-        //LED
-        led();
-        selectedElement = new Point(0, 0);
-        elements.move(new Point( 8, 2), selectedElement);
-        selectedElement = null;
-
-        //Wires
-
-
-
-//        //Circuit 2
+//     //Circuit 1
 //        //SWITCH
 //        inputSwitch();
-//        selectedElement = new Point(0, 0);
-//        elements.move(new Point(2,1), selectedElement);
+//        elements.move(new Point(2,2), new Point(0, 0));
 //        selectedElement = null;
-//        //SWITCH
-//        inputSwitch();
-//        selectedElement = new Point(0, 0);
-//        elements.move(new Point(2,3), selectedElement);
-//        selectedElement = null;
-//        //and
+//        //AND
 //        and();
-//        selectedElement = new Point(0, 0);
-//        elements.move(new Point(4, 1), selectedElement);
+//        elements.move(new Point(4, 1), new Point(0, 0));
 //        selectedElement = null;
 //        and();
-//        selectedElement = new Point(0, 0);
-//        elements.move(new Point(4, 3), selectedElement);
+//        elements.move(new Point(4, 3), new Point(0, 0));
 //        selectedElement = null;
 //        //OR
 //        or();
-//        selectedElement = new Point(0, 0);
-//        elements.move(new Point( 6, 2), selectedElement);
+//        elements.move(new Point( 6, 2), new Point(0, 0));
 //        selectedElement = null;
 //        //LED
 //        led();
-//        selectedElement = new Point(0, 0);
-//        elements.move(new Point( 8, 2), selectedElement);
+//        elements.move(new Point( 8, 2), new Point(0, 0));
 //        selectedElement = null;
+//
+//        //Wiring
 
+        //Circuit 2
+        //SWITCH
+        inputSwitch();
+        randomMover(2,1);
+        //SWITCH
+        inputSwitch();
+        randomMover(2, 3);
+        //AND
+        and();
+        randomMover(4,1);
+        //OR
+        or();
+        randomMover(4, 3);
+        or();
+        randomMover(6, 1);
+        or();
+        randomMover(6, 3);
+        //LED
+        led();
+        randomMover(8, 1);
+        led();
+        randomMover(8, 3);
+
+
+    }
+
+    private void randomMover(int x, int y){
+        elements.move(new Point(x, y), new Point(0, 0));
+        selectedElement = null;
     }
 
     //------------------------------------------------------------------------------------------
