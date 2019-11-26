@@ -10,6 +10,8 @@ import android.graphics.Point;
 import android.util.Log;
 import android.view.Gravity;
 import android.widget.Toast;
+
+import java.util.Random;
 import java.util.Stack;
 
 
@@ -44,6 +46,7 @@ class GridAndMenu extends Activity {
 
 
     private Schematic[] savedSchematics = new Schematic[numberOfSavableSchematic];
+    private Schematic[] randomSchematics = new Schematic[2];
 
 
     private Button[] menu1 = {new PLAY(0), new SUB(1), new WIRE(2)
@@ -627,25 +630,29 @@ class GridAndMenu extends Activity {
     }
 
     private void randomCircuitGenerator() {
-//        //Circuit 1
-//        //SWITCH
-//        inputSwitch();
-//        randomMover(2,2);
-//
-//        //AND
-//        and();
-//        randomMover(4,1);
-//
-//        and();
-//        randomMover(4,3);
-//
-//        //OR
-//        or();
-//        randomMover(6,2);
-//
-//        //LED
-//        led();
-//        randomMover(8,2);
+        Random rand = new Random();
+
+        //Circuit 1
+        //SWITCH
+        inputSwitch();
+        randomMover(2,2);
+
+        //AND
+        and();
+        randomMover(4,1);
+
+        and();
+        randomMover(4,3);
+
+        //OR
+        or();
+        randomMover(6,2);
+
+        //LED
+        led();
+        randomMover(8,2);
+
+        
 
         //-----------------------------------------------
 //
@@ -676,31 +683,29 @@ class GridAndMenu extends Activity {
 
         //-----------------------------------------------
 
-
-        //Circuit 3
-        //SWITCH
-        inputSwitch();
-        randomMover(1,2);
-
-        //NOT
-        not();
-        randomMover(3,1);
-        not();
-        randomMover(3,3);
-        not();
-        randomMover(7,2);
-
-        //OR
-        or();
-        randomMover(5,2);
-
-        //LED
-        led();
-        randomMover(9,2);
-
-
+//        //Circuit 3
+//        //SWITCH
+//        inputSwitch();
+//        randomMover(1,2);
+//
+//        //NOT
+//        not();
+//        randomMover(3,1);
+//        not();
+//        randomMover(3,3);
+//        not();
+//        randomMover(7,2);
+//
+//        //OR
+//        or();
+//        randomMover(5,2);
+//
+//        //LED
+//        led();
+//        randomMover(9,2);
     }
 
+    //Places Elements in Hard Coded Locations for Creating Preset Circuits
     private void randomMover(int x, int y){
         elements.move(new Point(x, y), new Point(0, 0));
         selectedElement = null;
