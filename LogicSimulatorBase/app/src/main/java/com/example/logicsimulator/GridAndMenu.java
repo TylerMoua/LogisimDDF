@@ -734,6 +734,14 @@ class GridAndMenu extends Activity {
                 //LED
                 led();
                 randomMover(9,2);
+
+                //Wiring
+                elements.setConnection(0, elements.circuit[1], elements.circuit[0]);
+                elements.setConnection(0, elements.circuit[2], elements.circuit[0]);
+                elements.setConnection(0, elements.circuit[4], elements.circuit[1]);
+                elements.setConnection(1, elements.circuit[4], elements.circuit[2]);
+                elements.setConnection(0, elements.circuit[3], elements.circuit[4]);
+                elements.setConnection(0, elements.circuit[5], elements.circuit[4]);
                 break;
         }
     }
