@@ -492,6 +492,10 @@ class GridAndMenu extends Activity {
         }
     }
 
+    private void deleteAll() {
+        
+    }
+
 
     //This method selects the output node of the selected element.
     //Note: Now that a node has been selected, out state has changed.
@@ -632,7 +636,7 @@ class GridAndMenu extends Activity {
     private void randomCircuitGenerator() {
         Random rand = new Random();
 
-        switch (rand.nextInt(2)) {
+        switch (rand.nextInt(3)) {
             case 0 :
                 //Circuit 1
                 //SWITCH
@@ -642,7 +646,6 @@ class GridAndMenu extends Activity {
                 //AND
                 and();
                 randomMover(4,1);
-
                 and();
                 randomMover(4,3);
 
