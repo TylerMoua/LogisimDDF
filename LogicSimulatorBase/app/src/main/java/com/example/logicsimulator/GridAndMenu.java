@@ -494,9 +494,9 @@ class GridAndMenu extends Activity {
     }
 
     private void deleteAll() {
-       undoStack.clear();
-       redoStack.clear();
-       
+        for(int i = 0; i < numberOfActiveElements; i++){
+            
+        }
     }
 
 
