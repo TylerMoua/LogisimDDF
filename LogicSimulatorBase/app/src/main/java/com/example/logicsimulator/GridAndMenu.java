@@ -499,7 +499,6 @@ class GridAndMenu extends Activity {
         redoStack.clear();
         numberOfActiveElements = 0;
         elements = new Schematic(numberOfCircuitElements, largeCellSize);
-
     }
 
 
@@ -642,7 +641,6 @@ class GridAndMenu extends Activity {
     private void randomCircuitGenerator() {
         deleteAll();
         Random rand = new Random();
-
         switch (rand.nextInt(3)) {
             case 0 :
                 //Circuit 1
