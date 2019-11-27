@@ -52,7 +52,7 @@ class GridAndMenu extends Activity {
             , new AND(3), new OR(4), new NOT(5), new SWITCHBUTTON(6)
             , new LEDBUTTON(7), new TOGGLE(8), new INTRO(9), new menuSwap(10)};
     private Button[] menu2 = {new Save(0), new A(1), new B(2), new C(3),
-            new UNDO(4), new REDO(5), new NAND(6), new XOR(7), new menuReverse(8),
+            new UNDO(4), new REDO(5), new NAND(6), new XOR(7), new CLEAR(8),
             new RANDOM(9), new menuReverse(10)};
 
 
@@ -437,7 +437,9 @@ class GridAndMenu extends Activity {
                 break;
 
             //-----------------------------------------------------------------
-            case 8: // **CHANGE TO SOMETHING ELSE JUST PLACE HOLDER**
+            case 8: //CLEAR Button
+                deleteAll();
+                onScreenToast("Circuit Cleared");
                 break;
             //-----------------------------------------------------------------
             case 9: //Random Circuit Creator
@@ -493,6 +495,8 @@ class GridAndMenu extends Activity {
     }
 
     private void deleteAll() {
+        undoStack.clear();
+        redoStack.clear();
         numberOfActiveElements = 0;
         elements = new Schematic(numberOfCircuitElements, largeCellSize);
 

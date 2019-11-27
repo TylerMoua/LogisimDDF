@@ -361,6 +361,13 @@ class SUB extends NoColor{
     }
 }
 
+class CLEAR extends NoColor{
+    CLEAR(int x) {
+        position = new Point(x,0);
+        this.label = "CLEAR";
+    }
+}
+
 class AND extends Button{
     AND(int x) {
         position = new Point(x,0);
