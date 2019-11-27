@@ -494,13 +494,10 @@ class GridAndMenu extends Activity {
     }
 
     private void deleteAll() {
-       for(int i = 0; i < numberOfActiveElements; i++){
-//           selectedElement =
-           sub();
-       }
+       undoStack.clear();
+       redoStack.clear();
+       
     }
-
-
 
 
     //This method selects the output node of the selected element.
@@ -691,7 +688,6 @@ class GridAndMenu extends Activity {
                 led();
                 randomMover(8, 3);
                 break;
-
             case 2:
                 //Circuit 3
                 //SWITCH
@@ -713,6 +709,7 @@ class GridAndMenu extends Activity {
                 //LED
                 led();
                 randomMover(9,2);
+                elements = randomSchematics[2].copySchematic();
                 break;
         }
     }
