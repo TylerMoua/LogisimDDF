@@ -493,7 +493,9 @@ class GridAndMenu extends Activity {
     }
 
     private void deleteAll() {
-        
+        numberOfActiveElements = 0;
+        elements = new Schematic(numberOfCircuitElements, largeCellSize);
+
     }
 
 
@@ -634,6 +636,7 @@ class GridAndMenu extends Activity {
     }
 
     private void randomCircuitGenerator() {
+        deleteAll();
         Random rand = new Random();
 
         switch (rand.nextInt(3)) {
@@ -657,6 +660,7 @@ class GridAndMenu extends Activity {
                 led();
                 randomMover(8,2);
                 break;
+            //---------------------------------------
             case 1:
                 //Circuit 2
                 //SWITCH
@@ -683,6 +687,8 @@ class GridAndMenu extends Activity {
                 led();
                 randomMover(8, 3);
                 break;
+            //---------------------------------------
+
             case 2:
                 //Circuit 3
                 //SWITCH
@@ -704,7 +710,6 @@ class GridAndMenu extends Activity {
                 //LED
                 led();
                 randomMover(9,2);
-                elements = randomSchematics[2].copySchematic();
                 break;
         }
     }
