@@ -44,7 +44,6 @@ class GridAndMenu extends Activity {
     private Stack<Schematic> redoStack = new Stack<>();
 
 
-
     private Schematic[] savedSchematics = new Schematic[numberOfSavableSchematic];
     private Schematic[] randomSchematics = new Schematic[2];
 
@@ -493,12 +492,6 @@ class GridAndMenu extends Activity {
         }
     }
 
-    private void deleteAll() {
-        for(int i = 0; i < numberOfActiveElements; i++){
-            
-        }
-    }
-
 
     //This method selects the output node of the selected element.
     //Note: Now that a node has been selected, out state has changed.
@@ -637,7 +630,6 @@ class GridAndMenu extends Activity {
     }
 
     private void randomCircuitGenerator() {
-        deleteAll();
         Random rand = new Random();
 
         switch (rand.nextInt(2)) {
