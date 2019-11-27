@@ -671,11 +671,6 @@ class GridAndMenu extends Activity {
                 elements.setConnection(0, elements.circuit[3], elements.circuit[1]);
                 elements.setConnection(1, elements.circuit[3], elements.circuit[2]);
                 elements.setConnection(0, elements.circuit[4], elements.circuit[3]);
-
-
-
-
-
                 break;
             //---------------------------------------
             case 1:
@@ -703,6 +698,18 @@ class GridAndMenu extends Activity {
                 randomMover(8, 1);
                 led();
                 randomMover(8, 3);
+
+                //Wiring
+                elements.setConnection(0, elements.circuit[2], elements.circuit[0]);
+                elements.setConnection(0, elements.circuit[3], elements.circuit[0]);
+                elements.setConnection(1, elements.circuit[2], elements.circuit[1]);
+                elements.setConnection(1, elements.circuit[3], elements.circuit[1]);
+                elements.setConnection(0, elements.circuit[4], elements.circuit[3]);
+                elements.setConnection(1, elements.circuit[4], elements.circuit[3]);
+                elements.setConnection(0, elements.circuit[5], elements.circuit[2]);
+                elements.setConnection(1, elements.circuit[5], elements.circuit[2]);
+                elements.setConnection(0, elements.circuit[6], elements.circuit[5]);
+                elements.setConnection(0, elements.circuit[7], elements.circuit[4]);
                 break;
             //---------------------------------------
 
