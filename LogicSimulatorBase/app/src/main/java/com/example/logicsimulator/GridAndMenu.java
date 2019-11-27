@@ -9,8 +9,10 @@ import android.graphics.Paint;
 import android.graphics.Point;
 import android.util.Log;
 import android.view.Gravity;
+import android.widget.PopupMenu;
 import android.widget.Toast;
 
+import java.security.cert.PolicyNode;
 import java.util.Random;
 import java.util.Stack;
 
@@ -647,7 +649,6 @@ class GridAndMenu extends Activity {
                 //SWITCH
                 inputSwitch();
                 randomMover(2,2);
-
                 //AND
                 and();
                 randomMover(4,1);
@@ -661,6 +662,20 @@ class GridAndMenu extends Activity {
                 //LED
                 led();
                 randomMover(8,2);
+
+                //Wiring
+                elements.setConnection(0, elements.circuit[1], elements.circuit[0]);
+                elements.setConnection(1, elements.circuit[1], elements.circuit[0]);
+                elements.setConnection(0, elements.circuit[2], elements.circuit[0]);
+                elements.setConnection(1, elements.circuit[2], elements.circuit[0]);
+                elements.setConnection(0, elements.circuit[3], elements.circuit[1]);
+                elements.setConnection(1, elements.circuit[3], elements.circuit[2]);
+                elements.setConnection(0, elements.circuit[4], elements.circuit[3]);
+
+
+
+
+
                 break;
             //---------------------------------------
             case 1:
