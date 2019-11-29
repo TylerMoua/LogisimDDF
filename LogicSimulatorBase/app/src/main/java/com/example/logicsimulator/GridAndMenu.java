@@ -47,8 +47,6 @@ class GridAndMenu extends Activity {
 
 
     private Schematic[] savedSchematics = new Schematic[numberOfSavableSchematic];
-    private Schematic[] randomSchematics = new Schematic[2];
-
 
     private Button[] menu1 = {new PLAY(0), new SUB(1), new WIRE(2)
             , new AND(3), new OR(4), new NOT(5), new SWITCHBUTTON(6)
@@ -345,6 +343,7 @@ class GridAndMenu extends Activity {
             case 3: //AND BUTTON
                 pushToUndo();
                 and();
+
                 break;
             //------------------------------------------------------------------------
             case 4://OR BUTTON
@@ -640,11 +639,12 @@ class GridAndMenu extends Activity {
         Log.d("Debugging", "Loading Diagram");
     }
 
+    //Initiated by 'RANDOM' Button on Menu 2
     private void randomCircuitGenerator() {
         deleteAll();
         Random rand = new Random();
         switch (rand.nextInt(3)) {
-            case 0 :
+            case 0:
                 //Circuit 1
                 //SWITCH
                 inputSwitch();
