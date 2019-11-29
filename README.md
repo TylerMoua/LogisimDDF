@@ -57,20 +57,22 @@
 		AND
 		OR
 		NOT
+		NAND
+		XOR
 	Output LED:
 		The LED will be “on” when its input is 1. Else, it will be “off” 
 	Buttons:
 		Run Button
-		Add Button
 		Subtract Button
 		Wire button
-		Element Type Modifier Buttons:
+		Element Type Adder Buttons:
 			AND button
 			OR button
 			NOT button
 			Switch button
 			LED button
 			1/0 Button
+		Intro Button
 		Save Button
 		State Buttons:
 			A Button
@@ -78,6 +80,8 @@
 			C Button
 		UNDO Button
 		REDO Button
+		CLEAR Button
+		RANDOM Button
 
 ### How the User Interacts With the Interface:
 	The UI of this app will allow users to select circuit elements in the workspace and use buttons in order to modify these circuit elements. 
@@ -124,7 +128,7 @@
 			While in play mode, the toggle button can be used but no other buttons.
 		Add Element Button:
 			Make sure there are less than 10 elements and the top left region of the screen is not occupied by an existing circuit element.
-			This button adds an empty circuit element to the top left region of the workspace.
+			This button adds a circuit element to the top left region of the workspace.
 		Subtract Element Button:
 			Make sure you have selected an element.
 			This button removes a selected circuit element.
@@ -137,7 +141,7 @@
 				A gate cannot be wired to itself.
 				The first element must have an output node.
 				The second element must have an input node.
-		Element Type Modifier Buttons:
+		Element Type Adder Buttons:
 			Make sure you have selected an empty element
 			AND Button:
 				This button changes the selected empty circuit element to an AND gate.
@@ -178,22 +182,26 @@
 						ANDGATE
 						ORGATE
 			Button
-				ADD
 				PLAY
 				SUB
+				WIRE
 				AND
 				OR
 				NOT
-				WIRE
 				SWITCHBUTTON
 				LEDBUTTON
 				TOGGLE
+				INTRO
 				SAVE
 				A 
 				B
 				C 
 				UNDO
 				REDO
+				NAND
+				XOR
+				CLEAR
+				RANDOM
 	Schematic 
 				
 ### LogicSimulator Class:
