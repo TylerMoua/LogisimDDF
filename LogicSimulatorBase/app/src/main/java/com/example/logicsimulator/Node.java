@@ -345,15 +345,6 @@ abstract class NoColor extends Button{
     }
 }
 
-//Each button class has a unique label value based on their name.
-class ADD extends NoColor {
-    ADD(int x) {
-        position = new Point(x,0);
-        this.label = "ADD";
-    }
-}
-
-
 class SUB extends NoColor{
     SUB(int x) {
         position = new Point(x,0);

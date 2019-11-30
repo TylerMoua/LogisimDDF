@@ -313,14 +313,6 @@ class GridAndMenu extends Activity {
                 }
                 break;
 
-            //-------------------------------------------------------------------------------
-//            case 1: //ADD BUTTON
-//                if (!playing) {
-//                    pushToUndo();
-//                    add();
-//                    onScreenToast("Element Added");
-//                }
-//                break;
             //---------------------------------------------------------------------------------
             case 1: //SUB BUTTON
                 if (!playing) {
