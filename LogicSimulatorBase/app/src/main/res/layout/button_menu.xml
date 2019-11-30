@@ -39,4 +39,15 @@
         </LinearLayout>
     </HorizontalScrollView>
 
+    <ImageView
+        android:id="@+id/gridView"
+        android:layout_width="723dp"
+        android:layout_height="358dp"
+        android:contentDescription="@string/grid_draw"
+        app:layout_constraintBottom_toTopOf="@+id/menuScroll"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/alert_light_frame" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
