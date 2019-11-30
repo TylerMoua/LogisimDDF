@@ -204,9 +204,8 @@ class GridAndMenu extends Activity {
     private void colorElements() {
         if(elements.circuit!= null) {
             for (int i = 0; i < elements.circuit.length; i++) {
-                if (elements.circuit[i] != null) {
+                if (elements.circuit[i] != null)
                     elements.circuit[i].idle(myCanvas, i);
-                }
             }
         }
     }
@@ -270,17 +269,15 @@ class GridAndMenu extends Activity {
 
     //Colors an element to indicate that it has been selected
     private void updateSelection() {
-        if (selectedElement != null) {
+        if (selectedElement != null)
             elements.circuit[elements.getElement(selectedElement)].select(myCanvas);
-        }
+
         if (selectedButton != null) {
-            if(menuNumber ==1) {
+            if(menuNumber ==1)
                 menu1[selectedButton.x].select(menuCellSize, myCanvas, gridHeight);
-            }else
+            else
                 menu2[selectedButton.x].select(menuCellSize, myCanvas, gridHeight);
-
         }
-
     }
 
     //-------------------------------------------------------------------------------------------
@@ -733,7 +730,7 @@ class GridAndMenu extends Activity {
                 elements.setConnection(0, elements.circuit[4], elements.circuit[1]);
                 elements.setConnection(1, elements.circuit[4], elements.circuit[2]);
                 elements.setConnection(0, elements.circuit[3], elements.circuit[4]);
-                elements.setConnection(0, elements.circuit[5], elements.circuit[4]);
+                elements.setConnection(0, elements.circuit[5], elements.circuit[3]);
                 break;
         }
     }
