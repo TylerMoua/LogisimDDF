@@ -68,7 +68,7 @@ class GridAndMenu extends Activity {
     private int gridLength;
 
 
-    GridAndMenu(Context context,int numberOfHorizontalPixels, Bitmap blankBitMap) {
+    GridAndMenu(Context context, int numberOfHorizontalPixels, Bitmap blankBitMap) {
 
         this.context = context;
         this.myCanvas = new Canvas(blankBitMap);
@@ -76,7 +76,7 @@ class GridAndMenu extends Activity {
         //Set the size of the grid cells and nodes:
         smallCellSize = numberOfHorizontalPixels / numberOfHorizontalCells;
 
-        menuCellSize = numberOfHorizontalPixels/ numberOfButtons;
+        menuCellSize = numberOfHorizontalPixels / numberOfButtons;
 
         //set the grid block sizes
         int cellRatio = numberOfHorizontalCells / numberOfCircuitElements;
@@ -89,16 +89,18 @@ class GridAndMenu extends Activity {
         fillSchematics();
         populate();
     }
-    private void fillSchematics(){
-        for (int i = 0; i < numberOfSavableSchematic; i++){
+
+    private void fillSchematics() {
+        for (int i = 0; i < numberOfSavableSchematic; i++) {
             savedSchematics[i] = new Schematic(numberOfCircuitElements, largeCellSize);
         }
     }
+
     //Fills the array of grid elements.
     private void populate() {
         for (int i = 0; i < numberOfHorizontalCells; i++) {
             for (int j = 0; j < numberOfVerticalCells; j++) {
-                cells[i][j] = new Node(new Point (i, j));
+                cells[i][j] = new Node(new Point(i, j));
             }
         }
     }
@@ -119,25 +121,25 @@ class GridAndMenu extends Activity {
         updatePlay();
         updateSelection();
     }
-    private void checkStates(){
-        for(int i=0; i < numberOfSavableSchematic; i++){
-            if (savedSchematics[i].isEmpty()){
-                ((Loadable)menu2[i+loadSaveOffset]).state = false;
-            }
-            else
-                ((Loadable)menu2[i+loadSaveOffset]).state = true;
+
+    private void checkStates() {
+        for (int i = 0; i < numberOfSavableSchematic; i++) {
+            if (savedSchematics[i].isEmpty()) {
+                ((Loadable) menu2[i + loadSaveOffset]).state = false;
+            } else
+                ((Loadable) menu2[i + loadSaveOffset]).state = true;
 
         }
     }
+
     //This method may light up the LED based on the logic circuit.
-    private void updatePlay(){
-        if(playing){
-            for (CircuitElement element : elements.circuit)
-            {
-                if(element instanceof LED){
-                    if(element.eval()) {
-                        ((LED)element).lightUp(myCanvas);
-                    }else{
+    private void updatePlay() {
+        if (playing) {
+            for (CircuitElement element : elements.circuit) {
+                if (element instanceof LED) {
+                    if (element.eval()) {
+                        ((LED) element).lightUp(myCanvas);
+                    } else {
                         (element).idle(myCanvas, 10);
                     }
                 }
@@ -149,26 +151,25 @@ class GridAndMenu extends Activity {
     void onScreenToast(String prompt) {
         Toast toast = Toast.makeText(context,
                 prompt, Toast.LENGTH_SHORT);
-        toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 0);
+        toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, 0);
         toast.show();
     }
 
     //Prints a debug message to indicate the state we are in.
-    private void debugUpdate(){
-        if(selectedButton == null)
-            Log.d("Debugging", "Menu Selected: None"  + "\nElement Selected: " + selectedElement + "\nNode Selected:" + selectedNode);
+    private void debugUpdate() {
+        if (selectedButton == null)
+            Log.d("Debugging", "Menu Selected: None" + "\nElement Selected: " + selectedElement + "\nNode Selected:" + selectedNode);
+        else if (menuNumber == 1)
+            Log.d("Debugging", "Menu Selected: " + menu1[selectedButton.x].label + "\nElement Selected: " + selectedElement + "\nNode Selected:" + selectedNode);
         else
-        if(menuNumber==1)
-            Log.d("Debugging", "Menu Selected: " +  menu1[selectedButton.x].label +"\nElement Selected: " + selectedElement + "\nNode Selected:" + selectedNode);
-        else
-            Log.d("Debugging", "Menu Selected: " +  menu2[selectedButton.x].label +"\nElement Selected: " + selectedElement + "\nNode Selected:" + selectedNode);
+            Log.d("Debugging", "Menu Selected: " + menu2[selectedButton.x].label + "\nElement Selected: " + selectedElement + "\nNode Selected:" + selectedNode);
 
         Log.d("Debugging", "Undo Stack:");
-        for (int i = 0; i < undoStack.size(); i++){
+        for (int i = 0; i < undoStack.size(); i++) {
             Log.d("Debugging", "\n" + undoStack.elementAt(i).toString());
         }
         Log.d("Debugging", "Redo Stack:");
-        for (int i = 0; i < redoStack.size(); i++){
+        for (int i = 0; i < redoStack.size(); i++) {
             Log.d("Debugging", "\n" + redoStack.elementAt(i).toString());
         }
     }
@@ -180,11 +181,11 @@ class GridAndMenu extends Activity {
 
     //Draws the menu and labels for each button
     private void drawButtons() {
-        if (menuNumber ==1) {
+        if (menuNumber == 1) {
             for (Button b : menu1) {
                 b.printButtons(myCanvas, menuCellSize, gridHeight, gridLength);
             }
-        }else {
+        } else {
             for (Button b : menu2) {
                 b.printButtons(myCanvas, menuCellSize, gridHeight, gridLength);
             }
@@ -202,7 +203,7 @@ class GridAndMenu extends Activity {
 
     //Colors in the circuit elements on the grid for visibility
     private void colorElements() {
-        if(elements.circuit!= null) {
+        if (elements.circuit != null) {
             for (int i = 0; i < elements.circuit.length; i++) {
                 if (elements.circuit[i] != null)
                     elements.circuit[i].idle(myCanvas, i);
@@ -232,10 +233,10 @@ class GridAndMenu extends Activity {
 
     //Draws a line from an output node to an input node based on
     //The type of gate and which input node is being wired.
-    private void drawWire(Point start, Point end, int node, String type){
+    private void drawWire(Point start, Point end, int node, String type) {
         if (start != null && end != null) {
             if (node == 0) {
-                if (type.equals("class com.example.logicsimulator.NOTGATE")||
+                if (type.equals("class com.example.logicsimulator.NOTGATE") ||
                         type.equals("class com.example.logicsimulator.LED")) {
                     //wire to the center of the element
                     myCanvas.drawLine(
@@ -273,7 +274,7 @@ class GridAndMenu extends Activity {
             elements.circuit[elements.getElement(selectedElement)].select(myCanvas);
 
         if (selectedButton != null) {
-            if(menuNumber ==1)
+            if (menuNumber == 1)
                 menu1[selectedButton.x].select(menuCellSize, myCanvas, gridHeight);
             else
                 menu2[selectedButton.x].select(menuCellSize, myCanvas, gridHeight);
@@ -284,7 +285,7 @@ class GridAndMenu extends Activity {
     //This method hands the users menu button selection based on their touch
     void menuSelect(Point touchPoint) {
         selectedButton = touchPoint;
-        if(menuNumber == 1)
+        if (menuNumber == 1)
             menu1[selectedButton.x].select(menuCellSize, myCanvas, gridHeight);
         else
             menu2[selectedButton.x].select(menuCellSize, myCanvas, gridHeight);
@@ -293,13 +294,13 @@ class GridAndMenu extends Activity {
 
     //This element processes a menu selection and calls a "Button Menu Processing" method to handle
     //the selection
-    private void processMenu(Point input)  {
+    private void processMenu(Point input) {
         int buttonNumber = input.x;
-        if(menuNumber ==1 ){
+        if (menuNumber == 1) {
             switch (buttonNumber) {
                 //----------------------------------------------------------------------------
                 case 0: //PLAY BUTTON
-                    if(numberOfActiveElements>=3){
+                    if (numberOfActiveElements >= 3) {
                         play();
                         if (playing)
                             onScreenToast("Circuit is Running");
@@ -309,7 +310,6 @@ class GridAndMenu extends Activity {
                         onScreenToast("Add some more elements to begin!");
                     }
                     break;
-
                 //---------------------------------------------------------------------------------
                 case 1: //SUB BUTTON
                     if (!playing) {
@@ -320,11 +320,10 @@ class GridAndMenu extends Activity {
                 //-----------------------------------------------------------------------------
                 case 2: //Wire BUTTON
                     if (!playing) {
-                        if (numberOfActiveElements >= 2){
+                        if (numberOfActiveElements >= 2) {
                             onScreenToast("Choose an Element to Wire To");
                             wire();
-                        }
-                        else
+                        } else
                             onScreenToast("There are not enough elements to wire!");
                     }
                     break;
@@ -368,13 +367,12 @@ class GridAndMenu extends Activity {
                     menuNumber = 2;
                     break;
             }
-        }
-        else{
+        } else {
             switch (buttonNumber) {
                 //-----------------------------------------------------------------
                 case 0: // Save Button
                     if (!playing) {
-                        if(numberOfActiveElements==0){
+                        if (numberOfActiveElements == 0) {
                             onScreenToast("Nothing to Save");
                         } else {
                             save();
@@ -386,13 +384,13 @@ class GridAndMenu extends Activity {
                 case 1: // A Button
                 case 2: // B Button
                 case 3: // C Button
-                    if(!playing)
+                    if (!playing)
                         saveOrLoad(buttonNumber);
                     break;
                 //-----------------------------------------------------------------
                 case 4: //Undo Button
-                    if(!playing){
-                        if(undoStack.isEmpty()){
+                    if (!playing) {
+                        if (undoStack.isEmpty()) {
                             onScreenToast("Nothing to Undo");
                         } else {
                             undo();
@@ -402,8 +400,8 @@ class GridAndMenu extends Activity {
                     break;
                 //-----------------------------------------------------------------
                 case 5: //Redo Button
-                    if(!playing){
-                        if(redoStack.isEmpty()) {
+                    if (!playing) {
+                        if (redoStack.isEmpty()) {
                             onScreenToast("Nothing to Redo");
                         } else {
                             redo();
@@ -438,9 +436,9 @@ class GridAndMenu extends Activity {
                 case 10: //Menu Swap
                     menuNumber = 1;
                     break;
+                }
             }
         }
-    }
 
     //------------------------------------------------------------------------------------------
     //Button Function Methods:
@@ -630,7 +628,7 @@ class GridAndMenu extends Activity {
     private void loadSchematic(int input){
         if(savedSchematics[input].isEmpty())
             onScreenToast("Nothing to Load");
-        else {
+         else {
             undoStack.clear();
             redoStack.clear();
             elements = savedSchematics[input].copySchematic();
@@ -649,6 +647,7 @@ class GridAndMenu extends Activity {
                 //SWITCH
                 inputSwitch();
                 randomMover(2,2);
+
                 //AND
                 and();
                 randomMover(4,1);
@@ -712,7 +711,6 @@ class GridAndMenu extends Activity {
                 elements.setConnection(0, elements.circuit[7], elements.circuit[4]);
                 break;
             //---------------------------------------
-
             case 2:
                 //Circuit 3
                 //SWITCH
@@ -794,19 +792,20 @@ class GridAndMenu extends Activity {
     //Methods for UNDO and REDO
 
     private void undo() {
-        if(!undoStack.isEmpty())
+        if (!undoStack.isEmpty())
             //The redo stack is topped off with the our current elements
             pushToRedo();
-        //Our elements are replaced by the top of the undo Stack
-        elements = undoStack.pop();
+            //Our elements are replaced by the top of the undo Stack
+            elements = undoStack.pop();
+
     }
 
     private void redo() {
         if(!redoStack.isEmpty())
             //The undo stack is topped off with the our current elements
             pushToUndo();
-        //Our elements are replaced by the top of the redo Stack
-        elements = redoStack.pop();
+            //Our elements are replaced by the top of the redo Stack
+            elements = redoStack.pop();
     }
 
     private void pushToRedo(){
