@@ -367,7 +367,6 @@ class GridAndMenu extends Activity {
                 case 10: //Menu Swap
                     menuNumber = 2;
                     break;
-
             }
         }
         else{
@@ -606,11 +605,10 @@ class GridAndMenu extends Activity {
             save();
             onScreenToast("Layout Saved");
         }
-        else{
+        else {
             loadSchematic(input);
             selectedElement = null;
             selectedNode = null;
-            onScreenToast("Layout Loaded");
         }
     }
 
@@ -622,10 +620,15 @@ class GridAndMenu extends Activity {
     }
 
     private void loadSchematic(int input){
-        undoStack.clear();
-        redoStack.clear();
-        elements = savedSchematics[input].copySchematic();
-        Log.d("Debugging", "Loading Diagram");
+        if(savedSchematics[input].isEmpty())
+            onScreenToast("Nothing to Load");
+         else {
+            undoStack.clear();
+            redoStack.clear();
+            elements = savedSchematics[input].copySchematic();
+            onScreenToast("Layout Loaded");
+            Log.d("Debugging", "Loading Diagram");
+        }
     }
 
     //Initiated by 'RANDOM' Button on Menu 2

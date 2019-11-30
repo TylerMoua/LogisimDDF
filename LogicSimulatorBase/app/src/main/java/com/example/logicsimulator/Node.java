@@ -430,7 +430,7 @@ class Loadable extends Button{
                 gridHeight,
                 paint);
         if(hasState){
-            paint.setColor(Color.argb(255, 100, 100, 100));
+            paint.setColor(Color.argb(200, 0, 100, 0));
             myCanvas.drawRect(position.x * blockSize,
                     position.y * blockSize,
                     (position.x * blockSize) + blockSize,
@@ -440,10 +440,7 @@ class Loadable extends Button{
         }
         printLabel(buttonBlockSize, myCanvas,gridHeight);
     }
-
 }
-
-
 
 class A extends  Loadable{
     A(int x) {
@@ -465,7 +462,6 @@ class C extends  Loadable{
         this.label = "C";
     }
 }
-
 
 class UNDO extends NoColor{
     UNDO(int x) {

@@ -77,7 +77,6 @@ public class LogicSimulator extends Activity {
         Uri uri = Uri.parse(videoPath);
         wview.setVideoURI(uri);
         wview.start();
-        //Disable TouchScreen
         wview.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
