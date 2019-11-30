@@ -122,10 +122,10 @@ class GridAndMenu extends Activity {
     private void checkStates(){
         for(int i=0; i < numberOfSavableSchematic; i++){
             if (savedSchematics[i].isEmpty()){
-                ((Loadable)menu2[i+loadSaveOffset]).hasState = false;
+                ((Loadable)menu2[i+loadSaveOffset]).state = false;
             }
             else
-                ((Loadable)menu2[i+loadSaveOffset]).hasState = true;
+                ((Loadable)menu2[i+loadSaveOffset]).state = true;
 
         }
     }
@@ -386,9 +386,8 @@ class GridAndMenu extends Activity {
             case 1: // A Button
             case 2: // B Button
             case 3: // C Button
-                if(!playing) {
+                if(!playing)
                     saveOrLoad(buttonNumber);
-                }
                 break;
             //-----------------------------------------------------------------
             case 4: //Undo Button
@@ -600,10 +599,19 @@ class GridAndMenu extends Activity {
     //The savedSchematics array.
     private void saveOrLoad(int input){
         input -= loadSaveOffset;
+
         if(saving){
             saveSchematic(input);
             save();
             onScreenToast("Layout Saved");
+            switch (input){
+                case 0:
+                    ((A) menu2[1]).toggle();
+                case 1:
+                    ((B) menu2[2]).toggle();
+                case 2:
+                    ((C) menu2[3]).toggle();
+            }
         }
         else {
             loadSchematic(input);

@@ -175,7 +175,7 @@ abstract class GATE extends CircuitElement{
     }
 }
 
-class NOTGATE extends  GATE {
+class NOTGATE extends GATE {
     NOTGATE(Point in, Context context, int blockSize){
         this.blockSize = blockSize;
         position = in;
@@ -410,12 +410,14 @@ class TOGGLE extends Button{
 }
 
 class Loadable extends Button{
-    boolean hasState = false;
+    boolean state = false;
+    void toggle(){state=!state;}
 
     @Override
     void printButtons(Canvas myCanvas, int buttonBlockSize, int gridHeight, int gridLength){
         // Change the paint color
         paint.setColor(Color.argb(255, 20*position.x, 10*position.y, 255-(position.x*position.y)));
+
         // Draw Vertical Line
         myCanvas.drawLine(
                 buttonBlockSize * position.x,
@@ -429,34 +431,43 @@ class Loadable extends Button{
                 gridLength,
                 gridHeight,
                 paint);
-        if(hasState){
-            paint.setColor(Color.argb(200, 0, 100, 0));
-            myCanvas.drawRect(position.x * blockSize,
-                    position.y * blockSize,
-                    (position.x * blockSize) + blockSize,
-                    (position.y * blockSize)+ blockSize,
-                    paint );
 
-        }
+        // Change the paint color
+        if(state)
+            paint.setColor(Color.argb(255, 255, 0, 0));
+        else
+            paint.setColor(Color.argb(255, 255, 255, 255));
+
+        color(buttonBlockSize, myCanvas, gridHeight);
+
+//        if(state){
+//            paint.setColor(Color.argb(255, 0, 255, 0));
+//            myCanvas.drawRect(position.x * blockSize,
+//                    position.y * blockSize,
+//                    (position.x * blockSize) + blockSize,
+//                    (position.y * blockSize)+ blockSize,
+//                    paint );
+//
+//        }
         printLabel(buttonBlockSize, myCanvas,gridHeight);
     }
 }
 
-class A extends  Loadable{
+class A extends Loadable{
     A(int x) {
         position = new Point(x,0);
         this.label = "A";
     }
 }
 
-class B extends  Loadable{
+class B extends Loadable{
     B(int x) {
         position = new Point(x,0);
         this.label = "B";
     }
 }
 
-class C extends  Loadable{
+class C extends Loadable{
     C(int x) {
         position = new Point(x,0);
         this.label = "C";
