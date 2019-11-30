@@ -309,6 +309,12 @@
 						This method returns a Boolean value: true if there are any null connections in the entire schematic(Meaning that it checks the .a and .b values of all the elements in the elements array for null), and false if there aren’t any.
 					onScreenToast:
 						This method creates a toast object to be used for displaying useful feedback.
+					deleteAll:
+						This method creates a new Schematic instance and resets the screen.
+					randomCircuitGenerator:
+						This method randomly displays (3) preset layouts.
+						
+						
 						
 ### Undo and Redo Methods
 	The Undo method is called upon user interaction. It first pushes its top element onto the Redo stack. Then, it sets the elements variable to the value popped from the Undo stack. 
@@ -348,7 +354,7 @@
 		This class has its own setBitmap method unique to its bitmap image. Its eval function returns true when a or b return true, else false. 
 		
 	Button Abstract Class (extends ElementOrButton): 
-		This class introduces the methods for printing buttons: printLabel, printButtons, select, and color. ADD, SUB, AND, OR, NOT, WIRE, SWITCHBUTTON, LEDBUTTON, TOGGLE, A, B, and C Classes (All extend Button) These classes have unique labels that are given to the object in the constructor.
+		This class introduces the methods for printing buttons: printLabel, printButtons, select, and color. SUB, AND, OR, NOT, WIRE, SWITCHBUTTON, LEDBUTTON, TOGGLE, INTRO, CLEAR, RANDOM, and A, B, and C Classes (All extend Button or NoColor). These classes have unique labels that are given to the object in the constructor.
 
 	SavedClick Class (extends Button): 
 		This class has a Boolean field “state” and overrides the printButtons method to color a button red if state equals true. 
