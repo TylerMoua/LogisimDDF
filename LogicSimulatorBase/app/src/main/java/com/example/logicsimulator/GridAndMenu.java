@@ -599,11 +599,11 @@ class GridAndMenu extends Activity {
     //The savedSchematics array.
     private void saveOrLoad(int input){
         input -= loadSaveOffset;
-
         if(saving){
             saveSchematic(input);
             save();
             onScreenToast("Layout Saved");
+            //Determines A, B, or C Button to Change Color
             switch (input){
                 case 0:
                     ((A) menu2[1]).toggle();

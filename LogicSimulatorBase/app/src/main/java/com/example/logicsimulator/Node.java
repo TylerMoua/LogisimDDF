@@ -9,6 +9,7 @@ import android.graphics.Paint;
 import android.graphics.Point;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 
 //This class represents any element that is positioned as a grid point
@@ -433,15 +434,15 @@ class Loadable extends Button{
                 paint);
 
         // Change the paint color
-        if(state)
-            paint.setColor(Color.argb(255, 255, 0, 0));
+        if(state) {
+            paint.setColor(Color.argb(255, 0, 255, 255));
+            color(buttonBlockSize, myCanvas, gridHeight);
+        }
         else
             paint.setColor(Color.argb(255, 255, 255, 255));
 
-        color(buttonBlockSize, myCanvas, gridHeight);
-
 //        if(state){
-//            paint.setColor(Color.argb(255, 0, 255, 0));
+//            paint.setColor(Color.argb(255, 0, 255, 255));
 //            myCanvas.drawRect(position.x * blockSize,
 //                    position.y * blockSize,
 //                    (position.x * blockSize) + blockSize,
@@ -449,6 +450,7 @@ class Loadable extends Button{
 //                    paint );
 //
 //        }
+
         printLabel(buttonBlockSize, myCanvas,gridHeight);
     }
 }
