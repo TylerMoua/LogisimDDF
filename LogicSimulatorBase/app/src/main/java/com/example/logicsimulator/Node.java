@@ -9,10 +9,11 @@ import android.graphics.Paint;
 import android.graphics.Point;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 
 //This class represents any element that is positioned as a grid point
-class Node {
+class Node{
     Paint paint = new Paint();
     Point position;
 
@@ -58,7 +59,7 @@ abstract class ElementOrButton extends Node{
 //This class represents the circuit elements on the screen
 //The classes that extend this class handle both the visual and functional
 //methods of each gate.
-class CircuitElement extends ElementOrButton{
+class CircuitElement extends ElementOrButton implements Cloneable{
     CircuitElement a;
     Node outputNode;
     ArrayList<Node>inputNodes;
@@ -92,6 +93,10 @@ class CircuitElement extends ElementOrButton{
                 (position.x * blockSize) + blockSize,
                 (position.y * blockSize)+ blockSize,
                 paint );
+    }
+
+    public Object clone()throws CloneNotSupportedException{
+        return super.clone();
     }
 
     //This method is for coloring a label white when an element is selected
@@ -171,7 +176,7 @@ abstract class GATE extends CircuitElement{
     }
 }
 
-class NOTGATE extends  GATE {
+class NOTGATE extends GATE {
     NOTGATE(Point in, Context context, int blockSize){
         this.blockSize = blockSize;
         position = in;
@@ -213,13 +218,10 @@ abstract class TwoInOneOut extends GATE{
         this.inputNodes.add(new Node (new Point (position.x*3, position.y*3)));
         this.inputNodes.add(new Node (new Point (position.x*3, position.y*3+2)));
     }
-
 }
 
 class ANDGATE extends TwoInOneOut{
-
     //bitmap to be resized into the icon bitmap
-
     ANDGATE(Point in, Context context, int blockSize){
         this.blockSize = blockSize;
         position = in;
@@ -234,7 +236,6 @@ class ANDGATE extends TwoInOneOut{
     public boolean eval() {
         return a.eval() && b.eval();
     }
-
 }
 
 class NANDGATE extends TwoInOneOut {
@@ -337,19 +338,25 @@ abstract class Button extends ElementOrButton{
     }
 }
 
-//Each button class has a unique label value based on their name.
-class ADD extends Button {
-    ADD(int x) {
-        position = new Point(x,0);
-        this.label = "ADD";
+
+abstract class NoColor extends Button{
+    @Override
+    void color(int blockSize, Canvas myCanvas, int gridHeight) {
+        //Don't color these on select
     }
 }
 
-
-class SUB extends Button{
+class SUB extends NoColor{
     SUB(int x) {
         position = new Point(x,0);
         this.label = "SUB";
+    }
+}
+
+class CLEAR extends NoColor{
+    CLEAR(int x) {
+        position = new Point(x,0);
+        this.label = "CLEAR";
     }
 }
 
@@ -404,12 +411,14 @@ class TOGGLE extends Button{
 }
 
 class Loadable extends Button{
-    boolean hasState = false;
+    boolean state = false;
+    void toggle(){state=!state;}
 
     @Override
     void printButtons(Canvas myCanvas, int buttonBlockSize, int gridHeight, int gridLength){
         // Change the paint color
         paint.setColor(Color.argb(255, 20*position.x, 10*position.y, 255-(position.x*position.y)));
+
         // Draw Vertical Line
         myCanvas.drawLine(
                 buttonBlockSize * position.x,
@@ -423,47 +432,51 @@ class Loadable extends Button{
                 gridLength,
                 gridHeight,
                 paint);
-        if(hasState){
-            paint.setColor(Color.argb(255, 100, 100, 100));
-            myCanvas.drawRect(position.x * blockSize,
-                    position.y * blockSize,
-                    (position.x * blockSize) + blockSize,
-                    (position.y * blockSize)+ blockSize,
-                    paint );
 
+        // Change the paint color
+        if(state) {
+            paint.setColor(Color.argb(255, 0, 255, 255));
+            color(buttonBlockSize, myCanvas, gridHeight);
         }
+        else
+            paint.setColor(Color.argb(255, 255, 255, 255));
+
+//        if(state){
+//            paint.setColor(Color.argb(255, 0, 255, 255));
+//            myCanvas.drawRect(position.x * blockSize,
+//                    position.y * blockSize,
+//                    (position.x * blockSize) + blockSize,
+//                    (position.y * blockSize)+ blockSize,
+//                    paint );
+//
+//        }
+
         printLabel(buttonBlockSize, myCanvas,gridHeight);
     }
-
 }
 
-class A extends  Loadable{
+class A extends Loadable{
     A(int x) {
         position = new Point(x,0);
         this.label = "A";
     }
 }
 
-class B extends  Loadable{
+class B extends Loadable{
     B(int x) {
         position = new Point(x,0);
         this.label = "B";
     }
 }
 
-class C extends  Loadable{
+class C extends Loadable{
     C(int x) {
         position = new Point(x,0);
         this.label = "C";
     }
 }
-abstract class UndoAndRedo extends Button{
-    @Override
-    void color(int blockSize, Canvas myCanvas, int gridHeight) {
-        //Don't color these on select
-    }
-}
-class UNDO extends UndoAndRedo{
+
+class UNDO extends NoColor{
     UNDO(int x) {
         position = new Point(x,0);
         this.label = "UNDO";
@@ -471,35 +484,35 @@ class UNDO extends UndoAndRedo{
 
 }
 
-class REDO extends UndoAndRedo{
+class REDO extends NoColor{
     REDO(int x) {
         position = new Point(x,0);
         this.label = "REDO";
     }
 }
 
-class NAND extends Button {
+class NAND extends NoColor {
     NAND(int x) {
         position = new Point(x, 0);
         this.label = "NAND";
     }
 }
 
-class XOR extends Button {
+class XOR extends NoColor {
     XOR(int x) {
         position = new Point(x, 0);
         this.label = "XOR";
     }
 }
 
-class menuSwap extends UndoAndRedo{
+class menuSwap extends NoColor{
     menuSwap(int x) {
         position = new Point(x, 0);
         this.label = "Next Menu";
     }
 }
 
-class menuReverse extends UndoAndRedo{
+class menuReverse extends NoColor{
     menuReverse(int x) {
         position = new Point(x, 0);
         this.label = "Prev Menu";
@@ -507,10 +520,17 @@ class menuReverse extends UndoAndRedo{
 }
 
 //button to create an example of the AND schematic
-class INTRO extends UndoAndRedo {
+class INTRO extends NoColor {
     INTRO(int x) {
         position = new Point(x, 0);
         this.label = "INTRO";
+    }
+}
+
+class RANDOM extends NoColor {
+    RANDOM(int x) {
+        position = new Point(x, 0);
+        this.label = "RANDOM";
     }
 }
 

@@ -31,7 +31,7 @@ public class LogicSimulator extends Activity {
         setContentView(gameView);
         gridAndMenu.updateScreen();
         toast = Toast.makeText(this,
-                "Welcome to our App. For a Quick Intro, click 'Next Menu', then Click Intro!", Toast.LENGTH_LONG);
+                "Welcome to our App. For a Quick Introduction on How to Use it, Click Intro on the Bottom Right!", Toast.LENGTH_LONG);
         toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 0);
         toast.show();
         gameView.setImageBitmap(blankBitmap);
@@ -77,7 +77,6 @@ public class LogicSimulator extends Activity {
         Uri uri = Uri.parse(videoPath);
         wview.setVideoURI(uri);
         wview.start();
-        //Disable TouchScreen
         wview.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {

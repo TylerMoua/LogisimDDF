@@ -22,6 +22,7 @@ public class Schematic {
         for(int i = 0; i < circuit.length; i++){
             if(circuit[i]!= null) {
                 string += circuit[i].label;
+                string += "("+circuit[i].position.toString()+")";
                 string += ", ";
             }
         }
@@ -125,14 +126,16 @@ public class Schematic {
         }
     }
 
-    void add(){
-        for (int i = 0; i <numberOfCircuitElements; i++) {
+
+    void add() {
+        for (int i = 0; i < numberOfCircuitElements; i++) {
             if (circuit[i] == null) {
-                circuit[i] = new CircuitElement(new Point(0,0), largeCellSize);
+                circuit[i] = new CircuitElement(new Point(0, 0), largeCellSize);
                 break;
             }
         }
     }
+
     void sub(Point selectedElement){
         int index = getElement(selectedElement);
         removeConnections(selectedElement);
@@ -160,9 +163,16 @@ public class Schematic {
         return false;
     }
 
-    Schematic copy(){
+    Schematic copySchematic(){
         Schematic result = new Schematic(numberOfCircuitElements,largeCellSize);
-        System.arraycopy(circuit, 0, result.circuit, 0, numberOfCircuitElements);
+        for( int i = 0; i < numberOfCircuitElements; i++) {
+            if (circuit[i] != null) {
+                try {
+                    result.circuit[i] = (CircuitElement) circuit[i].clone();
+                } catch (CloneNotSupportedException c) {
+                }
+            }
+        }
         return result;
     }
     boolean isEmpty(){

@@ -9,7 +9,11 @@ import android.graphics.Paint;
 import android.graphics.Point;
 import android.util.Log;
 import android.view.Gravity;
+import android.widget.PopupMenu;
 import android.widget.Toast;
+
+import java.security.cert.PolicyNode;
+import java.util.Random;
 import java.util.Stack;
 
 
@@ -42,16 +46,14 @@ class GridAndMenu extends Activity {
     private Stack<Schematic> redoStack = new Stack<>();
 
 
-
     private Schematic[] savedSchematics = new Schematic[numberOfSavableSchematic];
 
-
-    private Button[] menu1 = {new PLAY(0), new ADD(1), new SUB(2), new WIRE(3)
-            , new AND(4), new OR(5), new NOT(6), new SWITCHBUTTON(7)
-            , new LEDBUTTON(8), new TOGGLE(9), new menuSwap(10)};
+    private Button[] menu1 = {new PLAY(0), new SUB(1), new WIRE(2)
+            , new AND(3), new OR(4), new NOT(5), new SWITCHBUTTON(6)
+            , new LEDBUTTON(7), new TOGGLE(8), new INTRO(9), new menuSwap(10)};
     private Button[] menu2 = {new Save(0), new A(1), new B(2), new C(3),
-            new UNDO(4), new REDO(5), new NAND(6), new XOR(7), new menuReverse(8),
-            new INTRO(9), new menuReverse(10)};
+            new UNDO(4), new REDO(5), new NAND(6), new XOR(7), new CLEAR(8),
+            new RANDOM(9), new menuReverse(10)};
 
 
     private Node[][] cells =
@@ -120,10 +122,10 @@ class GridAndMenu extends Activity {
     private void checkStates(){
         for(int i=0; i < numberOfSavableSchematic; i++){
             if (savedSchematics[i].isEmpty()){
-                ((Loadable)menu2[i+loadSaveOffset]).hasState = false;
+                ((Loadable)menu2[i+loadSaveOffset]).state = false;
             }
             else
-                ((Loadable)menu2[i+loadSaveOffset]).hasState = true;
+                ((Loadable)menu2[i+loadSaveOffset]).state = true;
 
         }
     }
@@ -156,10 +158,10 @@ class GridAndMenu extends Activity {
         if(selectedButton == null)
             Log.d("Debugging", "Menu Selected: None"  + "\nElement Selected: " + selectedElement + "\nNode Selected:" + selectedNode);
         else
-            if(menuNumber==1)
-                Log.d("Debugging", "Menu Selected: " +  menu1[selectedButton.x].label +"\nElement Selected: " + selectedElement + "\nNode Selected:" + selectedNode);
-            else
-                Log.d("Debugging", "Menu Selected: " +  menu2[selectedButton.x].label +"\nElement Selected: " + selectedElement + "\nNode Selected:" + selectedNode);
+        if(menuNumber==1)
+            Log.d("Debugging", "Menu Selected: " +  menu1[selectedButton.x].label +"\nElement Selected: " + selectedElement + "\nNode Selected:" + selectedNode);
+        else
+            Log.d("Debugging", "Menu Selected: " +  menu2[selectedButton.x].label +"\nElement Selected: " + selectedElement + "\nNode Selected:" + selectedNode);
 
         Log.d("Debugging", "Undo Stack:");
         for (int i = 0; i < undoStack.size(); i++){
@@ -202,9 +204,8 @@ class GridAndMenu extends Activity {
     private void colorElements() {
         if(elements.circuit!= null) {
             for (int i = 0; i < elements.circuit.length; i++) {
-                if (elements.circuit[i] != null) {
+                if (elements.circuit[i] != null)
                     elements.circuit[i].idle(myCanvas, i);
-                }
             }
         }
     }
@@ -268,17 +269,15 @@ class GridAndMenu extends Activity {
 
     //Colors an element to indicate that it has been selected
     private void updateSelection() {
-        if (selectedElement != null) {
+        if (selectedElement != null)
             elements.circuit[elements.getElement(selectedElement)].select(myCanvas);
-        }
+
         if (selectedButton != null) {
-            if(menuNumber ==1) {
+            if(menuNumber ==1)
                 menu1[selectedButton.x].select(menuCellSize, myCanvas, gridHeight);
-            }else
+            else
                 menu2[selectedButton.x].select(menuCellSize, myCanvas, gridHeight);
-
         }
-
     }
 
     //-------------------------------------------------------------------------------------------
@@ -298,147 +297,147 @@ class GridAndMenu extends Activity {
         int buttonNumber = input.x;
         if(menuNumber ==1 ){
             switch (buttonNumber) {
-            //----------------------------------------------------------------------------
-            case 0: //PLAY BUTTON
-                if(numberOfActiveElements!=0){
-                    play();
-                    if (playing)
-                        onScreenToast("Circuit is Running");
-                    else
-                        onScreenToast("Circuit Stopped");
+                //----------------------------------------------------------------------------
+                case 0: //PLAY BUTTON
+                    if(numberOfActiveElements>=3){
+                        play();
+                        if (playing)
+                            onScreenToast("Circuit is Running");
+                        else
+                            onScreenToast("Circuit Stopped");
+                    } else {
+                        onScreenToast("Add some more elements to begin!");
+                    }
+                    break;
 
-                } else {
-                    onScreenToast("Add some elements to begin!");
-                }
-                break;
+                //---------------------------------------------------------------------------------
+                case 1: //SUB BUTTON
+                    if (!playing) {
+                        pushToUndo();
+                        sub();
+                    }
+                    break;
+                //-----------------------------------------------------------------------------
+                case 2: //Wire BUTTON
+                    if (!playing) {
+                        if (numberOfActiveElements >= 2){
+                            onScreenToast("Choose an Element to Wire To");
+                            wire();
+                        }
+                        else
+                            onScreenToast("There are not enough elements to wire!");
+                    }
+                    break;
+                //------------------------------------------------------------------------
+                case 3: //AND BUTTON
+                    pushToUndo();
+                    and();
 
-            //-------------------------------------------------------------------------------
-            case 1: //ADD BUTTON
-                if (!playing) {
+                    break;
+                //------------------------------------------------------------------------
+                case 4://OR BUTTON
                     pushToUndo();
-                    add();
-                    onScreenToast("Element Added");
-                }
-                break;
-            //---------------------------------------------------------------------------------
-            case 2: //SUB BUTTON
-                if (!playing) {
+                    or();
+                    break;
+                //----------------------------------------------------------------------
+                case 5: //NOT BUTTON
                     pushToUndo();
-                    sub();
-                }
-                break;
-            //-----------------------------------------------------------------------------
-            case 3: //Wire BUTTON
-                if (!playing) {
+                    not();
+                    break;
+                //----------------------------------------------------------------------
+                case 6: //SWITCH BUTTON
                     pushToUndo();
-                    wire();
-                    if (numberOfActiveElements >= 2)
-                        onScreenToast("Choose an Element to Wire To");
-                }
-                break;
-            //------------------------------------------------------------------------
-            case 4: //AND BUTTON
-                pushToUndo();
-                and();
-                break;
-            //------------------------------------------------------------------------
-            case 5://OR BUTTON
-                pushToUndo();
-                or();
-                break;
-            //----------------------------------------------------------------------
-            case 6: //NOT BUTTON
-                pushToUndo();
-                not();
-                break;
-            //----------------------------------------------------------------------
-            case 7: //SWITCH BUTTON
-                pushToUndo();
-                inputSwitch();
-                break;
-            //-----------------------------------------------------------------
-            case 8: //LED BUTTON
-                pushToUndo();
-                led();
-                break;
-            //--------------------------------------------------------------------
-            case 9: // 1/0 BUTTON
-                pushToUndo();
-                toggle();
-                break;
-            //-----------------------------------------------------------------
-            case 10: //Menu Swap
-                menuNumber = 2;
-                break;
+                    inputSwitch();
+                    break;
+                //-----------------------------------------------------------------
+                case 7: //LED BUTTON
+                    pushToUndo();
+                    led();
+                    break;
+                //--------------------------------------------------------------------
+                case 8: // 1/0 BUTTON
+                    pushToUndo();
+                    toggle();
+                    break;
+                //--------------------------------------------------------------------
+                case 9: //INTRO
+                    intro();
+                    break;
+                //--------------------------------------------------------------------
+                case 10: //Menu Swap
+                    menuNumber = 2;
+                    break;
             }
         }
         else{
             switch (buttonNumber) {
-            //-----------------------------------------------------------------
-            case 0: // Save Button
-            if (!playing) {
-                if(numberOfActiveElements==0){
-                    onScreenToast("Nothing to Save");
-                } else {
-                    save();
-                    onScreenToast("Choose A, B, C to Save Current Layout");
-                }
-
-            }
-            break;
-            //-----------------------------------------------------------------
-            case 1: // A Button
-            case 2: // B Button
-            case 3: // C Button
-                if(!playing) {
-                    saveOrLoad(buttonNumber);
-                }
-                break;
-            //-----------------------------------------------------------------
-            case 4: //Undo Button
-                if(!playing){
-                    if(undoStack.isEmpty()){
-                        onScreenToast("Nothing to Undo");
-                    } else {
-                        undo();
-                        onScreenToast("Undo");
+                //-----------------------------------------------------------------
+                case 0: // Save Button
+                    if (!playing) {
+                        if(numberOfActiveElements==0){
+                            onScreenToast("Nothing to Save");
+                        } else {
+                            save();
+                            onScreenToast("Choose A, B, C to Save Current Layout");
+                        }
                     }
-                }
-                break;
-            //-----------------------------------------------------------------
-            case 5: //Redo Button
-                if(!playing){
-                    if(redoStack.isEmpty()) {
-                        onScreenToast("Nothing to Redo");
-                    } else {
-                        redo();
-                        onScreenToast("Redo");
+                    break;
+                //-----------------------------------------------------------------
+                case 1: // A Button
+                case 2: // B Button
+                case 3: // C Button
+                    if(!playing)
+                        saveOrLoad(buttonNumber);
+                    break;
+                //-----------------------------------------------------------------
+                case 4: //Undo Button
+                    if(!playing){
+                        if(undoStack.isEmpty()){
+                            onScreenToast("Nothing to Undo");
+                        } else {
+                            undo();
+                            onScreenToast("Undo");
+                        }
                     }
-                }
-                break;
-            //-----------------------------------------------------------------
-            case 6: //NAND Button
-                pushToUndo();
-                nand();
-                break;
-            //-----------------------------------------------------------------
-            case 7: //XOR Button
-                pushToUndo();
-                xor();
-                break;
+                    break;
+                //-----------------------------------------------------------------
+                case 5: //Redo Button
+                    if(!playing){
+                        if(redoStack.isEmpty()) {
+                            onScreenToast("Nothing to Redo");
+                        } else {
+                            redo();
+                            onScreenToast("Redo");
+                        }
+                    }
+                    break;
+                //-----------------------------------------------------------------
+                case 6: //NAND Button
+                    pushToUndo();
+                    nand();
+                    onScreenToast("NAND Gate Created");
+                    break;
+                //-----------------------------------------------------------------
+                case 7: //XOR Button
+                    pushToUndo();
+                    xor();
+                    onScreenToast("XOR Gate Created");
+                    break;
 
-            //-----------------------------------------------------------------
-            case 8: // **CHANGE TO SOMETHING ELSE JUST PLACE HOLDER**
-                menuNumber = 1;
-                break;
-            //-----------------------------------------------------------------
-            case 9: //Intro Button
-                intro();
-                break;
-            //-----------------------------------------------------------------
-            case 10: //Menu Swap
-                menuNumber = 1;
-                break;
+                //-----------------------------------------------------------------
+                case 8: //CLEAR Button
+                    deleteAll();
+                    onScreenToast("Circuit Cleared");
+                    break;
+                //-----------------------------------------------------------------
+                case 9: //Random Circuit Creator
+                    randomCircuitGenerator();
+                    onScreenToast("Random Circuit Created");
+                    break;
+                //-----------------------------------------------------------------
+                case 10: //Menu Swap
+                    menuNumber = 1;
+                    break;
             }
         }
     }
@@ -462,9 +461,11 @@ class GridAndMenu extends Activity {
         if((elements.getElement(new Point(0,0))==-1) && numberOfActiveElements<numberOfCircuitElements) {
             elements.add();
             numberOfActiveElements++;
+            selectedElement = new Point(0, 0);
             Log.d("Debugging", "Current Elements:" + numberOfActiveElements);
-        } else
+        } else {
             Log.d("Debugging","No Element Added, Space occupied OR Too many element");
+        }
     }
 
     //This method removes an element from the elements Array and removes wire connections
@@ -475,10 +476,18 @@ class GridAndMenu extends Activity {
             selectedElement = null;
             numberOfActiveElements--;
             onScreenToast("Element Subtracted");
-        } else
+        } else {
+            onScreenToast("Please Select an Element to Subtract. If None Exist, Add Some!");
             Log.d("Debugging", "No Element Subtracted");
+        }
     }
 
+    private void deleteAll() {
+        undoStack.clear();
+        redoStack.clear();
+        numberOfActiveElements = 0;
+        elements = new Schematic(numberOfCircuitElements, largeCellSize);
+    }
 
 
     //This method selects the output node of the selected element.
@@ -494,17 +503,17 @@ class GridAndMenu extends Activity {
     //The following methods (from and to led) changes an unclassified circuit element into
     //each methods respective circuit elements
     private void and() {
-        if (selectedElement != null
-                && elements.circuit[elements.getElement(selectedElement)].getClass()== new CircuitElement().getClass()) {
+        add();
+        if (selectedElement != null) {
             elements.circuit[elements.getElement(selectedElement)] = new ANDGATE(selectedElement, context, largeCellSize);
             selectedElement = null;
             onScreenToast("AND Gate created");
-        }
-    }
+        } else
+            onScreenToast("Move the Gate you created First!");
 
+    }
     private void nand() {
-        if (selectedElement != null
-                && elements.circuit[elements.getElement(selectedElement)].getClass()== new CircuitElement().getClass()) {
+        if (selectedElement != null) {
             elements.circuit[elements.getElement(selectedElement)] = new NANDGATE(selectedElement, context, largeCellSize);
             selectedElement = null;
             onScreenToast("NAND Gate created");
@@ -512,18 +521,17 @@ class GridAndMenu extends Activity {
     }
 
     private void or() {
-        if (selectedElement != null
-                && elements.circuit[elements.getElement(selectedElement)].getClass()== new CircuitElement().getClass()) {
+        add();
+        if (selectedElement != null){
             elements.circuit[elements.getElement(selectedElement)] = new ORGATE(selectedElement, context, largeCellSize);
             selectedElement = null;
             onScreenToast("OR Gate Created");
-
-        }
+        } else
+            onScreenToast("Move the Gate you created First!");
     }
 
     private void xor() {
-        if (selectedElement != null
-                && elements.circuit[elements.getElement(selectedElement)].getClass()== new CircuitElement().getClass()) {
+        if (selectedElement != null) {
             elements.circuit[elements.getElement(selectedElement)] = new XORGATE(selectedElement, context, largeCellSize);
             selectedElement = null;
             onScreenToast("XOR Gate created");
@@ -531,33 +539,34 @@ class GridAndMenu extends Activity {
     }
 
     private void not(){
-        if (selectedElement != null
-                && elements.circuit[elements.getElement(selectedElement)].getClass()== new CircuitElement().getClass()) {
+        add();
+        if (selectedElement != null) {
             elements.circuit[elements.getElement(selectedElement)] = new NOTGATE(selectedElement, context, largeCellSize);
             selectedElement = null;
             onScreenToast("NOT Gate created");
-        }
+        } else
+            onScreenToast("Move the Gate you created First!");
     }
 
     private void inputSwitch(){
-        if (selectedElement != null
-                && elements.circuit[elements.getElement(selectedElement)].getClass()== new CircuitElement().getClass()) {
+        add();
+        if (selectedElement != null) {
             elements.circuit[elements.getElement(selectedElement)] = new SWITCH(selectedElement, largeCellSize);
             selectedElement = null;
             onScreenToast("Switch Created");
-
-        }
+        } else
+            onScreenToast("Move the Gate you created First!");
     }
 
     private void led() {
+        add();
         Log.d("Debugging", "LED");
-        if (selectedElement != null
-                && elements.circuit[elements.getElement(selectedElement)].getClass()== new CircuitElement().getClass()) {
+        if (selectedElement != null) {
             elements.circuit[elements.getElement(selectedElement)] = new LED(selectedElement, largeCellSize);
             selectedElement = null;
             onScreenToast("LED Created");
-
-        }
+        } else
+            onScreenToast("Move the Gate you created First!");
     }
 
     //This method changes the label of a switch from 0 to 1 or from 1 to 0
@@ -568,9 +577,9 @@ class GridAndMenu extends Activity {
                 ((SWITCH) elements.circuit[elements.getElement(selectedElement)]).toggle();
                 selectedElement = null;
                 onScreenToast("Switch Toggled");
-
             }
-        }
+        } else
+            onScreenToast("Select a Switch to Toggle!");
     }
 
     //this method toggles our intro state
@@ -594,26 +603,153 @@ class GridAndMenu extends Activity {
             saveSchematic(input);
             save();
             onScreenToast("Layout Saved");
+            //Determines A, B, or C Button to Change Color
+            switch (input){
+                case 0:
+                    ((A) menu2[1]).toggle();
+                case 1:
+                    ((B) menu2[2]).toggle();
+                case 2:
+                    ((C) menu2[3]).toggle();
+            }
         }
-        else{
+        else {
             loadSchematic(input);
             selectedElement = null;
             selectedNode = null;
-            onScreenToast("Layout Loaded");
         }
-
     }
 
     private void saveSchematic(int input){
-            savedSchematics[input]=elements.copy();
+        undoStack.clear();
+        redoStack.clear();
+        savedSchematics[input]=elements.copySchematic();
         Log.d("Debugging", "Saving Diagram");
     }
 
     private void loadSchematic(int input){
-            elements = savedSchematics[input].copy();
+        if(savedSchematics[input].isEmpty())
+            onScreenToast("Nothing to Load");
+        else {
+            undoStack.clear();
+            redoStack.clear();
+            elements = savedSchematics[input].copySchematic();
+            onScreenToast("Layout Loaded");
+            Log.d("Debugging", "Loading Diagram");
+        }
+    }
 
-        Log.d("Debugging", "Loading Diagram");
+    //Initiated by 'RANDOM' Button on Menu 2
+    private void randomCircuitGenerator() {
+        deleteAll();
+        Random rand = new Random();
+        switch (rand.nextInt(3)) {
+            case 0:
+                //Circuit 1
+                //SWITCH
+                inputSwitch();
+                randomMover(2,2);
+                //AND
+                and();
+                randomMover(4,1);
+                and();
+                randomMover(4,3);
 
+                //OR
+                or();
+                randomMover(6,2);
+
+                //LED
+                led();
+                randomMover(8,2);
+
+                //Wiring
+                elements.setConnection(0, elements.circuit[1], elements.circuit[0]);
+                elements.setConnection(1, elements.circuit[1], elements.circuit[0]);
+                elements.setConnection(0, elements.circuit[2], elements.circuit[0]);
+                elements.setConnection(1, elements.circuit[2], elements.circuit[0]);
+                elements.setConnection(0, elements.circuit[3], elements.circuit[1]);
+                elements.setConnection(1, elements.circuit[3], elements.circuit[2]);
+                elements.setConnection(0, elements.circuit[4], elements.circuit[3]);
+                break;
+            //---------------------------------------
+            case 1:
+                //Circuit 2
+                //SWITCH
+                inputSwitch();
+                randomMover(2,1);
+                inputSwitch();
+                randomMover(2, 3);
+
+                //AND
+                and();
+                randomMover(4,1);
+
+                //OR
+                or();
+                randomMover(4, 3);
+                or();
+                randomMover(6, 1);
+                or();
+                randomMover(6, 3);
+
+                //LED
+                led();
+                randomMover(8, 1);
+                led();
+                randomMover(8, 3);
+
+                //Wiring
+                elements.setConnection(0, elements.circuit[2], elements.circuit[0]);
+                elements.setConnection(0, elements.circuit[3], elements.circuit[0]);
+                elements.setConnection(1, elements.circuit[2], elements.circuit[1]);
+                elements.setConnection(1, elements.circuit[3], elements.circuit[1]);
+                elements.setConnection(0, elements.circuit[4], elements.circuit[3]);
+                elements.setConnection(1, elements.circuit[4], elements.circuit[3]);
+                elements.setConnection(0, elements.circuit[5], elements.circuit[2]);
+                elements.setConnection(1, elements.circuit[5], elements.circuit[2]);
+                elements.setConnection(0, elements.circuit[6], elements.circuit[5]);
+                elements.setConnection(0, elements.circuit[7], elements.circuit[4]);
+                break;
+            //---------------------------------------
+
+            case 2:
+                //Circuit 3
+                //SWITCH
+                inputSwitch();
+                randomMover(1,2);
+
+                //NOT
+                not();
+                randomMover(3,1);
+                not();
+                randomMover(3,3);
+                not();
+                randomMover(7,2);
+
+                //OR
+                or();
+                randomMover(5,2);
+
+                //LED
+                led();
+                randomMover(9,2);
+
+                //Wiring
+                elements.setConnection(0, elements.circuit[1], elements.circuit[0]);
+                elements.setConnection(0, elements.circuit[2], elements.circuit[0]);
+                elements.setConnection(0, elements.circuit[4], elements.circuit[1]);
+                elements.setConnection(1, elements.circuit[4], elements.circuit[2]);
+                elements.setConnection(0, elements.circuit[3], elements.circuit[4]);
+                elements.setConnection(0, elements.circuit[5], elements.circuit[3]);
+                break;
+        }
+    }
+
+    //Places Elements in Hard Coded Locations for Creating Preset Circuits
+    private void randomMover(int x, int y){
+        elements.move(new Point(x, y), new Point(0, 0));
+        selectedElement = null;
     }
 
     //------------------------------------------------------------------------------------------
@@ -635,6 +771,7 @@ class GridAndMenu extends Activity {
     void gridSelect(Point touchPoint){
         if(selectedElement!=null && selectedButton==null) {
             elements.move(touchPoint, selectedElement);
+            pushToUndo();
             selectedElement = null;
         }else{
             Log.d("Debugging", "No action taken.");
@@ -646,6 +783,7 @@ class GridAndMenu extends Activity {
     //It also stores a value(nodeNumber) to tell which input node has been selected
     void wireTwoElements(Point touchPoint, Point nodeTouch){
         elements.wireTwoElements(touchPoint, nodeTouch, selectedElement);
+        pushToUndo();
         selectedNode = null;
         selectedElement = null;
         selectedButton = null;
@@ -656,32 +794,29 @@ class GridAndMenu extends Activity {
     //Methods for UNDO and REDO
 
     private void undo() {
-        //The redo stack is topped off with the top element of the
-        pushToRedo();
-
-        //Our elements are replaced by the top of the undo Stack
         if(!undoStack.isEmpty())
-            elements = undoStack.pop();
-
+            //The redo stack is topped off with the our current elements
+            pushToRedo();
+        //Our elements are replaced by the top of the undo Stack
+        elements = undoStack.pop();
     }
 
     private void redo() {
-        //The undo stack is topped off with the our current elements
-        pushToUndo();
-
-        //Our elements are replaced by the top of the redo Stack
         if(!redoStack.isEmpty())
-            elements = redoStack.pop();
+            //The undo stack is topped off with the our current elements
+            pushToUndo();
+        //Our elements are replaced by the top of the redo Stack
+        elements = redoStack.pop();
     }
 
     private void pushToRedo(){
         Schematic temp;
-        temp = elements.copy();
+        temp = elements.copySchematic();
         redoStack.push(temp);
     }
     private void pushToUndo(){
         Schematic temp;
-        temp = elements.copy();
+        temp = elements.copySchematic();
         undoStack.push(temp);
     }
 
