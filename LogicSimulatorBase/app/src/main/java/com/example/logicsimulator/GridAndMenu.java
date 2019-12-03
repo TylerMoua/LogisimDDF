@@ -37,8 +37,8 @@ class GridAndMenu extends Activity {
     private Paint paint = new Paint();
     private final int numberOfCircuitElements = 10;
     private final int numberOfButtons = 11;
-    private final int numberOfHorizontalCells = 30;
-    private final int numberOfVerticalCells = 15;
+    private final int numberOfHorizontalCells = 30; //was 30 originally
+    private final int numberOfVerticalCells = 15; // 19
     private int numberOfActiveElements = 0;
     private int numberOfSavableSchematic = 3;
 
@@ -55,6 +55,7 @@ class GridAndMenu extends Activity {
             new UNDO(4), new REDO(5), new NAND(6), new XOR(7), new CLEAR(8),
             new RANDOM(9), new menuReverse(10)};
 
+    //create new android buttons to replace existing buttons
 
     private Node[][] cells =
             new Node[numberOfHorizontalCells][numberOfVerticalCells];

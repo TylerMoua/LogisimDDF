@@ -6,6 +6,7 @@ import android.graphics.Point;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.MotionEvent;
@@ -27,6 +28,7 @@ public class LogicSimulator extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getResolution();
+        //setContentView(R.layout.button_menu); // ian
         setObjects();
         setContentView(gameView);
         gridAndMenu.updateScreen();
@@ -40,9 +42,13 @@ public class LogicSimulator extends Activity {
 
     //Create our objects
     void setObjects() {
+        //gameView = findViewById(R.id.gridView); ian
+        //size was first 723dp (layout_width), then 358dp (layout_height)
         blankBitmap = Bitmap.createBitmap(size.x, size.y,
-                Bitmap.Config.ARGB_8888);
+                Bitmap.Config.ARGB_8888); //original line
+
         gameView = new ImageView(this);
+        //gameView = findViewById(R.id.gridView); // was the thing above. change then commit
         gridAndMenu = new GridAndMenu(this,size.x, blankBitmap);
         touchProcessor = new TouchProcessor(gridAndMenu);
     }
@@ -52,7 +58,6 @@ public class LogicSimulator extends Activity {
         size = new Point();
         display.getSize(size);
     }
-
 
     @Override
     public boolean onTouchEvent(MotionEvent motionEvent) {
