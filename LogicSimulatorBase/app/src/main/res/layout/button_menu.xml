@@ -41,8 +41,8 @@
 
     <ImageView
         android:id="@+id/gridView"
-        android:layout_width="723dp"
-        android:layout_height="358dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:contentDescription="@string/grid_draw"
         app:layout_constraintBottom_toTopOf="@+id/menuScroll"
         app:layout_constraintEnd_toEndOf="parent"
