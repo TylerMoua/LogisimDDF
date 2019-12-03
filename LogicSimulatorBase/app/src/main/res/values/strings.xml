@@ -15,4 +15,10 @@
     <string name="a_button">A</string>
     <string name="b_button">B</string>
     <string name="c_button">C</string>
+    <string name="undo_button">Undo</string>
+    <string name="redo_button">Redo</string>
+    <string name="nand_button">NAND</string>
+    <string name="xor_button">XOR</string>
+    <string name="clear_button">Clear</string>
+    <string name="random_button">Random</string>
 </resources>
