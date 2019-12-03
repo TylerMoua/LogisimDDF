@@ -29,12 +29,68 @@
                 android:text="@string/play_button" />
 
             <Button
-                android:id="@+id/add"
+                android:id="@+id/sub"
                 style='"?android:attr/buttonBarButtonStyle"'
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/add_button" />
+                android:text="@string/sub_button" />
+
+            <Button
+                android:id="@+id/wire"
+                style='"?android:attr/buttonBarButtonStyle"'
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/wire_button" />
+
+            <Button
+                android:id="@+id/and"
+                style='"?android:attr/buttonBarButtonStyle"'
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/and_button" />
+
+            <Button
+                android:id="@+id/or"
+                style='"?android:attr/buttonBarButtonStyle"'
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/or_button" />
+
+            <Button
+                android:id="@+id/not"
+                style='"?android:attr/buttonBarButtonStyle"'
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/not_button" />
+
+            <Button
+                android:id="@+id/switch"
+                style='"?android:attr/buttonBarButtonStyle"'
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/switch_button" />
+
+            <Button
+                android:id="@+id/led"
+                style='"?android:attr/buttonBarButtonStyle"'
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/led_button" />
+
+            <Button
+                android:id="@+id/toggle"
+                style='"?android:attr/buttonBarButtonStyle"'
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/toggle_button" />
 
         </LinearLayout>
     </HorizontalScrollView>
