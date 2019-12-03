@@ -3,4 +3,16 @@
     <string name="play_button">Play</string>
     <string name="add_button">Add</string>
     <string name="grid_draw">GRID</string>
+    <string name="sub_button">Play</string>
+    <string name="wire_button">Add</string>
+    <string name="or_button">GRID</string>
+    <string name="not_button">Play</string>
+    <string name="switch_button">Add</string>
+    <string name="led_button">GRID</string>
+    <string name="toggle_button">Play</string>
+    <string name="intro_button">Add</string>
+    <string name="save_button">GRID</string>
+    <string name="a_button">Play</string>
+    <string name="b_button">Add</string>
+    <string name="c_button">GRID</string>
 </resources>
