@@ -1,18 +1,18 @@
 <resources>
     <string name="app_name">Logic Simulator</string>
     <string name="play_button">Play</string>
-    <string name="add_button">Add</string>
+    <string name="and_button">And</string>
     <string name="grid_draw">GRID</string>
-    <string name="sub_button">Play</string>
-    <string name="wire_button">Add</string>
-    <string name="or_button">GRID</string>
-    <string name="not_button">Play</string>
-    <string name="switch_button">Add</string>
-    <string name="led_button">GRID</string>
-    <string name="toggle_button">Play</string>
-    <string name="intro_button">Add</string>
-    <string name="save_button">GRID</string>
-    <string name="a_button">Play</string>
-    <string name="b_button">Add</string>
-    <string name="c_button">GRID</string>
+    <string name="sub_button">Sub</string>
+    <string name="wire_button">Wire</string>
+    <string name="or_button">Or</string>
+    <string name="not_button">Not</string>
+    <string name="switch_button">Switch</string>
+    <string name="led_button">LED</string>
+    <string name="toggle_button">Toggle</string>
+    <string name="intro_button">Intro</string>
+    <string name="save_button">Save</string>
+    <string name="a_button">A</string>
+    <string name="b_button">B</string>
+    <string name="c_button">C</string>
 </resources>
