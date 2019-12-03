@@ -69,7 +69,7 @@
                 android:text="@string/not_button" />
 
             <Button
-                android:id="@+id/switch"
+                android:id="@+id/sw"
                 style='"?android:attr/buttonBarButtonStyle"'
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -91,6 +91,94 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/toggle_button" />
+
+            <Button
+                android:id="@+id/intro"
+                style='"?android:attr/buttonBarButtonStyle"'
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/intro_button" />
+
+            <Button
+                android:id="@+id/save"
+                style='"?android:attr/buttonBarButtonStyle"'
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/save_button" />
+
+            <Button
+                android:id="@+id/aButton"
+                style='"?android:attr/buttonBarButtonStyle"'
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/a_button" />
+
+            <Button
+                android:id="@+id/bButton"
+                style='"?android:attr/buttonBarButtonStyle"'
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/b_button" />
+
+            <Button
+                android:id="@+id/cButton"
+                style='"?android:attr/buttonBarButtonStyle"'
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/c_button" />
+
+            <Button
+                android:id="@+id/undo"
+                style='"?android:attr/buttonBarButtonStyle"'
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/undo_button" />
+
+            <Button
+                android:id="@+id/redo"
+                style='"?android:attr/buttonBarButtonStyle"'
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/redo_button" />
+
+            <Button
+                android:id="@+id/nand"
+                style='"?android:attr/buttonBarButtonStyle"'
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/nand_button" />
+
+            <Button
+                android:id="@+id/xor"
+                style='"?android:attr/buttonBarButtonStyle"'
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/xor_button" />
+
+            <Button
+                android:id="@+id/clear"
+                style='"?android:attr/buttonBarButtonStyle"'
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/clear_button" />
+
+            <Button
+                android:id="@+id/random"
+                style='"?android:attr/buttonBarButtonStyle"'
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/random_button" />
 
         </LinearLayout>
     </HorizontalScrollView>
