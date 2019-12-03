@@ -437,19 +437,15 @@ class Loadable extends Button{
         if(state) {
             paint.setColor(Color.argb(255, 0, 255, 255));
             color(buttonBlockSize, myCanvas, gridHeight);
+            // Draw Vertical Line
+            myCanvas.drawLine(
+                    buttonBlockSize * position.x,
+                    gridHeight,
+                    buttonBlockSize * position.x,
+                    gridHeight+buttonBlockSize, paint);
         }
         else
             paint.setColor(Color.argb(255, 255, 255, 255));
-
-//        if(state){
-//            paint.setColor(Color.argb(255, 0, 255, 255));
-//            myCanvas.drawRect(position.x * blockSize,
-//                    position.y * blockSize,
-//                    (position.x * blockSize) + blockSize,
-//                    (position.y * blockSize)+ blockSize,
-//                    paint );
-//
-//        }
 
         printLabel(buttonBlockSize, myCanvas,gridHeight);
     }
