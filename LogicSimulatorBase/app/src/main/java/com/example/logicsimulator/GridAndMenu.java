@@ -51,13 +51,6 @@ class GridAndMenu extends Activity {
 
     private Schematic[] savedSchematics = new Schematic[numberOfSavableSchematic];
 
-    private Button[] menu1 = {new PLAY(0), new SUB(1), new WIRE(2)
-            , new AND(3), new OR(4), new NOT(5), new SWITCHBUTTON(6)
-            , new LEDBUTTON(7), new TOGGLE(8), new INTRO(9), new menuSwap(10)};
-    private Button[] menu2 = {new Save(0), new A(1), new B(2), new C(3),
-            new UNDO(4), new REDO(5), new NAND(6), new XOR(7), new CLEAR(8),
-            new RANDOM(9), new menuReverse(10)};
-
     private Node[][] cells =
             new Node[numberOfHorizontalCells][numberOfVerticalCells];
 
@@ -388,7 +381,6 @@ class GridAndMenu extends Activity {
         if(!elements.nullConnections()) {
             Log.d("Debugging", "Now Playing");
             playing = !playing;
-            ((PLAY) menu1[0]).toggle();
         }
         else
             onScreenToast("Not all elements connected");
@@ -528,7 +520,6 @@ class GridAndMenu extends Activity {
     //This method toggles our save state.
     private void save(){
         saving = !saving;
-        ((Save) menu2[0]).toggle();
     }
 
 
@@ -541,15 +532,6 @@ class GridAndMenu extends Activity {
             saveSchematic(input);
             save();
             onScreenToast("Layout Saved");
-            //Determines A, B, or C Button to Change Color
-            switch (input){
-                case 0:
-                    ((A) menu2[1]).toggle();
-                case 1:
-                    ((B) menu2[2]).toggle();
-                case 2:
-                    ((C) menu2[3]).toggle();
-            }
         }
         else {
             loadSchematic(input);
