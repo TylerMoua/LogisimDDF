@@ -9,14 +9,7 @@ import android.graphics.Paint;
 import android.graphics.Point;
 import android.util.Log;
 import android.view.Gravity;
-//import android.view.View;
-//import android.widget.PopupMenu;
 import android.widget.Toast;
-//import android.widget.Button; //ian added
-//import android.view.View.OnTouchListener; //ian added
-
-
-//import java.security.cert.PolicyNode;
 import java.util.Random;
 import java.util.Stack;
 

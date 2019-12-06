@@ -22,7 +22,6 @@ import android.view.View.OnTouchListener;
 
 
 public class LogicSimulator extends Activity implements View.OnClickListener {
-//public class LogicSimulator extends Activity {
     Point size;
     Bitmap blankBitmap;
     ImageView gameView;
@@ -39,7 +38,6 @@ public class LogicSimulator extends Activity implements View.OnClickListener {
         setObjects();
 
 
-        //setContentView(gameView);
         gridAndMenu.updateScreen();
         toast = Toast.makeText(this,
                 "Welcome to our App. For a Quick Introduction on How to Use it, Click Intro on the Bottom Right!", Toast.LENGTH_LONG);
