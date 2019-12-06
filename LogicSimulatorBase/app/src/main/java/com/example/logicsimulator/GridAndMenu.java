@@ -436,6 +436,7 @@ class GridAndMenu extends Activity {
 
     }
     private void nand() {
+        add();
         if (selectedElement != null) {
             elements.circuit[elements.getElement(selectedElement)] = new NANDGATE(selectedElement, context, largeCellSize);
             selectedElement = null;

@@ -28,11 +28,9 @@ public class LogicSimulator extends Activity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getResolution();
-        setContentView(R.layout.button_menu); // ian
+        setContentView(R.layout.button_menu);
         createButtons();
         setObjects();
-
-
         gridAndMenu.updateScreen();
         toast = Toast.makeText(this,
                 "Welcome to our App. For a Quick Introduction on How to Use it, Click Intro on the Bottom Right!", Toast.LENGTH_LONG);
@@ -72,7 +70,6 @@ public class LogicSimulator extends Activity implements View.OnClickListener {
                 gridAndMenu.doButtonTouch(8);
                 break;
             case R.id.intro:
-                //gridAndMenu.doButtonTouch(9);
                 mediaPlayer();
                 break;
             case R.id.save:
@@ -106,10 +103,8 @@ public class LogicSimulator extends Activity implements View.OnClickListener {
                 gridAndMenu.doButtonTouch(19);
                 break;
             default:
-                //throw new IllegalStateException("Unexpected value: " + v.getId());
                 toast = Toast.makeText(this, "NOT WORKING", Toast.LENGTH_SHORT);
         }
-
         gridAndMenu.updateScreen();
     }
 
@@ -177,13 +172,9 @@ public class LogicSimulator extends Activity implements View.OnClickListener {
 
     //Create our objects
     void setObjects() {
-        //gameView = findViewById(R.id.gridView); ian
-        //size was first 723dp (layout_width), then 358dp (layout_height)
         blankBitmap = Bitmap.createBitmap(size.x, size.y,
-                Bitmap.Config.ARGB_8888); //original line
-
-        //gameView = new ImageView(this);
-        gameView = findViewById(R.id.gridView); // was the thing above. change then commit
+                Bitmap.Config.ARGB_8888);
+        gameView = findViewById(R.id.gridView);
         gridAndMenu = new GridAndMenu(this,size.x, blankBitmap);
         touchProcessor = new TouchProcessor(gridAndMenu);
     }
