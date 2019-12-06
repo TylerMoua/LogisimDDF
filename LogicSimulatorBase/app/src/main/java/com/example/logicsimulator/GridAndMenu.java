@@ -33,7 +33,7 @@ class GridAndMenu extends Activity {
     private Point selectedButton;
 
     int menuNumber = 1;
-    private int loadSaveOffset = 1;
+    private int loadSaveOffset = 11;
     private boolean playing, saving = false;
     boolean introducing = false;
     private Context context;
@@ -117,7 +117,7 @@ class GridAndMenu extends Activity {
     void updateScreen() {
         debugUpdate();
         whiteOut();
-        checkStates();
+        //checkStates();
         //drawButtons();
         colorElements();
         drawGrid();
