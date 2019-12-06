@@ -26,16 +26,9 @@ class TouchProcessor{
         touchPoint = setTouchPoint(motionEvent.getX(), motionEvent.getY(), gridAndMenu.largeCellSize);
 
         //------------------------------------------------------------------------------------------
-        //If we touched on a menu(Based on the Y position of the touch)
-        //the handle the touch as a menu selection
-        if (motionEvent.getY() >= gridAndMenu.gridHeight){
-            touchPoint = setTouchPoint(motionEvent.getX(), motionEvent.getY(), gridAndMenu.menuCellSize);
-            gridAndMenu.menuSelect(touchPoint);
-            Log.d("Debugging", "Action Taken: Menu Selected");
 
-        //--------------------------------------------------------------------------------------------
         //If there is an element at our touchPoint:
-        }else if(gridAndMenu.elements.getElement(touchPoint)!=-1) {
+         if(gridAndMenu.elements.getElement(touchPoint)!=-1) {
                 Log.d("Debugging", "Element Found at:" + touchPoint);
 
             //---------------------------------------------------------------------------

@@ -32,7 +32,6 @@ class GridAndMenu extends Activity {
     Point selectedElement, selectedNode;
     private Point selectedButton;
 
-    int menuNumber = 1;
     private int loadSaveOffset = 11;
     private boolean playing, saving = false;
     boolean introducing = false;
@@ -68,7 +67,6 @@ class GridAndMenu extends Activity {
     // menuCellSize: Buttons
     //smallCellSize: Grid nodes.
     int gridHeight, largeCellSize, smallCellSize, menuCellSize;
-    private int gridLength;
 
 
     GridAndMenu(Context context, int numberOfHorizontalPixels, Bitmap blankBitMap) {
@@ -86,7 +84,6 @@ class GridAndMenu extends Activity {
 
         largeCellSize = smallCellSize * cellRatio;
         gridHeight = smallCellSize * numberOfVerticalCells;
-        gridLength = smallCellSize * numberOfHorizontalCells;
 
         elements = new Schematic(numberOfCircuitElements, largeCellSize);
         fillSchematics();
@@ -123,15 +120,6 @@ class GridAndMenu extends Activity {
         updateSelection();
     }
 
-    private void checkStates() {
-        for (int i = 0; i < numberOfSavableSchematic; i++) {
-            if (savedSchematics[i].isEmpty()) {
-                ((Loadable) menu2[i + loadSaveOffset]).state = false;
-            } else
-                ((Loadable) menu2[i + loadSaveOffset]).state = true;
-
-        }
-    }
 
     //This method may light up the LED based on the logic circuit.
     private void updatePlay() {
@@ -258,24 +246,9 @@ class GridAndMenu extends Activity {
         if (selectedElement != null)
             elements.circuit[elements.getElement(selectedElement)].select(myCanvas);
 
-        if (selectedButton != null) {
-            if (menuNumber == 1)
-                menu1[selectedButton.x].select(menuCellSize, myCanvas, gridHeight);
-            else
-                menu2[selectedButton.x].select(menuCellSize, myCanvas, gridHeight);
-        }
     }
 
     //-------------------------------------------------------------------------------------------
-    //This method hands the users menu button selection based on their touch
-    void menuSelect(Point touchPoint) {
-        selectedButton = touchPoint;
-        if (menuNumber == 1)
-            menu1[selectedButton.x].select(menuCellSize, myCanvas, gridHeight);
-        else
-            menu2[selectedButton.x].select(menuCellSize, myCanvas, gridHeight);
-        //processMenu(selectedButton);
-    }
 
     void doButtonTouch (int buttonNumber) {
         switch (buttonNumber) {
