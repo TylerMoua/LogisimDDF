@@ -1,24 +1,19 @@
 package com.example.logicsimulator;
 
 import android.app.Activity;
-//import androidx.appcompat.app.AppCompatActivity;
-
 import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.Switch;
 import android.widget.Toast;
 import android.widget.VideoView;
-import android.view.View.OnTouchListener;
 
 
 public class LogicSimulator extends Activity implements View.OnClickListener {
