@@ -455,6 +455,7 @@ class GridAndMenu extends Activity {
     }
 
     private void xor() {
+        add();
         if (selectedElement != null) {
             elements.circuit[elements.getElement(selectedElement)] = new XORGATE(selectedElement, context, largeCellSize);
             selectedElement = null;
