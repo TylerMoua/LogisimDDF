@@ -246,7 +246,7 @@ class NANDGATE extends TwoInOneOut {
         update();
     }
     private void setBitmap(Context context) {
-//        temp = BitmapFactory.decodeResource(context.getResources(), R.drawable.nand);
+        temp = BitmapFactory.decodeResource(context.getResources(), R.drawable.nand);
         icon = Bitmap.createScaledBitmap(temp, blockSize, blockSize, false);
     }
     public boolean eval() {
@@ -279,7 +279,7 @@ class XORGATE extends TwoInOneOut {
         update();
     }
     private void setBitmap(Context context) {
-//        temp = BitmapFactory.decodeResource(context.getResources(), R.drawable.xor);
+        temp = BitmapFactory.decodeResource(context.getResources(), R.drawable.xor);
         icon = Bitmap.createScaledBitmap(temp, blockSize, blockSize, false);
     }
     public boolean eval() {

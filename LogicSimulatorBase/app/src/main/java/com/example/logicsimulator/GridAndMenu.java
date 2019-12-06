@@ -9,10 +9,14 @@ import android.graphics.Paint;
 import android.graphics.Point;
 import android.util.Log;
 import android.view.Gravity;
-import android.widget.PopupMenu;
+//import android.view.View;
+//import android.widget.PopupMenu;
 import android.widget.Toast;
+//import android.widget.Button; //ian added
+//import android.view.View.OnTouchListener; //ian added
 
-import java.security.cert.PolicyNode;
+
+//import java.security.cert.PolicyNode;
 import java.util.Random;
 import java.util.Stack;
 
@@ -38,12 +42,13 @@ class GridAndMenu extends Activity {
     private final int numberOfCircuitElements = 10;
     private final int numberOfButtons = 11;
     private final int numberOfHorizontalCells = 30; //was 30 originally
-    private final int numberOfVerticalCells = 15; // 19
+    private final int numberOfVerticalCells = 19; // 19
     private int numberOfActiveElements = 0;
     private int numberOfSavableSchematic = 3;
 
     private Stack<Schematic> undoStack = new Stack<>();
     private Stack<Schematic> redoStack = new Stack<>();
+    Toast toast;
 
 
     private Schematic[] savedSchematics = new Schematic[numberOfSavableSchematic];
@@ -54,8 +59,6 @@ class GridAndMenu extends Activity {
     private Button[] menu2 = {new Save(0), new A(1), new B(2), new C(3),
             new UNDO(4), new REDO(5), new NAND(6), new XOR(7), new CLEAR(8),
             new RANDOM(9), new menuReverse(10)};
-
-    //create new android buttons to replace existing buttons
 
     private Node[][] cells =
             new Node[numberOfHorizontalCells][numberOfVerticalCells];
@@ -115,7 +118,7 @@ class GridAndMenu extends Activity {
         debugUpdate();
         whiteOut();
         checkStates();
-        drawButtons();
+        //drawButtons();
         colorElements();
         drawGrid();
         printWires();
@@ -290,10 +293,140 @@ class GridAndMenu extends Activity {
             menu1[selectedButton.x].select(menuCellSize, myCanvas, gridHeight);
         else
             menu2[selectedButton.x].select(menuCellSize, myCanvas, gridHeight);
-        processMenu(selectedButton);
+        //processMenu(selectedButton);
     }
 
-    //This element processes a menu selection and calls a "Button Menu Processing" method to handle
+    void doButtonTouch (int buttonNumber) {
+        switch (buttonNumber) {
+            //--------------------------------------------------------------------------------
+            case 0: //PLAY BUTTON
+                if (numberOfActiveElements >= 3) {
+                    play();
+                    if (playing)
+                        onScreenToast("Circuit is Running");
+                    else
+                        onScreenToast("Circuit Stopped");
+                } else {
+                    onScreenToast("Add some more elements to begin!");
+                }
+                break;
+            //---------------------------------------------------------------------------------
+            case 1: //SUB BUTTON
+                if (!playing) {
+                    pushToUndo();
+                    sub();
+                }
+                break;
+            //---------------------------------------------------------------------------------
+            case 2: //Wire BUTTON
+                if (!playing) {
+                    if (numberOfActiveElements >= 2) {
+                        onScreenToast("Choose an Element to Wire To");
+                        wire();
+                    } else
+                        onScreenToast("There are not enough elements to wire!");
+                }
+                break;
+            //--------------------------------------------------------------------------------
+            case 3: //AND BUTTON
+                pushToUndo();
+                and();
+                break;
+            //--------------------------------------------------------------------------------
+            case 4://OR BUTTON
+                pushToUndo();
+                or();
+                break;
+            //--------------------------------------------------------------------------------
+            case 5: //NOT BUTTON
+                pushToUndo();
+                not();
+                break;
+            //--------------------------------------------------------------------------------
+            case 6: //SWITCH BUTTON
+                pushToUndo();
+                inputSwitch();
+                break;
+            //--------------------------------------------------------------------------------
+            case 7: //LED BUTTON
+                pushToUndo();
+                led();
+                break;
+            //--------------------------------------------------------------------------------
+            case 8: // 1/0 BUTTON (Toggle)
+                pushToUndo();
+                toggle();
+                break;
+            //--------------------------------------------------------------------------------
+            case 9: //INTRO
+                intro();
+                break;
+            //--------------------------------------------------------------------------------
+            case 10: // Save Button
+                if (!playing) {
+                    if (numberOfActiveElements == 0) {
+                        onScreenToast("Nothing to Save");
+                    } else {
+                        save();
+                        onScreenToast("Choose A, B, C to Save Current Layout");
+                    }
+                }
+                break;
+            //--------------------------------------------------------------------------------
+            case 11: // A Button
+            case 12: // B Button
+            case 13: // C Button
+                if (!playing)
+                    saveOrLoad(buttonNumber);
+                break;
+            //--------------------------------------------------------------------------------
+            case 14: //Undo Button
+                if (!playing) {
+                    if (undoStack.isEmpty()) {
+                        onScreenToast("Nothing to Undo");
+                    } else {
+                        undo();
+                        onScreenToast("Undo");
+                    }
+                }
+                break;
+            //--------------------------------------------------------------------------------
+            case 15: //Redo Button
+                if (!playing) {
+                    if (redoStack.isEmpty()) {
+                        onScreenToast("Nothing to Redo");
+                    } else {
+                        redo();
+                        onScreenToast("Redo");
+                    }
+                }
+                break;
+            //--------------------------------------------------------------------------------
+            case 16: //NAND Button
+                pushToUndo();
+                nand();
+                onScreenToast("NAND Gate Created");
+                break;
+            //--------------------------------------------------------------------------------
+            case 17: //XOR Button
+                pushToUndo();
+                xor();
+                onScreenToast("XOR Gate Created");
+                break;
+            //--------------------------------------------------------------------------------
+            case 18: //CLEAR Button
+                deleteAll();
+                onScreenToast("Circuit Cleared");
+                break;
+            //--------------------------------------------------------------------------------
+            case 19: //Random Circuit Creator
+                randomCircuitGenerator();
+                onScreenToast("Random Circuit Created");
+                break;
+        }
+    }
+
+    /*//This element processes a menu selection and calls a "Button Menu Processing" method to handle
     //the selection
     private void processMenu(Point input) {
         int buttonNumber = input.x;
@@ -439,7 +572,7 @@ class GridAndMenu extends Activity {
                     break;
                 }
             }
-        }
+        }*/
 
     //------------------------------------------------------------------------------------------
     //Button Function Methods:
