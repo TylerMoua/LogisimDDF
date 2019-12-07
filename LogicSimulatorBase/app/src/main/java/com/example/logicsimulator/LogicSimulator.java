@@ -211,7 +211,7 @@ public class LogicSimulator extends Activity implements View.OnClickListener {
     void mediaPlayer(){
         setContentView(R.layout.activity_main);
         final VideoView wview = findViewById(R.id.videoview);
-        String videoPath = "android.resource://"+ getPackageName()+ "/" + R.raw.finalintro;
+        String videoPath = "android.resource://"+ getPackageName()+ "/" + R.raw.fd;
         Uri uri = Uri.parse(videoPath);
         wview.setVideoURI(uri);
         wview.start();

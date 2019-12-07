@@ -7,6 +7,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
+import android.graphics.PorterDuff;
 import android.util.Log;
 import android.view.Gravity;
 import android.widget.Button;
@@ -27,7 +28,7 @@ class GridAndMenu extends Activity {
     private Point selectedButton;
 
     private int loadSaveOffset = 11;
-    private boolean playing, saving = false;
+    public boolean playing, saving = false;
     boolean introducing = false;
     private Context context;
     private Canvas myCanvas;
@@ -315,12 +316,6 @@ class GridAndMenu extends Activity {
                 break;
             //--------------------------------------------------------------------------------
             case 11: // A Button
-                if (!playing) {
-                    saveOrLoad(buttonNumber);
-
-                }
-                break;
-
             case 12: // B Button
             case 13: // C Button
                 if (!playing)
