@@ -2,7 +2,9 @@ package com.example.logicsimulator;
 
 import android.app.Activity;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.Point;
+import android.graphics.PorterDuff;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
@@ -27,16 +29,11 @@ public class LogicSimulator extends Activity implements View.OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getResolution();
-        setContentView(R.layout.button_menu);
-        createButtons();
-        setObjects();
-        gridAndMenu.updateScreen();
+        initializer();
         toast = Toast.makeText(this,
                 "Welcome to our App. For a Quick Introduction on How to Use it, Click Intro on the Bottom Right!", Toast.LENGTH_LONG);
         toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 0);
         toast.show();
-        gameView.setImageBitmap(blankBitmap);
     }
 
     @Override
@@ -107,6 +104,7 @@ public class LogicSimulator extends Activity implements View.OnClickListener {
         }
         gridAndMenu.updateScreen();
     }
+
 
     public void createButtons() {
         Button playButton = findViewById(R.id.play);
@@ -185,6 +183,15 @@ public class LogicSimulator extends Activity implements View.OnClickListener {
         display.getSize(size);
     }
 
+    void initializer() {
+        getResolution();
+        setContentView(R.layout.button_menu);
+        createButtons();
+        setObjects();
+        gridAndMenu.updateScreen();
+        gameView.setImageBitmap(blankBitmap);
+    }
+
     @Override
     public boolean onTouchEvent(MotionEvent motionEvent) {
         // Has the player removed their finger from the screen?
@@ -226,12 +233,7 @@ public class LogicSimulator extends Activity implements View.OnClickListener {
             public void onClick(View view) {
                 //write your code after complete video play
                 wview.setVisibility(View.GONE);
-                getResolution();
-                setContentView(R.layout.button_menu); // ian
-                createButtons();
-                setObjects();
-                gridAndMenu.updateScreen();
-                gameView.setImageBitmap(blankBitmap);
+                initializer();
                 //Disable introducing
                 gridAndMenu.introducing=false;
             }

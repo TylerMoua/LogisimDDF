@@ -9,6 +9,7 @@ import android.graphics.Paint;
 import android.graphics.Point;
 import android.util.Log;
 import android.view.Gravity;
+import android.widget.Button;
 import android.widget.Toast;
 import java.util.Random;
 import java.util.Stack;
@@ -314,6 +315,12 @@ class GridAndMenu extends Activity {
                 break;
             //--------------------------------------------------------------------------------
             case 11: // A Button
+                if (!playing) {
+                    saveOrLoad(buttonNumber);
+
+                }
+                break;
+
             case 12: // B Button
             case 13: // C Button
                 if (!playing)
