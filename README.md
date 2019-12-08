@@ -181,27 +181,10 @@
 					TwoInOneOut 
 						ANDGATE
 						ORGATE
-			Button
-				PLAY
-				SUB
-				WIRE
-				AND
-				OR
-				NOT
-				SWITCHBUTTON
-				LEDBUTTON
-				TOGGLE
-				INTRO
-				SAVE
-				A 
-				B
-				C 
-				UNDO
-				REDO
-				NAND
-				XOR
-				CLEAR
-				RANDOM
+						XORGATE
+						NANDGATE
+						
+			
 	Schematic 
 				
 ### LogicSimulator Class:
@@ -269,8 +252,6 @@
 			This method takes in a start point, end point, int value to tell which node is being wired, and a string for the type of element being wired. This information is used for the canvas to determine where an input node is on the screen.
 
 ### Menu Selection Handling
-	The menuSelect method is called by the TouchProcessor and given a Point based on the menuCellSize. The selectedButton field is set to this Point and the x coordinate of the selectedbutton field is sent to the processMenu method. The processMenu method takes the x coordinate a selectedMenu Point and uses a case statement to determine which button has been pressed. This is because the positions of each button are the same as their index in the menu array. Each case in this case statement calls a different method to handle that buttons functionality. 
-	Button Function methods: 
 		play: 
 			Checks for any null connections in the circuit then toggles playing in both this class and the PLAY class. 
 		add: 
@@ -356,11 +337,6 @@
 	Button Abstract Class (extends ElementOrButton): 
 		This class introduces the methods for printing buttons: printLabel, printButtons, select, and color. SUB, AND, OR, NOT, WIRE, SWITCHBUTTON, LEDBUTTON, TOGGLE, INTRO, CLEAR, RANDOM, and A, B, and C Classes (All extend Button or NoColor). These classes have unique labels that are given to the object in the constructor.
 
-	SavedClick Class (extends Button): 
-		This class has a Boolean field “state” and overrides the printButtons method to color a button red if state equals true. 
-		
-	PLAY and Save Classes (Both extend SavedClick): 
-		Both of these class has their own unique label.
 
 	Glossary 
 		AND Gate:
