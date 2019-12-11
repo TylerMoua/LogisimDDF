@@ -412,6 +412,9 @@ class GridAndMenu extends Activity {
         redoStack.clear();
         numberOfActiveElements = 0;
         elements = new Schematic(numberOfCircuitElements, largeCellSize);
+        selectedElement= null;
+        selectedButton= null;
+        selectedNode= null;
     }
 
 
